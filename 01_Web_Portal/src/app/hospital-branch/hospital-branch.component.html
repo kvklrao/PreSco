@@ -1,0 +1,362 @@
+<div class="container-fluid">
+
+  <!-- Page Heading -->
+  <div class="mt-160">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h4 class="h4 mb-0 text-gray-800"> <i class="fas fa-fw fa-hospital text-primary mr-2"></i>Branch</h4>
+    </div>
+  </div>
+
+  <!-- Content Row -->
+  <div class="row">
+
+    <div class="col-xl-12 col-md-12 mb-4">
+
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Add Hospital Branch</h6>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="addBranchForm" (ngSubmit)="f.form.valid && onBranchSubmit()"  #f="ngForm" novalidate>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Branch Name&nbsp;<span class="text-danger">*</span></label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                      <input type="text" class="form-control" formControlName="name">
+                      <div *ngIf="addBranchForm.controls['name'].invalid && (addBranchForm.controls['name'].dirty || addBranchForm.controls['name'].touched
+                        )" class="error-msg">
+                        <div *ngIf="addBranchForm.controls['name'].errors.required">
+                          This field is required.
+                        </div>
+                        <div *ngIf="addBranchForm.controls.name.errors.maxlength">
+                          Branch Name must not be more then 32 digits.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Contact Person</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                      <input type="text" class="form-control" formControlName="contact_person" [patterns]="OnlyAlbhabetWithSpace" [dropSpecialCharacters]="false" mask="S*">
+                        <div *ngIf="addBranchForm.controls['contact_person'].invalid && (addBranchForm.controls['contact_person'].dirty || addBranchForm.controls['contact_person'].touched
+                        )" class="error-msg">
+                        <!-- <div *ngIf="addBranchForm.controls['contact_person'].errors.required">
+                          This field is required.
+                        </div> -->
+                        <div *ngIf="addBranchForm.controls.contact_person.errors.minlength">
+                          Field should be minimum 3 digit.
+                        </div>
+                        <div *ngIf="addBranchForm.controls.contact_person.errors.maxlength">
+                          Field should be not more then 15 digit.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Contact Number&nbsp;<span class="text-danger">*</span></label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                      <input type="text" class="form-control" formControlName="contact_number" mask="0000000000" autocomplete="doNotAutoComplete">
+                      <div *ngIf="addBranchForm.controls['contact_number'].invalid && (addBranchForm.controls['contact_number'].dirty || addBranchForm.controls['contact_number'].touched
+                        )" class="error-msg">
+                        <div *ngIf="addBranchForm.controls['contact_number'].errors.required">
+                          This field is required.
+                        </div>
+                        <div *ngIf="addBranchForm.controls.contact_number.errors.minlength">
+                          Field should be minimum 10 digit.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Email ID&nbsp;<span class="text-danger">*</span></label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                      <input type="text" class="form-control" formControlName="email"   autocomplete="doNotAutoComplete">
+                        <div *ngIf="addBranchForm.controls['email'].invalid && (addBranchForm.controls['email'].dirty || addBranchForm.controls['email'].touched
+                          )" class="error-msg">
+                          <div *ngIf="addBranchForm.controls['email'].errors.required">
+                            This field is required.
+                          </div>
+                          <div *ngIf="addBranchForm.controls.email.errors.email || addBranchForm.controls.email.errors.pattern ">
+                            Email should be valid.
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Address</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                      <input type="text" class="form-control" formControlName="address"  autocomplete="doNotAutoComplete">
+                      <div *ngIf="addBranchForm.controls['address'].invalid && (addBranchForm.controls['address'].dirty || addBranchForm.controls['address'].touched
+                        )" class="error-msg">
+                        <div *ngIf="addBranchForm.controls['address'].errors.required">
+                          This field is required.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">City</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                      <input type="text" class="form-control" formControlName="city" [patterns]="OnlyAlbhabetWithSpace" [dropSpecialCharacters]="false" mask="S*"  autocomplete="doNotAutoComplete">
+                      <div *ngIf="addBranchForm.controls['city'].invalid && (addBranchForm.controls['city'].dirty || addBranchForm.controls['city'].touched
+                        )" class="error-msg">
+                        <div *ngIf="addBranchForm.controls['city'].errors.required">
+                          This field is required.
+                        </div>
+                        <div *ngIf="addBranchForm.controls.city.errors.maxlength">
+                          Field should be not more then 15 digit.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">State</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                      <input type="text" class="form-control" formControlName="state"  autocomplete="doNotAutoComplete">
+                      <div *ngIf="addBranchForm.controls['state'].invalid && (addBranchForm.controls['state'].dirty || addBranchForm.controls['state'].touched
+                        )" class="error-msg">
+                        <div *ngIf="addBranchForm.controls['state'].errors.required">
+                          This field is required.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Pin Code</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                      <input type="text" class="form-control" formControlName="pin_code" mask="000000"  autocomplete="doNotAutoComplete">
+                      <div *ngIf="addBranchForm.controls['pin_code'].invalid && (addBranchForm.controls['pin_code'].dirty || addBranchForm.controls['pin_code'].touched
+                        )" class="error-msg">
+                        <!-- <div *ngIf="addBranchForm.controls['pin_code'].errors.required">
+                          This field is required.
+                        </div> -->
+                        <div *ngIf="addBranchForm.controls.pin_code.errors.minlength">
+                          Field should be minimum 6 digit.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Username&nbsp;<span class="text-danger">*</span></label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                      <div class="input-group">
+                        <input type="text" class="form-control bg-white border-1 small" [patterns]="customPatterns" [dropSpecialCharacters]="false" mask="A*" formControlName="user_name" aria-label="Search"
+                          aria-describedby="basic-addon2">
+                        <!-- <div class="input-group-append">
+                          <button class="btn btn-primary" type="button">
+                            Generate
+                          </button>
+                        </div> -->
+                      </div>
+                      <div *ngIf="addBranchForm.controls['user_name'].invalid && (addBranchForm.controls['user_name'].dirty || addBranchForm.controls['user_name'].touched )" class="error-msg">
+                        <div *ngIf="addBranchForm.controls['user_name'].errors.required">
+                          This field is required.
+                        </div>
+                        <div *ngIf="addBranchForm.controls.user_name.errors.minlength">
+                          Field should be minimum 6 digit.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Password&nbsp;<span class="text-danger">*</span></label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                      <div class="input-group">
+                        <input type="password" class="form-control bg-white border-1 small" [patterns]="customPatterns" [dropSpecialCharacters]="false" mask="A*" formControlName="password" aria-label="Search"
+                          aria-describedby="basic-addon2">
+                        <!-- <div class="input-group-append">
+                          <button class="btn btn-primary" type="button">
+                            Generate
+                          </button>
+                        </div> -->
+                      </div>
+                      <div *ngIf="addBranchForm.controls['password'].invalid && (addBranchForm.controls['password'].dirty || addBranchForm.controls['password'].touched )" class="error-msg">
+                        <div *ngIf="addBranchForm.controls['password'].errors.required">
+                          This field is required.
+                        </div>
+                        <div *ngIf="addBranchForm.controls.password.errors.minlength">
+                          Field should be minimum 6 digit.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-12 text-right">
+                <div class="form-group has-error has-danger ">
+                  <button href="#" class="d-sm-inline-block btn btn-md btn-success shadow-sm" [disabled]="f.form.pristine || f.form.invalid">Add Branch</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="card shadow mb-5">
+    <div class="card-header py-3">
+      <div class="row">
+        <h6 class="m-0 font-weight-bold text-primary">Hospital Branch Details</h6>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+          <div class="row mb-3">
+            <div class="col-sm-12 col-md-6">
+              <!-- <div class="dataTables_length" id="dataTable_length">
+                <label>
+                  Show
+                  <select name="dataTable_length" aria-controls="dataTable"
+                    class="custom-select custom-select-sm form-control form-control-sm" [(ngModel)]="pageLength"  (change)="onDropDownChange(pageLength)">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </select>
+                  entries
+                </label>
+              </div> -->
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <div id="dataTable_filter" class="dataTables_filter"><label>Search:<input type="search"
+                    class="form-control form-control-sm" placeholder="" aria-controls="dataTable" (keyup)="searchBranch($event)" name="search_text" [(ngModel)]="search_text"></label></div>
+            </div>
+          </div>
+       </div>
+       <div class="row" >
+       <div class="col-sm-12">
+       
+       <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+               <thead>
+                 <tr role="row">
+       <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Sr. No.</th>
+       <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">Branch Name</th>
+       <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">Contact Person</th>
+       <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">Contact Number</th>
+       <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">Email ID</th>
+       <!-- <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">Address</th> -->
+       <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">City</th>
+       <!-- <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">State</th> -->
+       <!-- <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">Pin Code</th> -->
+       <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">Username</th>
+       <!-- <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">Password</th> -->
+       </tr>
+               </thead>
+               <tbody *ngIf="hospitalList?.length > 0">
+                <tr *ngFor="let list of hospitalList;let i=index; let odd=odd; let even=even;"
+                [ngClass]="{ odd: odd, even: even }">
+                  <td> {{i+1}}</td>
+                  <td> {{list.branch_name}}</td>
+                  <td> {{list.contact_person}}</td>
+                  <td> {{list.contact_number}}</td>
+                  <td> {{list.email_address}}</td> 
+                  <!-- <td> {{list.address}}</td> -->
+                  <td> {{list.city | emptyDataPipe}}</td> 
+                  <td> {{list.user_name}}</td>                                          
+                </tr>
+       </tbody>
+        <tbody *ngIf="hospitalList?.length==0">
+          <tr>
+            <td colspan="12">No Records Found !!! </td>
+          </tr>
+      </tbody>
+       </table> 
+       </div>
+       </div>
+       </div>
+           </div>
+         </div>
+       </div>
+  

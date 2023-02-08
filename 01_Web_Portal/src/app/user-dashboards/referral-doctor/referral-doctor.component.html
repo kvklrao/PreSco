@@ -1,0 +1,165 @@
+<div class="container-fluid">
+	
+  <!-- Page Heading -->
+   <div class="mt-160">
+       <div class="d-sm-flex align-items-center justify-content-between mb-4">
+         <h4 class="h4 mb-0 text-gray-800"> <i class="fas fa-fw fa-tachometer-alt text-primary mr-2"></i> Dashboard</h4>
+       </div>
+   </div>
+   
+    <!-- Content Row -->
+       <div class="row">
+
+         <!-- Hospital Details -->
+         <div class="col-xl-4 col-md-6 mb-4">
+           <div class="card border-left-primary shadow py-2">
+             <div class="card-body">
+               <div class="row no-gutters align-items-center">
+                 <div class="col mr-2">
+                   <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">Associate Hospitals</div>
+                   <div class="h5 mb-0 font-weight-bold text-gray-800">{{dashboardData['associated_hospitals']}}</div>
+                 </div>
+                 <div class="col-auto">
+                   <i class="fas fa-hospital fa-2x text-primary"></i>
+                 </div>
+               </div>
+             </div>
+           </div>
+     </div>
+
+         <!-- Total Baby Medical Records -->
+   <div class="col-xl-4 col-md-6 mb-4">
+           <div class="card border-left-info shadow py-2">
+             <div class="card-body">
+               <div class="row no-gutters align-items-center">
+                 <div class="col mr-2">
+                   <div class="text-sm font-weight-bold text-info text-uppercase mb-1">Pending Request (Hospital)</div>
+                   <div class="h5 mb-0 font-weight-bold text-gray-800">{{dashboardData['pending_requests']}}</div>
+                 </div>
+                 <div class="col-auto">
+                   <i class="fas fa-procedures fa-2x text-info"></i>
+                 </div>
+               </div>
+             </div>
+           </div>
+     </div>
+   
+   <!-- Probable Sepsis -->
+         <div class="col-xl-4 col-md-6 mb-4">
+           <div class="card border-left-danger shadow py-2">
+             <div class="card-body">
+               <div class="row no-gutters align-items-center">
+                 <div class="col mr-2">
+                   <div class="text-sm font-weight-bold text-danger text-uppercase mb-1">Pending Review (Score Calculation)</div>
+                   <div class="h5 mb-0 font-weight-bold text-gray-800">{{dashboardData['pending_review']}}</div>
+                 </div>
+                 <div class="col-auto">
+                   <i class="fas fa-baby-carriage fa-2x text-danger"></i>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+
+       </div>
+   
+   
+   <!-- Pending Messages -->
+   <div class="card shadow mb-4">
+             <div class="card-header py-3">
+               <h6 class="m-0 font-weight-bold text-primary">Recent Messages</h6>
+             </div>
+             
+             <div class="card-body">
+                            <div class="table-responsive">
+                             <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+             <thead>
+               <tr role="row">
+               <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">Date</th>
+               <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">Hospital Name</th>
+               <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">Hospital Branch Name</th>
+               <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">BMR No.</th>
+               <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">Staff Name</th>
+               <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">Download File</th>
+               <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">Action</th>
+               </tr>
+               </thead>
+                             <tbody>
+                                 <tr class="border-bottom" *ngFor="let list of opinionRequestList ">
+               <td class="text-gray-700" width="">{{list['createdAt'] | date:'dd-MM-yyyy'}}</td>
+               <td class="tb-value" width="">{{list['hospital_name']}}</td>
+               <td  width="">{{list['branch_name']}}</td>
+               <td width="">{{list['bmrn']}}</td>
+                <td class="text-gray-700" width="">{{list['staff_name']}}</td>
+               <td class="tb-label" width=""><a >{{list['file']}}</a></td>
+               <td class="text-gray-700 text-right" width="" ><a  class="d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-2 " style="color: white;"  (click)="open(opinionModal,list)"data-toggle="modal" data-target="#give-opinion">Give Opinion</a></td>
+                                 </tr>
+
+               <!-- <tr class="border-bottom">
+               <td class="text-gray-700">2016-06-22</td>
+               <td class="tb-value">Life Line Hospital, Bhopal</td>
+               <td class="tb-value" width="">CHL Apollo Indore</td>
+                                 <td class="text-gray-700">Samaraddhi Sharma</td>
+               <td class="tb-label"><a href="#">http://www.avyantra.com/images/default/report.pdf</a></td>
+               <td class="text-gray-700 text-right" width="" ><a href="#" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-2" data-toggle="modal" data-target="#give-opinion">Give Opinion</a></td>
+                                 </tr>
+
+               <tr class="border-bottom">
+               <td class="text-gray-700">2016-06-24</td>
+               <td class="tb-value">Bombay Hospital, Nagpur</td>
+               <td class="tb-value" width="">CHL Apollo Indore</td>
+                                 <td class="text-gray-700">Rahul Mehta</td>
+               <td class="tb-label"><a href="#">http://www.avyantra.com/images/default/report.pdf</a></td>
+               <td class="text-gray-700 text-right" width="" ><a href="#" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-2" data-toggle="modal" data-target="#give-opinion">Give Opinion</a></td>
+                                 </tr>									 -->
+                             </tbody>
+                             </table>
+                            </div>
+             </div>
+           </div>
+           <ng-template #opinionModal let-c="close" let-d="dismiss">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Give Opinion</h5>
+              <button class="close" type="button" (click)="close()">
+              <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <form class="form-css" [formGroup]="referralOpinion" (ngSubmit)="sendOpinion()" #f="ngForm" novalidate>
+            <div class="modal-body">
+                    <div class="row">
+                      <div class="col-md-12 col-xs-12">
+                      <h5 class="text-primary">Opinion</h5>
+                      <textarea  rows="5" formControlName="opinion" class="form-control text-area"></textarea>
+                      <div *ngIf="referralOpinion.controls['opinion'].invalid && (referralOpinion.controls['opinion'].dirty || referralOpinion.controls['opinion'].touched || submitted)"
+									class="error-msg">
+									<div *ngIf="referralOpinion.controls['opinion'].errors.required">
+										This field is required.
+									</div>
+								</div>
+                      </div>
+                    </div>
+      
+                    <div class="row mt-5">
+                      <div class="col-md-12 col-xs-12">
+                      <h5 class="text-primary">Prescription</h5>
+                      <div class="form-group has-error has-danger ">
+                      <textarea  rows="5" formControlName="prescription" class="form-control text-area" ></textarea>
+                      <div *ngIf="referralOpinion.controls['prescription'].invalid && (referralOpinion.controls['prescription'].dirty || referralOpinion.controls['prescription'].touched || submitted)"
+                      class="error-msg">
+                      <div *ngIf="referralOpinion.controls['prescription'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                      </div>
+                      </div>
+                    </div>							
+            </div>
+            <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" (click)="close()">Cancel</button>
+              <button class="btn btn-primary " type="submit" style="color: white;" [disabled]="referralOpinion.invalid">Send Opinion</button>
+            </div>
+            </form>
+          </ng-template>
+
+   
+   </div>

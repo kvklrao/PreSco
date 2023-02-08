@@ -1,0 +1,128 @@
+<!-- Topbar 1 -->
+
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top fixed-top" style="box-shadow: unset;">
+
+  <!-- Sidebar Toggle (Topbar) -->
+  <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3" style="display:none!important;">
+    <i class="fa fa-bars"></i>
+  </button>
+
+  <!-- Topbar Search -->
+  <a class="navbar-brand" >
+    <img src="./assets/svgs/avyantra-logo.svg" height="62" alt="avyantra" class="w-75 py-2">
+  </a>
+
+  <!-- Topbar Navbar -->
+  <ul class="navbar-nav ml-auto">
+
+    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+    <li class="nav-item dropdown no-arrow d-sm-none">
+      <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-search fa-fw"></i>
+      </a>
+      <!-- Dropdown - Messages -->
+      <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+        <form class="form-inline mr-auto w-100 navbar-search">
+          <div class="input-group">
+            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+              aria-label="Search" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button">
+                <i class="fas fa-search fa-sm"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </li>
+
+    <!-- Nav Item - Messages -->
+
+
+    <div class="topbar-divider d-none d-sm-block"></div>
+
+    <!-- Nav Item - User Information -->
+    <li class="nav-item dropdown no-arrow">
+      <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{loggedUserName}}</span>
+        <span class="btn btn-warning btn-circle btn-sm"><i class="fa fa-hospital text-gray-900 ml-2 mr-2"></i> </span>
+        <!--<img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60"> -->
+      </a>
+      <!-- Dropdown - User Information -->
+      <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+        <a class="dropdown-item" href="#">
+          <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+          Profile
+        </a>
+        <a class="dropdown-item" href="#">
+          <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+          Settings
+        </a>
+        <a class="dropdown-item" href="#">
+          <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+          Activity Log
+        </a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal"  (click)="logout()">
+          <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+          Logout
+        </a>
+      </div>
+    </li>
+
+  </ul>
+</nav>
+
+<!-- Topbar 2 -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-lg2 bg-white mt-60 blue-btm-bdr"
+  style="z-index: 1029;">
+
+  <div class="container-fluid pl-0 pr-0">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item" [ngClass]="{'active': selectedTab==='dashboard'}" *ngIf="showPermission('Dashboard')">
+    <a class="nav-link" routerLink="/admin/dashboard" (click)="activeTab('dashboard')">Dashboard <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item" [ngClass]="{'active': selectedTab==='hospital-staff'}" *ngIf="showPermission('DashboardStaff')">
+      <a class="nav-link" routerLink="/admin/hospital-staff" (click)="activeTab('hospital-staff')">Dashboard <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item" [ngClass]="{'active': selectedTab==='referral-doctors'}" *ngIf="showPermission('DashboardRD')">
+      <a class="nav-link" routerLink="/admin/referral-doctors" (click)="activeTab('referral-doctors')">Dashboard <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item" [ngClass]="{'active': selectedTab==='addbranch'}" *ngIf="showPermission('AddBranch')">
+    <a class="nav-link" routerLink="/admin/addbranch" (click)="activeTab('addbranch')">Add Branch</a>
+    </li>
+    <li class="nav-item" [ngClass]="{'active': selectedTab==='staff'}" *ngIf="showPermission('HospitalStaff')">
+    <a class="nav-link" routerLink="/admin/staff" (click)="activeTab('staff')" >Hospital Staff</a>
+    </li>
+    <li class="nav-item" [ngClass]="{'active': selectedTab==='medical-records'}" *ngIf="showPermission('MedicalRecords')">
+    <a class="nav-link" routerLink="/admin/medical-records" (click)="activeTab('medical-records')">Medical Records</a>
+    </li>
+    <li class="nav-item" [ngClass]="{'active': selectedTab==='message-center'}" *ngIf="showPermission('MessageCenter')">
+    <a class="nav-link" routerLink="/admin/message-center" (click)="activeTab('message-center')">Message Center</a>
+    </li>
+    <li class="nav-item" [ngClass]="{'active': selectedTab==='my-profile'}" *ngIf="showPermission('MyProfile')">
+    <a class="nav-link" routerLink="/admin/my-profile" (click)="activeTab('my-profile');changeProfile();" >My Profile</a>
+    </li>
+    <li class="nav-item d-none" [ngClass]="{'active': selectedTab==='subscription'}">
+    <a class="nav-link" (click)="activeTab('subscription')" >Subscription</a>
+    </li>
+     <li class="nav-item" [ngClass]="{'active': selectedTab==='setting'}" *ngIf="showPermission('Settings')">
+    <a class="nav-link" routerLink="/admin/setting" (click)="activeTab('setting')" >Settings</a>
+    </li>
+    <li class="nav-item" [ngClass]="{'active': selectedTab==='hospital-connect'}" *ngIf="showPermission('hospitalConnect')">
+      <a class="nav-link" routerLink="/admin/hospital-connect" (click)="activeTab('hospital-connect')" >Hospital Connect</a>
+      </li>
+  </ul>
+  </div>
+  
+  </div>
+</nav>

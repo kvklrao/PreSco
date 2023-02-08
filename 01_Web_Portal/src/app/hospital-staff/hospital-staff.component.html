@@ -1,0 +1,657 @@
+<div class="container-fluid">
+
+	<!-- Page Heading -->
+	<div class="mt-160">
+		<div class="d-sm-flex align-items-center justify-content-between mb-4">
+			<div class="col-md-8">
+				<div class="d-sm-flex1 align-items-center justify-content-between mb-4">
+					<h4 class="h4 mb-0 text-gray-800 d-none"> <i
+							class="fas fa-fw fa-users text-primary mr-2"></i>Hospital Staff
+					</h4>
+					<button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+						(click)="switchTab('hospital-staff')"><i class="fas fa-users fa-sm text-white-50"></i> Hospital
+						Staff</button>
+					<button class="d-none d-sm-inline-block btn btn-sm btn-light shadow-sm"
+						(click)="switchTab('referral-doctor-staff')">
+						<i class="fas fa-user-md fa-sm text-gray-600"></i> Referral Doctor</button>
+				</div>
+			</div>
+			<div class="col-md-4" *ngIf="login_hospital['user_type']=='Hospital'">
+				<div class="form-group has-error has-danger text-right">
+					<label for="" class="text-bold text-gray-900 pr-3 mt-2">Branch:</label>
+					<select id="form_need" name="need" class="form-control" required="required" data-error=""
+						style="width:250px; float:right;" (change)="changeBranch($event)">
+						<option *ngFor="let list of branchList" [value]="list.hospital_branch_id"
+							[selected]="list.hospital_branch_id == hospitalBranchId">{{list.branch_name}}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Content Row -->
+	<div class="row w-100">
+		<div class="col-xl-12 col-md-12 mb-4">
+
+			<div class="card shadow mb-4">
+				<div class="card-header py-3">
+					<div class="row">
+						<div class="col-sm-8">
+							<h6 class="m-0 font-weight-bold text-primary">Hospital Staff Details</h6>
+						</div>
+						<div class="col-sm-4 text-right">
+							<button class="d-sm-inline-block btn btn-sm btn-success shadow-sm"
+								(click)="open(content, {})" data-target="#hospital-staff"><i
+									class="fas fa-plus fa-sm text-white-50"></i> Add</button>
+						</div>
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+							<div class="row mb-3">
+								<div class="col-sm-12 col-md-6">
+									<div class="dataTables_length" id="dataTable_length">
+										<label>
+											Show
+											<select name="dataTable_length" aria-controls="dataTable"
+												class="custom-select custom-select-sm form-control form-control-sm"
+												[(ngModel)]="pageLength" (change)="onDropDownChange(pageLength)">
+												<option value="10">10</option>
+												<option value="25">25</option>
+												<option value="50">50</option>
+												<option value="100">100</option>
+											</select>
+											entries
+										</label>
+									</div>
+								</div>
+								<div class="col-sm-12 col-md-6">
+									<div id="dataTable_filter" class="dataTables_filter"><label>Search:<input
+												type="search" class="form-control form-control-sm" placeholder=""
+												aria-controls="dataTable" (keyup)="searchStaff($event)" name="search_text" [(ngModel)]="search_text"></label></div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<table class="table table-bordered dataTable" id="dataTable" width="100%"
+										cellspacing="0" role="grid" aria-describedby="dataTable_info"
+										style="width: 100%;">
+										<thead>
+											<tr role="row">
+												<th class="sorting_asc" tabindex="0" aria-controls="dataTable"
+													rowspan="1" colspan="1" aria-sort="ascending"
+													aria-label="Name: activate to sort column descending">ID</th>
+												<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+													colspan="1"
+													aria-label="Position: activate to sort column ascending">Name</th>
+												<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+													colspan="1" aria-label="Office: activate to sort column ascending">
+													Contact Number</th>
+												<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+													colspan="1" aria-label="Age: activate to sort column ascending">
+													Email Id</th>
+												<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+													colspan="1"
+													aria-label="Start date: activate to sort column ascending">Role</th>
+												<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+													colspan="1" aria-label="Salary: activate to sort column ascending">
+													Speciality</th>
+												<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+													colspan="1" aria-label="Salary: activate to sort column ascending">
+													Branch</th>
+												<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+													colspan="1" aria-label="Salary: activate to sort column ascending">
+													Status</th>
+												<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+													colspan="1" aria-label="Salary: activate to sort column ascending">
+													Action</th>
+											</tr>
+										</thead>
+										<tbody *ngIf="staffList?.length > 0">
+											<tr *ngFor="let list of staffList| paginate: {class:'pageItem', itemsPerPage: pageLength, currentPage: page,totalItems: totalCount };let i=index; let odd=odd; let even=even;"
+												[ngClass]="{ odd: odd, even: even }">
+												<td> {{(page-1) *pageLength +(i+1)}}</td>
+												<td> {{list.first_name}} {{list.last_name}}</td>
+												<td> {{list.contact_number}}</td>
+												<td> {{list.email_address}}</td>
+												<td> {{list.role}}</td>
+												<td> {{list.speciality}}</td>
+												<td> {{list.branch_name}}</td>
+												<td *ngIf="list.status==1"> <span class="text-success">Active</span>
+												</td>
+												<td *ngIf="list.status==0"> <span class="text-danger">Inactive</span>
+												</td>
+												<td class="text-right">
+													<button (click)="openDetail(staffDetail, list)"
+														class="d-sm-inline-block btn btn-sm btn-secondary shadow-sm mr-2"
+														title="View" data-toggle="modal"
+														data-target="#staff-detail">View</button>
+													<a (click)="open(content, list)"
+														class="d-sm-inline-block btn btn-sm btn-light border shadow-sm mr-2"
+														title="View">Edit</a>
+												</td>
+											</tr>
+										</tbody>
+										<tbody *ngIf="staffList?.length==0">
+											<tr>
+												<td colspan="12">No Records Found !!! </td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+							<div class="row mt-3">
+								<div class="col-sm-12 col-md-5">
+									<!-- <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
+										Showing
+										{{staffList?.length}} to {{staffList?.length}} of
+										{{totalCount}} entries</div> -->
+								</div>
+								<!-- <div class="col-sm-12 col-md-7">
+                  <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                    <ul class="pagination">
+                   
+                    </ul>
+                  </div>
+                </div> -->
+								<pagination-controls (pageChange)="nextPage($event)" directionLinks="true"
+									autoHide="true" *ngIf="staffList?.length > 0" responsive="true" previousLabel="Previous" nextLabel="Next"
+									screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+									screenReaderCurrentLabel="You're on page">
+								</pagination-controls>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</div>
+<ng-template #staffDetail let-c="close" let-d="dismiss">
+
+
+	<div class="modal-content">
+
+		<div class="modal-body">
+			<!-- <form [formGroup]="generalForm" class="form-css-modal" (ngSubmit)="signup()" novalidate> -->
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Staff Detail</h5>
+				<button class="close" type="button" data-dismiss="modal" (click)="d('Cross click');closeDetail()"
+					aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+				<div class="row">
+					<div class="col-md-5">
+						<div class="form-group has-error has-danger ">
+							<label for="" class="text-bold text-gray-900">First Name&nbsp;<span
+									class="text-danger">*</span></label>
+						</div>
+					</div>
+					<div class="col-md-7">
+						<div class="form-group has-error has-danger ">
+						{{staffDetailObj['first_name']}}  
+						</div>
+				</div>
+				</div>
+				<div class="row">
+					<div class="col-md-5">
+						<div class="form-group has-error has-danger ">
+							<label for="" class="text-bold text-gray-900">Last Name&nbsp;<span
+									class="text-danger">*</span></label>
+						</div>
+					</div>
+					<div class="col-md-7">
+						<div class="form-group has-error has-danger ">
+						{{staffDetailObj['last_name']}}  
+						</div>
+				</div>
+			</div>
+				<div class="row">
+					<div class="col-md-5">
+						<div class="form-group has-error has-danger ">
+							<label for="" class="text-bold text-gray-900">Contact No.&nbsp;<span
+									class="text-danger">*</span></label>
+						</div>
+					</div>
+					<div class="col-md-7">
+						<div class="form-group has-error has-danger ">
+							{{staffDetailObj['contact_number']}}
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-5">
+						<div class="form-group has-error has-danger ">
+							<label for="" class="text-bold text-gray-900">Email ID&nbsp;<span
+									class="text-danger">*</span></label>
+						</div>
+					</div>
+					<div class="col-md-7">
+						<div class="form-group has-error has-danger ">
+							{{staffDetailObj['email_address']}}
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-5">
+						<div class="form-group has-error has-danger ">
+							<label for="" class="text-bold text-gray-900">Role&nbsp;<span
+									class="text-danger">*</span></label>
+						</div>
+					</div>
+					<div class="col-md-7">
+						<div class="form-group has-error has-danger ">
+							{{staffDetailObj['role']}}
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-5">
+						<div class="form-group has-error has-danger ">
+							<label for="" class="text-bold text-gray-900">Speciality&nbsp;<span
+									class="text-danger">*</span></label>
+						</div>
+					</div>
+					<div class="col-md-7">
+						<div class="form-group has-error has-danger ">
+							{{staffDetailObj['speciality']}}
+						</div>
+					</div>
+				</div>
+
+				<!-- <div class="row">
+						<div class="col-md-4">
+							<div class="form-group has-error has-danger ">
+								<label for="" class="text-bold text-gray-900">Report to:</label>
+							</div>
+						</div>
+						<div class="col-md-8">
+							<div class="form-group has-error has-danger ">
+								<div>
+									<select class="form-control" disabled>
+										<option>{{staffDetailObj['speciality']}}</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div> -->
+
+				<div class="row">
+					<div class="col-md-5">
+						<div class="form-group has-error has-danger ">
+							<label for="" class="text-bold text-gray-900">Select Branch&nbsp;<span
+									class="text-danger">*</span></label>
+						</div>
+					</div>
+					<div class="col-md-7">
+						<div class="form-group has-error has-danger ">
+							{{staffDetailObj['branch_name']}}
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-5">
+						<div class="form-group has-error has-danger ">
+							<label for="" class="text-bold text-gray-900">Username&nbsp;<span
+									class="text-danger">*</span></label>
+						</div>
+					</div>
+					<div class="col-md-7">
+						<div class="form-group has-error has-danger ">
+							{{staffDetailObj['user_name']}}
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-5">
+						<div class="form-group has-error has-danger ">
+							<label for="" class="text-bold text-gray-900">Status&nbsp;<span
+									class="text-danger">*</span></label>
+						</div>
+					</div>
+					<div class="col-md-7">
+						<div class="form-group has-error has-danger ">
+							{{staffDetailObj['status'] | statusPipe}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-secondary" type="button" (click)="d('Cross click');closeDetail()"
+				data-dismiss="modal">Close</button>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #content let-c="close" let-d="dismiss">
+	<form class="form-css" [formGroup]="addStaffForm" (ngSubmit)="f.form.valid && addStaff()" #f="ngForm" novalidate
+		novalidate>
+		<div class="modal-header custom-modal-header add-btn">
+			<!-- <button type="submit" class="btn btn-primary">Save</button> -->
+			<h5 *ngIf="!isEdit" class="modal-title">Add Hospital Staff</h5>
+			<h5 *ngIf="isEdit" class="modal-title">Update Hospital Staff</h5>
+			<button type="button" class="close" aria-label="Close" (click)="d('Cross click');close()">
+				<span aria-hidden="true">&times;</span>
+
+			</button>
+		</div>
+		<div class="modal-body">
+			<!-- <form [formGroup]="generalForm" class="form-css-modal" (ngSubmit)="signup()" novalidate> -->
+			<div class="modal-body">
+
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group has-error has-danger ">
+							<label for="" class="text-bold text-gray-900">First Name&nbsp;<span
+									class="text-danger">*</span></label>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="form-group has-error has-danger ">
+							<div>
+								<input type="text" name="" class="form-control" formControlName="firstName"
+									[patterns]="namePatters" [dropSpecialCharacters]="false" mask="S*" autocomplete="doNotAutoComplete">
+								<div *ngIf="addStaffForm.controls['firstName'].invalid && (addStaffForm.controls['firstName'].dirty || addStaffForm.controls['firstName'].touched)"
+									class="error-msg">
+									<div *ngIf="addStaffForm.controls['firstName'].errors.required">
+										This field is required.
+									</div>
+									<div *ngIf="addStaffForm.controls.firstName.errors.maxlength">
+										First name can have only 15 characters
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group has-error has-danger ">
+							<label for="" class="text-bold text-gray-900">Last Name&nbsp;<span
+									class="text-danger">*</span></label>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="form-group has-error has-danger ">
+							<div>
+								<input type="text" class="form-control" formControlName="lastName"
+									[patterns]="namePatters" [dropSpecialCharacters]="false" mask="S*" autocomplete="doNotAutoComplete">
+								<div *ngIf="addStaffForm.controls['lastName'].invalid && (addStaffForm.controls['lastName'].dirty || addStaffForm.controls['lastName'].touched)"
+									class="error-msg">
+									<div *ngIf="addStaffForm.controls['lastName'].errors.required">
+										This field is required.
+									</div>
+									<div *ngIf="addStaffForm.controls.lastName.errors.maxlength">
+										Last name can have only 15 characters
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group has-error has-danger ">
+							<label for="" class="text-bold text-gray-900">Contact No.&nbsp;<span
+									class="text-danger">*</span></label>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="form-group has-error has-danger ">
+							<div>
+								<input type="text" class="form-control" formControlName="contactNumber"
+									[dropSpecialCharacters]="false" [patterns]="onlyNumber" mask="0000000000" autocomplete="doNotAutoComplete">
+								<div *ngIf="addStaffForm.controls['contactNumber'].invalid && (addStaffForm.controls['contactNumber'].dirty || addStaffForm.controls['contactNumber'].touched)"
+									class="error-msg">
+									<div *ngIf="addStaffForm.controls['contactNumber'].errors.required">
+										This field is required.
+									</div>
+									<div *ngIf="addStaffForm.controls.contactNumber.errors.minlength">
+										Minimum 10 digits required
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group has-error has-danger ">
+							<label for="" class="text-bold text-gray-900">Email ID&nbsp;<span
+									class="text-danger">*</span></label>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="form-group has-error has-danger ">
+							<div>
+								<input type="text" class="form-control" formControlName="email" autocomplete="doNotAutoComplete">
+								<div *ngIf="addStaffForm.controls['email'].invalid && (addStaffForm.controls['email'].dirty || addStaffForm.controls['email'].touched)"
+									class="error-msg">
+									<div *ngIf="addStaffForm.controls['email'].errors.required">
+										This field is required.
+									</div>
+									<div
+										*ngIf="addStaffForm.controls.email.errors.email || addStaffForm.controls.email.errors.pattern">
+										Invalid email address
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group has-error has-danger ">
+							<label for="" class="text-bold text-gray-900">Role&nbsp;<span
+									class="text-danger">*</span></label>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="form-group has-error has-danger ">
+							<div>
+								<select class="form-control" formControlName="assignRole">
+									<!-- <option>Please Select</option> -->
+									<option *ngFor="let list of branchRoles" [value]="list.hospital_branch_role_id"
+										[selected]="list.hospital_branch_role_id == addStaffForm['value']['assignRole']">
+										{{list.role}}
+									</option>
+								</select>
+								<div *ngIf="addStaffForm.controls['assignRole'].invalid && (addStaffForm.controls['assignRole'].dirty || addStaffForm.controls['assignRole'].touched)"
+									class="error-msg">
+									<div *ngIf="addStaffForm.controls['assignRole'].errors.required">
+										This field is required.
+									</div>
+									<!-- <div *ngIf="addBranchForm.controls.firstName.errors.maxlength">
+                      Branch Name must not be more then 15 digit.
+                    </div> -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group has-error has-danger ">
+							<label for="" class="text-bold text-gray-900">Speciality&nbsp;<span
+									class="text-danger">*</span></label>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="form-group has-error has-danger ">
+							<div>
+								<select class="form-control" formControlName="speciality">
+									<option *ngFor="let list of branchSpecialities"
+										[value]="list.hospital_branch_speciality_id">
+										{{list.speciality}}</option>
+								</select>
+								<div *ngIf="addStaffForm.controls['speciality'].invalid && (addStaffForm.controls['speciality'].dirty || addStaffForm.controls['speciality'].touched)"
+									class="error-msg">
+									<div *ngIf="addStaffForm.controls['speciality'].errors.required">
+										This field is required.
+									</div>
+									<!-- <div *ngIf="addBranchForm.controls.firstName.errors.maxlength">
+                      Branch Name must not be more then 15 digit.
+                    </div> -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group has-error has-danger ">
+							<label for="" class="text-bold text-gray-900">Report to</label>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="form-group has-error has-danger ">
+							<div>
+								<select class="form-control" formControlName="reportTo">
+									<option value="null">Select</option>
+									<option *ngFor="let list of reportToStaffList" [value]="list.user_id"
+										[selected]="list.user_id == addStaffForm['value']['reportTo']">
+										{{list.first_name}}
+										{{list.last_name}}</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group has-error has-danger ">
+							<label for="" class="text-bold text-gray-900">Select Branch&nbsp;<span
+									class="text-danger">*</span></label>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="form-group has-error has-danger ">
+							<div>
+								<div class="row">
+									<div class="col-md-12">
+
+										<angular2-multiselect style="width:inherit;" [(ngModel)]="selectedBranches"
+											[data]="branchList" [settings]="settings" formControlName="branch">
+										</angular2-multiselect>
+										<div *ngIf="addStaffForm.controls['branch'].invalid &&
+                (addStaffForm.controls['branch'].dirty ||
+                addStaffForm.controls['branch'].touched)" class="error-msg">
+											<div *ngIf="addStaffForm.controls['branch'].errors.required">
+												This field is required.
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group has-error has-danger ">
+							<label for="" class="text-bold text-gray-900">Username&nbsp;<span
+									class="text-danger">*</span></label>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="form-group has-error has-danger ">
+								<input type="text" class="form-control " formControlName="username"
+									[patterns]="customPatterns" [dropSpecialCharacters]="false" mask="S*">
+								<div *ngIf="addStaffForm.controls['username'].invalid && (addStaffForm.controls['username'].dirty || addStaffForm.controls['username'].touched)"
+									class="error-msg">
+									<div *ngIf="addStaffForm.controls['username'].errors.required">
+										This field is required.
+									</div>
+									<div *ngIf="addStaffForm.controls.username.errors.minlength">
+										Minimum 6 digits required
+									</div>
+								</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group has-error has-danger ">
+							<label for="" class="text-bold text-gray-900">Password&nbsp;<span
+									class="text-danger">*</span></label>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="form-group has-error has-danger ">
+								<input type="password" class="form-control" autocomplete="off"
+									formControlName="password">
+								<div *ngIf="addStaffForm.controls['password'].invalid && (addStaffForm.controls['password'].dirty || addStaffForm.controls['password'].touched)"
+									class="error-msg">
+									<div *ngIf="addStaffForm.controls['password'].errors.required">
+										This field is required.
+									</div>
+									<div *ngIf="addStaffForm.controls.password.errors.minlength">
+										Minimum 6 digits required
+									</div>
+								</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group has-error has-danger ">
+							<label for="" class="text-bold text-gray-900">Status&nbsp;<span
+									class="text-danger">*</span></label>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="form-group has-error has-danger ">
+							<div class="input-group">
+								<select class="form-control" formControlName="status">
+									<option *ngFor="let list of statusList" [value]="list.id"
+										[selected]="list.id == addStaffForm['value']['status']">{{list.name}}</option>
+								</select>
+								<div *ngIf="addStaffForm.controls['status'].invalid && (addStaffForm.controls['status'].dirty || addStaffForm.controls['status'].touched)"
+									class="error-msg">
+									<div *ngIf="addStaffForm.controls['status'].errors.required">
+										This field is required.
+									</div>
+									<!-- <div *ngIf="addBranchForm.controls.firstName.errors.maxlength">
+                        Branch Name must not be more then 15 digit.
+                      </div> -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-secondary" type="button" data-dismiss="modal"
+				(click)="d('Cross click');close()">Cancel</button>
+			<button *ngIf="!isEdit" id="addStaff" class="btn btn-primary" type="submit"
+				[disabled]="addStaffForm.invalid">Add
+				Staff</button>
+			<button *ngIf="isEdit" class="btn btn-primary" type="button" (click)="updateStaff()"
+				[disabled]="addStaffForm.invalid">Update</button>
+
+		</div>
+	</form>
+</ng-template>

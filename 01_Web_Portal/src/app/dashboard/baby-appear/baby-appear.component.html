@@ -1,0 +1,660 @@
+<div class="">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+
+    <div class="container">
+      <!-- <button class="btn create-btn mr-2 mt-0 text-white" (click)="open(content,{})"><i class="fas fa-plus-circle"></i> Create New Reading </button> -->
+      <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+          <h5 *ngIf="readinDataService.reading" class="text-center">Reading: {{readinDataService.reading}} </h5>
+        </div>
+        <div class="col-md-4">
+          <div class="float-right" *ngIf="getMedicalRecordNumber">
+            <h5 class="mb-0"> BMRN: {{getMedicalRecordNumber}}</h5>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <ng-container *ngIf="responseArray?.length>0">
+      <div class="form-css" *ngIf="!isBabyAppearEdit">
+        <div class="row">
+          <div class="col-md-4 col-sm col-lg-12">
+            <div class="card ml-2">
+              <div class="card-body div-shadow">
+                <h5 class="">
+                  {{responseArray[0]['createdAt'] | date:'dd MMMM yyyy, h:mm a'}}
+                  <button class="btn edit-btn float-right">
+                    <mat-icon (click)="open(content,responseArray[0])">edit</mat-icon>
+                  </button>
+                </h5>
+                <div class="row">
+                  <div class="col-12 col-lg-6">
+                    <div class="table-responsive p-3">
+                      <table class="table  table-borderless mb-0">
+                        <tbody>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Reading Date & Time</td>
+                            <td class="tb-value text-right">{{responseArray[0]['reading_date']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Time of Reading</td>
+                            <td class="tb-value text-right">{{responseArray[0]['time_of_reading_hours']}} Hrs
+                              {{responseArray[0]['time_of_reading_minute']}} Min.</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Weight of Baby</td>
+                            <td class="tb-value text-right">{{responseArray[0]['baby_weight_at_birth']}}
+                              {{responseArray[0]['baby_weight_at_birth_unit']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Appearance</td>
+                            <td class="tb-value text-right">{{responseArray[0]['baby_appearance']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Skin Colour</td>
+                            <td class="tb-value text-right">{{responseArray[0]['baby_skin_colour']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Cry Sound</td>
+                            <td class="tb-value text-right">{{responseArray[0]['baby_cry_sound']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">Cry Sound(If not cried)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['baby_cry_sound_status']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Hypotonia Muscular Response (1 min after birth)</td>
+                            <td class="tb-value text-right">
+                              {{responseArray[0]['hypotonia_muscular_response_one_min_after_birth']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Hypotonia Muscular Response (5 min after birth)</td>
+                            <td class="tb-value text-right">
+                              {{responseArray[0]['hypotonia_muscular_response_five_min_after_birth']}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-lg-6">
+                    <div class="table-responsive p-3">
+                      <table class="table  table-borderless mb-0">
+                        <tbody>
+                          <tr class="">
+                            <td class="tb-label">Excessive Sleeping</td>
+                            <td class="tb-value text-right">{{responseArray[0]['excessive_sleeping']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Hypothermia</td>
+                            <td class="tb-value text-right">{{responseArray[0]['hypothermia']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Hypothermia (Units)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['hypothermia_status_value']}}
+                              {{responseArray[0]['hypothermia_status']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Feeding Status</td>
+                            <td class="tb-value text-right">{{responseArray[0]['baby_feeding_status']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Presence Of Convulsions</td>
+                            <td class="tb-value text-right">{{responseArray[0]['baby_presence_of_convulsions']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Jaundice (Present)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['baby_jaundice']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Breast Feeding Initiation</td>
+                            <td class="tb-value text-right">{{responseArray[0]['breast_feeding_initiation']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Kangaroo Mother Care</td>
+                            <td class="tb-value text-right">{{responseArray[0]['kangaroo_mother_care']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">Umbilical Discharge</td>
+                            <td class="tb-value text-right">{{responseArray[0]['umbilical_discharge']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Skin Pustules (> 5)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['skin_pustules']}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+
+    <div class="m-3 div-shadow" *ngIf="responseArray?.length<1 || isBabyAppearEdit">
+      <form [formGroup]="babyApears" class="form-css card" (ngSubmit)="babyApearsFormSubmit()" Novalidate>
+        <div class="modal-header custom-modal-header add-btn">
+          <div class="custom-modal-title">BABY APPEARANCE</div>
+        </div>
+        <div class="modal-body scroll">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="record_type">Record Id</label>
+                <input type="text" readonly [value]="id" class="form-control" name="" id="">
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="">Reading Date</label>
+              <div class="float-right">
+                <div class="form-check-inline">
+                  <label class="form-check-label">
+                    <input type="radio" class="form-check-input" [checked]="this.isDateReading"
+                      (click)="onInputChange($event)" value="1" name="DateReading">Date
+                  </label>
+                </div>
+                <div class="form-check-inline mr-0">
+                  <label class="form-check-label">
+                    <input type="radio" class="form-check-input" [checked]="!this.isDateReading"
+                      (click)="onInputChange($event)" value="2" name="DateReading">NA
+                  </label>
+                </div>
+              </div>
+              <div class="input-group">
+                <input type="text" *ngIf="this.isDateReading" class="form-control bg-white"
+                  formControlName="reading_date" bsDatepicker
+                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',showWeekNumbers:false }" placeholder="dd/mm/yyyy"
+                  autocomplete="off">
+                <div class="input-group-append" *ngIf="this.isDateReading">
+                  <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                </div>
+                <input type="text" readonly *ngIf="!this.isDateReading" class="form-control"
+                  formControlName="reading_date">
+              </div>
+              <div *ngIf="babyApears.controls['reading_date'].invalid &&
+            (babyApears.controls['reading_date'].dirty ||
+            babyApears.controls['reading_date'].touched || submitted )" class="error-msg">
+                <div *ngIf="babyApears.controls['reading_date'].errors.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="time_of_reading">Time of Reading (0-23 Hours)</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isTimeReading"
+                        (click)="onInputChange($event)" value="1" name="TimeReading">Time
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isTimeReading"
+                        (click)="onInputChange($event)" value="2" name="TimeReading">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-6">
+                    <div class="input-group">
+                      <input type="text" *ngIf="this.isTimeReading" class="form-control" id="time_of_reading_hours"
+                        placeholder="" formControlName="time_of_reading_hours" autocomplete="off"
+                        [dropSpecialCharacters]="false" mask="Hh">
+                      <div class="input-group-append" *ngIf="this.isTimeReading">
+                        <span class="input-group-text">Hrs</span>
+                      </div>
+                      <input type="text" readonly *ngIf="!this.isTimeReading" class="form-control" value="NA">
+                    </div>
+                    <div *ngIf="babyApears.controls['time_of_reading_hours'].invalid
+                      && (babyApears.controls['time_of_reading_hours'].dirty ||
+                      babyApears.controls['time_of_reading_hours'].touched ||
+                      submitted)" class="error-msg">
+                      <div *ngIf="babyApears.controls['time_of_reading_hours'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-6 pl-0">
+                    <div class="input-group">
+                      <input type="text" *ngIf="this.isTimeReading" [dropSpecialCharacters]="false" mask="m0"
+                        class="form-control" id="time_of_reading_minute" placeholder=""
+                        formControlName="time_of_reading_minute" autocomplete="off">
+                      <div class="input-group-append" *ngIf="this.isTimeReading">
+                        <span class="input-group-text">Min</span>
+                      </div>
+                      <input type="text" readonly value="NA" *ngIf="!this.isTimeReading" class="form-control">
+                    </div>
+                    <div *ngIf="babyApears.controls['time_of_reading_minute'].invalid
+                      && (babyApears.controls['time_of_reading_minute'].dirty ||
+                      babyApears.controls['time_of_reading_minute'].touched ||
+                      submitted)" class="error-msg">
+                      <div *ngIf="babyApears.controls['time_of_reading_minute'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-md-6">
+              <label for="exampleInputEmail1">Weight of Baby</label>
+              <div class="row">
+                <div class="col-md-4 col-4">
+                  <select name="" id="" formControlName="baby_weight_at_birth_unit" class="form-control width-40 ml-1"
+                    (change)="changeDropdown($event.target.value,'babyWeightAtBirthId')">
+                    <option value="Kgs">Kgs</option>
+                    <option value="Lbs">Lbs</option>
+                    <option value="NA">NA</option>
+                  </select>
+                  <div *ngIf="babyApears.controls['baby_weight_at_birth_unit'].invalid &&
+                (babyApears.controls['baby_weight_at_birth_unit'].dirty ||
+                babyApears.controls['baby_weight_at_birth_unit'].touched)" class="error-msg">
+                    <div class="error-msg" *ngIf="babyApears.controls['baby_weight_at_birth_unit'].errors.required">
+                      This field is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-8 col-8 pl-0">
+                  <input type="text" *ngIf="this.chkWeightAtBirth" [dropSpecialCharacters]="false" mask="999.09"
+                    class="form-control" id="babyWeightAtBirthId" formControlName="baby_weight_at_birth" min="0"
+                    autocomplete="off">
+
+                  <input type="text" readonly value="NA" *ngIf="!this.chkWeightAtBirth" class="form-control">
+                  <div *ngIf="babyApears.controls['baby_weight_at_birth'].invalid &&
+              (babyApears.controls['baby_weight_at_birth'].dirty ||
+              babyApears.controls['baby_weight_at_birth'].touched || submitted)" class="error-msg">
+                    <div class="error-msg" *ngIf="babyApears.controls['baby_weight_at_birth'].errors.required">
+                      This field is required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="hospital_branch_name">Appearance</label>
+                <select class="form-control" name="baby_appearance" id="baby_appearance"
+                  formControlName="baby_appearance">
+                  <option value="Dull">Dull</option>
+                  <option value="Lethargic">Lethargic</option>
+                  <option value="Normal">Normal</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyApears.controls['baby_appearance'].invalid && (babyApears.controls['baby_appearance'].dirty ||
+                babyApears.controls['baby_appearance'].touched || submitted )" class="error-msg">
+                  <div *ngIf="babyApears.controls['baby_appearance'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Skin Colour</label>
+                <select class="form-control" name="baby_skin_colour" id="baby_skin_colour"
+                  formControlName="baby_skin_colour">
+                  <option value="Pink">Pink</option>
+                  <option value="Central Cyanosis">Central Cyanosis</option>
+                  <option value="Peripheral Duskiness">Peripheral Duskiness</option>
+                  <option value="Acrocyanosis">Acrocyanosis</option>
+                  <option value="Pale">Pale</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyApears.controls['baby_skin_colour'].invalid && (babyApears.controls['baby_skin_colour'].dirty
+                || babyApears.controls['baby_skin_colour'].touched || submitted )" class="error-msg">
+                  <div *ngIf="babyApears.controls['baby_skin_colour'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Cry Sound</label>
+                <select class="form-control" name="baby_cry_sound" id="baby_cry_sound" formControlName="baby_cry_sound">
+                  <option value="Low Pitch">Low Pitch</option>
+                  <option value="High Pitch">High Pitch</option>
+                  <option value="Normal">Normal</option>
+                  <option value="Not Cried">Not Cried</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyApears.controls['baby_cry_sound'].invalid && (babyApears.controls['baby_cry_sound'].dirty ||
+                babyApears.controls['baby_cry_sound'].touched || submitted )" class="error-msg">
+                  <div *ngIf="babyApears.controls['baby_cry_sound'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Cry Sound(If not cried)</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isCrySound"
+                        (click)="onInputChange($event)" value="1" name="cry_sound">Time(In Sec)
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isCrySound"
+                        (click)="onInputChange($event)" value="2" name="cry_sound">NA
+                    </label>
+                  </div>
+                </div>
+                <input type="text" *ngIf="this.isCrySound" [dropSpecialCharacters]="false" mask="999"
+                  class="form-control" id="baby_cry_sound_status" formControlName="baby_cry_sound_status" min="0"
+                  autocomplete="off">
+                <input type="text" value="NA" readonly class="disable-field" *ngIf="!this.isCrySound"
+                  class="form-control">
+                <div *ngIf="babyApears.controls['baby_cry_sound_status'].invalid &&
+              (babyApears.controls['baby_cry_sound_status'].dirty ||
+              babyApears.controls['baby_cry_sound_status'].touched || submitted )" class="error-msg">
+                  <div *ngIf="babyApears.controls['baby_cry_sound_status'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Hypotonia Muscular Response (1 min after birth)</label>
+                <select class="form-control" name="hypotonia_muscular_response_one_min_after_birth"
+                  id="hypotonia_muscular_response_one_min_after_birth"
+                  formControlName="hypotonia_muscular_response_one_min_after_birth">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyApears.controls['hypotonia_muscular_response_one_min_after_birth'].invalid &&
+                (babyApears.controls['hypotonia_muscular_response_one_min_after_birth'].dirty ||
+                babyApears.controls['hypotonia_muscular_response_one_min_after_birth'].touched || submitted )"
+                  class="error-msg">
+                  <div *ngIf="babyApears.controls['hypotonia_muscular_response_one_min_after_birth'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Hypotonia Muscular Response (5 min after birth)</label>
+                <select class="form-control" name="hypotonia_muscular_response_five_min_after_birth"
+                  id="hypotonia_muscular_response_one_min_after_birth"
+                  formControlName="hypotonia_muscular_response_five_min_after_birth">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyApears.controls['hypotonia_muscular_response_five_min_after_birth'].invalid &&
+                (babyApears.controls['hypotonia_muscular_response_five_min_after_birth'].dirty ||
+                babyApears.controls['hypotonia_muscular_response_five_min_after_birth'].touched || submitted)"
+                  class="error-msg">
+                  <div *ngIf="babyApears.controls['hypotonia_muscular_response_five_min_after_birth'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Excessive Sleeping</label>
+                <select class="form-control" name="excessive_sleeping" id="excessive_sleeping"
+                  formControlName="excessive_sleeping">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyApears.controls['excessive_sleeping'].invalid &&
+                (babyApears.controls['excessive_sleeping'].dirty || babyApears.controls['excessive_sleeping'].touched ||
+                submitted )" class="error-msg">
+                  <div *ngIf="babyApears.controls['excessive_sleeping'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Hypothermia</label>
+                <select class="form-control" name="hypothermia" id="hypothermia" formControlName="hypothermia">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyApears.controls['hypothermia'].invalid && (babyApears.controls['hypothermia'].dirty ||
+                babyApears.controls['hypothermia'].touched || submitted )" class="error-msg">
+                  <div *ngIf="babyApears.controls['hypothermia'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="hypothermia_status">Hypothermia (Units)</label>
+                <div class="row">
+                  <div class="col-md-5 col-5">
+                    <select class="form-control" name="hypothermia_status" id="hypothermia_status"
+                      formControlName="hypothermia_status"
+                      (change)="changeDropdown($event.target.value,'hypothermia_status_value_id')">
+                      <option value="Centigrade">Centigrade</option>
+                      <option value="Fahrenheit">Fahrenheit</option>
+                      <option value="NA">NA</option>
+                    </select>
+                    <div
+                      *ngIf="babyApears.controls['hypothermia_status'].invalid && (babyApears.controls['hypothermia_status'].dirty || babyApears.controls['hypothermia_status'].touched || submitted)"
+                      class="error-msg">
+                      <div *ngIf="babyApears.controls['hypothermia_status'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-7 col-7 pl-0">
+                    <input type="text" *ngIf="this.isHypothermiaUnit" [dropSpecialCharacters]="false" mask="999.09"
+                      class="form-control" id="hypothermia_status_value_id" formControlName="hypothermia_status_value"
+                      autocomplete="off">
+                    <input type="text" readonly *ngIf="!this.isHypothermiaUnit" value="NA" class="form-control"
+                      id="hypothermia_status_value_id">
+                    <div
+                      *ngIf="babyApears.controls['hypothermia_status_value'].invalid && (babyApears.controls['hypothermia_status_value'].dirty || babyApears.controls['hypothermia_status_value'].touched || submitted)"
+                      class="error-msg">
+                      <div *ngIf="babyApears.controls['hypothermia_status_value'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="babymothername">Feeding Status </label>
+                <select class="form-control" name="Baby_Feeding_Status" id="Baby_Feeding_Status"
+                  formControlName="baby_feeding_status">
+                  <option value="Poor">Poor</option>
+                  <option value="Normal">Normal</option>
+                  <option value="No Feeding">No Feeding</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyApears.controls['baby_feeding_status'].invalid &&
+                (babyApears.controls['baby_feeding_status'].dirty || babyApears.controls['baby_feeding_status'].touched ||
+                submitted)" class="error-msg">
+                  <div *ngIf="babyApears.controls['baby_feeding_status'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row"> 
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="baby_presence_of_convulsions">Presence Of Convulsions </label>
+                <select class="form-control" name="baby_presence_of_convulsions" id="baby_presence_of_convulsions"
+                  formControlName="baby_presence_of_convulsions">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyApears.controls['baby_presence_of_convulsions'].invalid &&
+                (babyApears.controls['baby_presence_of_convulsions'].dirty ||
+                babyApears.controls['baby_presence_of_convulsions'].touched || submitted)" class="error-msg">
+                  <div *ngIf="babyApears.controls['baby_presence_of_convulsions'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="baby_jaundice">Jaundice (Present)</label>
+                <select class="form-control" name="baby_jaundice" id="baby_jaundice" formControlName="baby_jaundice">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyApears.controls['baby_jaundice'].invalid && (babyApears.controls['baby_jaundice'].dirty ||
+                babyApears.controls['baby_jaundice'].touched || submitted)" class="error-msg">
+                  <div *ngIf="babyApears.controls['baby_jaundice'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="breast_feeding_initiation">Breast Feeding Initiation </label>
+                <select class="form-control" name="breast_feeding_initiation" id="breast_feeding_initiation"
+                  formControlName="breast_feeding_initiation">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyApears.controls['breast_feeding_initiation'].invalid &&
+                (babyApears.controls['breast_feeding_initiation'].dirty ||
+                babyApears.controls['breast_feeding_initiation'].touched || submitted)" class="error-msg">
+                  <div *ngIf="babyApears.controls['breast_feeding_initiation'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="kangaroo_mother_care">Kangaroo Mother Care </label>
+                <select class="form-control" name="kangaroo_mother_care" id="kangaroo_mother_care"
+                  formControlName="kangaroo_mother_care">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyApears.controls['kangaroo_mother_care'].invalid &&
+                (babyApears.controls['kangaroo_mother_care'].dirty || babyApears.controls['kangaroo_mother_care'].touched
+                || submitted)" class="error-msg">
+                  <div *ngIf="babyApears.controls['kangaroo_mother_care'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="umbilical_discharge">Umbilical Discharge </label>
+                <select class="form-control" name="umbilical_discharge" id="umbilical_discharge"
+                  formControlName="umbilical_discharge">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+              </div>
+              <div *ngIf="babyApears.controls['umbilical_discharge'].invalid &&
+                    (babyApears.controls['umbilical_discharge'].dirty ||
+                    babyApears.controls['umbilical_discharge'].touched || submitted)" class="error-msg">
+                <div class="error-msg" *ngIf="babyApears.controls['umbilical_discharge'].errors.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="skin_pustules">Skin Pustules (> 5)</label>
+                <select class="form-control" name="skin_pustules" id="skin_pustules" formControlName="skin_pustules">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+              </div>
+              <div *ngIf="babyApears.controls['skin_pustules'].invalid &&
+                    (babyApears.controls['skin_pustules'].dirty ||
+                    babyApears.controls['skin_pustules'].touched || submitted)" class="error-msg">
+                <div class="error-msg" *ngIf="babyApears.controls['skin_pustules'].errors.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button type="submit" *ngIf="!isEditClicked" class="btn btn-primary float-right">
+              <span>Next</span>
+            </button>
+            <button type="button" *ngIf="isEditClicked" (click)="update_appears_form()"
+              class="btn btn-primary float-right">
+              <span>Update</span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+
+</ng-template>

@@ -1,0 +1,223 @@
+<div class="">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="container">
+      <!-- <button class="btn create-btn mr-2 mt-0 text-white" (click)="open(content,{})"><i class="fas fa-plus-circle"></i>
+        Create New Reading </button> -->
+        <div class="row">
+          <div class="col-md-4">
+          </div>
+          <div class="col-md-4">
+            <h5 *ngIf="readingDataService.reading" class="text-center">Reading: {{readingDataService.reading}} </h5>
+          </div>
+          <div class="col-md-4">
+            <div class="float-right" *ngIf="getMedicalRecordNumber">
+              <h5 class="mb-0"> BMRN: {{getMedicalRecordNumber}}</h5>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <ng-container *ngIf="responseArray?.length>0">
+      <div class="form-css" *ngIf="!isEdit">
+        <div class="row">
+          <div class="col-md-12 col-sm col-lg-12">
+            <div class="card ml-2">
+              <div class="card-body div-shadow">
+                <h5 class="">
+                  {{responseArray[0]['createdAt'] | date:'dd MMMM yyyy, h:mm a' || 'Loading...'}}
+                  <button class="btn edit-btn float-right">
+                    <mat-icon (click)="open(content, responseArray[0])">edit</mat-icon>
+                  </button>
+                </h5>
+
+                <div class="row">
+                  <div class="col-12 col-lg-6">
+                    <div class="table-responsive p-3">
+                      <table class="table  table-borderless mb-0">
+                        <tbody>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Features of Encephalopathy</td>
+                            <td class="tb-value text-right">{{responseArray[0]['features_of_encephalopathy']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">Seizures</td>
+                            <td class="tb-value text-right">{{responseArray[0]['seizures']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Baby Movement with Stimulation</td>
+                            <td class="tb-value text-right">{{responseArray[0]['baby_movement']}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-lg-6">
+                    <div class="table-responsive p-3">
+                      <table class="table  table-borderless mb-0">
+                        <tbody>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Abnormal Movements like Tonic Posturing</td>
+                            <td class="tb-value text-right">
+                              {{responseArray[0]['abnormal_movements_like_tonic_posturing']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">AF Bulge</td>
+                            <td class="tb-value text-right">{{responseArray[0]['af_bulge']}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <div class="m-3 div-shadow" *ngIf="responseArray?.length<1 || isEdit">
+      <form [formGroup]="babyCnsForm" class="form-css card" (ngSubmit)="cnsFormSubmit()" novalidate>
+        <div class="modal-header custom-modal-header add-btn">
+          <!-- <button type="submit" class="btn btn-primary"><span *ngIf="is_update">Update</span>
+            <span *ngIf="!is_update">Save</span>
+          </button> -->
+          <div class="custom-modal-title">BABY CNS FUNCTION</div>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="record_type">Record Id</label>
+                <input type="text" readonly [value]="id" class="form-control" name="" id="">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="features_of_encephalopathy">Features of Encephalopathy</label>
+                <select class="form-control" name="features_of_encephalopathy" id="features_of_encephalopathy"
+                  formControlName="features_of_encephalopathy">
+                  touch <option value="Lethargy">Lethargy</option>
+                  <option value="Stupor">Stupor</option>
+                  <option value="Coma">Coma</option>
+                  <option value="Normal">Normal</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyCnsForm.controls['features_of_encephalopathy'].invalid &&
+                    (babyCnsForm.controls['features_of_encephalopathy'].dirty ||
+                    babyCnsForm.controls['features_of_encephalopathy'].touched || submitted)" class="error-msg">
+                  <div *ngIf="babyCnsForm.controls['features_of_encephalopathy'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="seizures">Seizures</label>
+                <select class="form-control" name="seizures" id="seizures" formControlName="seizures">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyCnsForm.controls['seizures'].invalid && (babyCnsForm.controls['seizures'].dirty ||
+                      babyCnsForm.controls['seizures'].touched || submitted)" class="error-msg">
+                  <div *ngIf="babyCnsForm.controls['seizures'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="abnormal_movements_like_tonic_posturing">Abnormal Movements like Tonic Posturing</label>
+                <select class="form-control" name="abnormal_movements_like_tonic_posturing"
+                  id="abnormal_movements_like_tonic_posturing"
+                  formControlName="abnormal_movements_like_tonic_posturing">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyCnsForm.controls['abnormal_movements_like_tonic_posturing'].invalid &&
+                      (babyCnsForm.controls['abnormal_movements_like_tonic_posturing'].dirty ||
+                      babyCnsForm.controls['abnormal_movements_like_tonic_posturing'].touched || submitted)"
+                  class="error-msg">
+                  <div *ngIf="babyCnsForm.controls['abnormal_movements_like_tonic_posturing'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="af_bulge">AF Bulge</label>
+                <select class="form-control" name="af_bulge" id="af_bulge" formControlName="af_bulge">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyCnsForm.controls['af_bulge'].invalid && (babyCnsForm.controls['af_bulge'].dirty ||
+                      babyCnsForm.controls['af_bulge'].touched || submitted)" class="error-msg">
+                  <div *ngIf="babyCnsForm.controls['af_bulge'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="baby_movement">Baby Movement with Stimulation</label>
+                <select class="form-control" name="baby_movement" id="baby_movement" formControlName="baby_movement">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyCnsForm.controls['baby_movement'].invalid && (babyCnsForm.controls['baby_movement'].dirty ||
+                      babyCnsForm.controls['baby_movement'].touched || submitted)" class="error-msg">
+                  <div *ngIf="babyCnsForm.controls['baby_movement'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          <button  *ngIf="!isEditClicked" type="submit" class="btn btn-primary float-right">
+            <span>Next</span>
+          </button>
+          <button *ngIf="isEditClicked" type="button" (click)="updateCNSForm()" class="btn btn-primary float-right">
+            <span>Update</span>
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- <div>
+      <ng-container *ngIf="responseArray?.length<1 && !isEdit">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 p-3">
+              <div class="card py-3">
+                <div class="card-body">
+                  <h5 class="card-title text-center alert alert-warning">No Record Found!!</h5>
+
+                </div>
+                <img src="assets/svgs/Instructions.png" class="card-img-top w-75 mx-auto" alt="...">
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div> -->
+    <!-- Remind Passowrd -->
+  </div>
+</div>

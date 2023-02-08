@@ -1,0 +1,59 @@
+.add-btn {
+  margin-left: 33% !important;
+}
+
+.material-icons {
+  font-size: 18px !important;
+  vertical-align: -webkit-baseline-middle !important;
+}
+
+.btn-search {
+  background: #6eebfd;
+  border: none;
+}
+
+table{
+  width: 100%;
+    max-width: 82%;
+    margin-bottom: 1rem;
+    background-color: #fff;
+    position: absolute;
+    z-index: 99;
+}
+.table tr {
+  border: 1px solid #000 !important;
+}
+
+.table th {
+  background: #6eebfd;
+  border: 1px solid #000;
+}
+
+
+.example-viewport {
+  height: 200px !important;
+  width: 100% !important;
+  border-radius: 3px !important;
+  color: #333 !important;
+
+}
+
+.example-viewport {
+  height: 50px !important;
+  width: 100% !important;
+  border-radius: 3px !important;
+  color: #333 !important;
+
+}
+
+.scroll-dynamic {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+
+.table-scroll {
+  display: block;
+  overflow-y: scroll;
+  height: 500px;
+}

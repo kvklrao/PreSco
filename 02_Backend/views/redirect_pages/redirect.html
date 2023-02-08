@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="assets/images/favicon.jpg">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Login/Register CSS-->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/drawer-style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <!-- Fontawesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    
+    <title>Avyantra | Home</title>
+	
+	<style>
+	
+		.list-group-item-action:focus, .list-group-item-action:hover {
+			background-color: #eaecec;
+			border-left: 4px solid #57bb82;
+		}
+		
+		.list-group-item.active {
+			z-index: 2;
+			background-color: #eaecec;
+			border-left: 4px solid #57bb82;
+			color:#000;
+			border-color: #007bff00;
+			border-left: 4px solid #57bb82;
+		}
+		
+		
+		
+		
+		/* Screen reader only */
+		.sr-only {
+		  position: absolute;
+		  width: 1px;
+		  height: 1px;
+		  padding: 0;
+		  margin: -1px;
+		  overflow: hidden;
+		  clip: rect(0,0,0,0);
+		  border: 0;
+		}
+
+		/* Button styling */
+		.menu-toggle {
+		  display: inline-block;
+		  padding: .75em 15px;
+		  line-height: 1em;
+		  font-size: 1em;
+		  color: #333;
+		}
+
+		.menu-toggle:hover,
+		.menu-toggle:focus {
+		  color: #c00;
+		}
+
+		/*
+		 Default styles + Mobile first
+		 Offscreen menu style
+		*/
+		.main-menu {
+		  position: absolute;
+		  display: none;
+		  left: -200px;
+		  top: 0;
+		  height: 100%;
+			overflow-y: scroll;
+			overflow-x: visible;
+			transition: left 0.3s ease,
+							  box-shadow 0.3s ease;
+			z-index: 999;
+		}
+
+		.main-menu ul {
+		  list-style: none;
+		  margin: 0;
+		  padding: 2.5em 0 0;
+		  /* Hide shadow w/ -8px while 'closed' */
+		  -webkit-box-shadow: -8px 0 8px rgba(0,0,0,.5);
+			 -moz-box-shadow: -8px 0 8px rgba(0,0,0,.5);
+				  box-shadow: -8px 0 8px rgba(0,0,0,.5);
+		  min-height: 100%;
+		  width: 200px;
+		  background: #1a1a1a;
+		}
+
+		.main-menu a {
+		  display: block;
+		  padding: .75em 15px;
+		  line-height: 1em;
+		  font-size: 1em;
+		  color: #fff;
+		  text-decoration: none;
+		  border-bottom: 1px solid #383838;
+		}
+
+		.main-menu li:first-child a {
+		  border-top: 1px solid #383838;
+		}
+
+		.main-menu a:hover,
+		.main-menu a:focus {
+		  background: #333;
+		  text-decoration: underline;
+		}
+
+		.main-menu .menu-close {
+		  position: absolute;
+		  right: 0;
+		  top: 0;
+		}
+
+		/*
+		 On small devices, allow it to toggle...
+		*/
+		/*
+		 :target for non-JavaScript
+		 [aria-expanded] will be used if/when JavaScript is added to improve interaction, though it's completely optional.
+		*/
+		.main-menu:target,
+		.main-menu[aria-expanded="true"] {
+		  display: block;
+		  left: 0;
+		  outline: none;
+		  -moz-box-shadow: 3px 0 12px rgba(0,0,0,.25);
+		  -webkit-box-shadow: 3px 0 12px rgba(0,0,0,.25);
+		  box-shadow: 3px 0 12px rgba(0,0,0,.25);
+		}
+
+		.main-menu:target .menu-close,
+		.main-menu[aria-expanded="true"] .menu-close {
+		  z-index: 1001;
+		}
+
+		.main-menu:target ul,
+		.main-menu[aria-expanded="true"] ul {
+		  position: relative;
+		  z-index: 1000;
+		}
+
+		/* 
+		 We could us `.main-menu:target:after`, but
+		 it wouldn't be clickable.
+		*/
+		.main-menu:target + .backdrop,
+		.main-menu[aria-expanded="true"] + .backdrop{
+		  position: absolute;
+		  display: block;  
+		  left: 0;
+		  top: 0;
+		  width: 100%;
+		  height: 100%;
+		  z-index: 998;
+		  background: #000;
+		  background: rgba(0,0,0,.85);
+		  cursor: default;
+		}
+
+		@supports (position: fixed) {
+		  .main-menu,
+		  .main-menu:target + .backdrop,
+		  .main-menu[aria-expanded="true"] + .backdrop{
+			position: fixed;
+		  }
+		}
+
+		/*
+		 Larger screen styling
+		 Horizontal menu
+		*/
+		@media (min-width: 768px) {
+		  .menu-toggle,
+		  .main-menu .menu-close {
+			display: none;
+		  }
+		  
+		  /* Undo positioning of off-canvas menu */
+		  .main-menu {
+			position: relative;
+				left: auto;
+				top: auto;
+				height: auto;
+			display: block;
+		  }
+		  
+		  .main-menu ul {
+			display: flex;
+			
+			/* Undo off-canvas styling */
+			padding: 0;
+			-webkit-box-shadow: none;
+			   -moz-box-shadow: none;
+					box-shadow: none;
+			height: auto;
+			width: auto;
+			background: none;
+		  }
+		  
+		  .main-menu a {
+			color: #06c;
+			border: 0 !important; /* Remove borders from off-canvas styling */
+		  }
+		  
+		  .main-menu a:hover,
+		  .main-menu a:focus {
+			background: none; /* Remove background from off-canvas styling */
+			color: #c00;
+		  }
+		}
+
+		/*
+		 Demo purposes only
+		*/
+		*,
+		*:before,
+		*:after {
+		  box-sizing: border-box;
+		}
+		.footer{
+			position: fixed;
+   			 left: 0;
+    		bottom: 0;
+   			 width: 100%;
+		}
+
+	</style>
+	
+	
+	<link rel="stylesheet" href="assets/css/mob-menu.css">
+    
+	
+  </head>
+  <body>
+	<div class="forgot-screen">
+		<!-- As a link -->
+		<!-- <nav class="navbar shadow-sm bg-white p-0">
+		  <div class="container">
+			<div class="row">
+			  <div class="col-12">
+				<a class="navbar-brand" href="#">
+				  <img src="assets/svgs/avyantra-logo.svg" alt="avyantra" class="w-75 py-2">
+				</a>
+			  </div>
+			</div>
+		  </div>
+		</nav> -->
+	  
+		<!--  Form-->
+		<div class="form-wrapper">
+		  <div class="container my-5">
+	  
+			<div   class="row justify-content-center">
+			  <div class="col-sm-12 col-md-12 col-lg-6">
+				<div class="card-pocket card py-5 rounded-0">
+				  <div class="presco text-center p-3">
+					<h1 class="text-orange logo-type">PreSco</h1>
+					<h5 class="text-grey-300"> Neonatal Sepsis Prediction Platform </h5>
+				  </div>
+				  <div class="presco text-center p-3">
+						<i class="fa fa-handshake-o fa-5x" aria-hidden="true"></i>
+					  <h4 class="text-grey-300">Thank you for accepting my request.</h4>
+					<!-- <p class="text-grey-300"> A verification email has been sent to your registered email ID. </p> -->
+				  </div>
+				</div>
+				<!-- <img src="assets/svgs/card-curve.svg" alt="" class="img-fluid curve-white">
+				<img src="assets/svgs/card-curve-shadow.svg" alt="" class="img-fluid curve-shadow"> -->
+			  </div>
+			</div>
+			
+		  </div>
+		</div>
+	  
+	  </div>
+	  <footer class="bg-white text-center p-2 footer">
+			<small class="text-grey-200"> Copyright © 2019-2020 Avyantra Health Technologies. All Rights Reserved</small>
+		</footer>
+  </body>
+</html>

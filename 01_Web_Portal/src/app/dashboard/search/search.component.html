@@ -1,0 +1,46 @@
+<div class="avy-hero">
+    <div class="container">
+      <div class="row">
+            <div class="col-12 col-md-9 my-3">
+            <div class="search">
+                <div class="form-inline">
+                    <span class="position-absolute input-icon">
+                        <img src="assets/svgs/search.svg" alt="">
+                    </span>
+                    <input class="form-control w-100 position-relative" (keyup.enter)="search_patient($event)"  [(ngModel)]="search_str" type="search" placeholder="Enter Baby Medical Record Number" aria-label="Search"><!--(keyup.enter)="search_patient($event)"-->
+                    <button class="btn btn-outline-success m-0 search-button" (click)="search_patient($event)" type="button">Search</button>
+                  </div>
+                <!-- <small class="text-white">E.g.: Test202</small> -->
+            </div>
+            <table class="table div-shadow table-bordered" *ngIf="isTableDisplay">
+                <ng-container *ngIf="patientList?.length>0">
+                  <thead class="">
+                    <tr>
+                      <th scope="col">Record Id</th>
+                      <th scope="col">Baby Medical Record Number</th>
+                      <th scope="col" class="d-md-flex">Reading &nbsp; <i class="fa fa-times-circle ml-auto" style="font-size:24px;cursor:pointer;" (click)="close_search_box()" aria-hidden="true"></i></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let patient of patientList">
+                      <td>{{patient.study_id}}</td>
+                       <!-- <td>{{patient.id}}</td> -->
+                      <td (click)="view_patient(patient)"><a href="javascript:;">{{patient.baby_medical_record_number}}</a>
+                      </td>
+                      <td (click)="view_patient(patient)"><a href="javascript:;">{{patient.reading}}</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </ng-container>
+                <ng-container *ngIf="searchResultEmpty">
+                  Record Not Found!!!
+                </ng-container>
+              </table>
+        </div>
+        <div class="col-12 col-md-3 my-3">
+            <button type="button" class="btn btn-lg btn-score w-100 text-white"><i class="far fa-file-alt"></i> Generate Score</button>
+        </div>
+      </div>
+    </div>
+</div>
+

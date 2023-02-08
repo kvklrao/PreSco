@@ -1,0 +1,490 @@
+<div class="">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="container">
+        <!-- <button class="btn create-btn mr-2 mt-0 text-white" (click)="open(content,{})"><i class="fas fa-plus-circle"></i> Create New Reading </button> -->
+        <div class="row">
+          <div class="col-md-4">
+          </div>
+          <div class="col-md-4">
+            <h5 *ngIf="readingDataService.reading" class="text-center">Reading: {{readingDataService.reading}} </h5>
+          </div>
+          <div class="col-md-4">
+            <div class="float-right" *ngIf="getMedicalRecordNumber">
+              <h5 class="mb-0"> BMRN: {{getMedicalRecordNumber}}</h5>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <ng-container *ngIf="responseArray?.length>0">
+      <div class="form-css scroll" *ngIf="!isBabyRespEdit">
+        <div class="row">
+          <div class="col-md-4 col-sm col-lg-12">
+            <div class="card ml-2">
+              <div class="card-body div-shadow">
+                <h5 class="">
+                  {{responseArray[0]['createdAt'] | date:'dd MMMM yyyy, h:mm a'}}
+                  <button class="btn edit-btn float-right">
+                    <mat-icon (click)="open(content ,responseArray[0])">edit</mat-icon>
+                  </button>
+                </h5>
+                
+                <div class="row">
+                  <div class="col-12 col-lg-6">
+                     <div class="table-responsive p-3">
+                      <table class="table  table-borderless mb-0">
+                        <tbody>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Groaning</td>
+                            <td class="tb-value text-right">{{responseArray[0]['groaning']}}</td>
+                          </tr>     
+                          <tr class="border-bottom">
+                            <td class="tb-label">Grunting</td>
+                            <td class="tb-value text-right">{{responseArray[0]['grunting']}}</td>
+                          </tr>        
+                          <tr class="border-bottom">
+                            <td class="tb-label">Stridor</td>
+                            <td class="tb-value text-right">{{responseArray[0]['stridor']}}</td>
+                          </tr> 
+                          <tr class="">
+                            <td class="tb-label">Retraction</td>
+                            <td class="tb-value text-right">{{responseArray[0]['retraction']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Fast Breathing</td>
+                            <td class="tb-value text-right">{{responseArray[0]['fast_breathing']}}</td>
+                          </tr> 
+                          <tr class="border-bottom">
+                            <td class="tb-label">Oxygen Saturation</td>
+                            <td class="tb-value text-right">{{responseArray[0]['oxygen_saturation']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Breathing Rate</td>
+                            <td class="tb-value text-right">{{responseArray[0]['breathing_rate']}}</td>
+                          </tr> 
+                          <tr class="">
+                            <td class="tb-label">Chest In-drawing</td>
+                            <td class="tb-value text-right">{{responseArray[0]['baby_chest_indrawing']}}</td>
+                          </tr> 
+                        </tbody>
+                      </table>
+                     </div>
+                  </div>
+                  
+                  <div class="col-12 col-lg-6">
+                     <div class="table-responsive p-3">
+                      <table class="table  table-borderless mb-0">
+                        <tbody>    
+                          <tr class="border-bottom">
+                            <td class="tb-label">X-Ray Status (Done)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['x_ray_status_done']}}</td>
+                          </tr> 
+                          <tr class="border-bottom">
+                            <td class="tb-label">X-Ray Result</td>
+                            <td class="tb-value text-right">{{responseArray[0]['x_ray_result']}}</td>
+                          </tr> 
+                          <tr class="border-bottom">
+                            <td class="tb-label">X-Ray Diagnosis (if Abnormal)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['x_ray_status']}}</td>
+                          </tr> 
+                          <tr class="border-bottom">
+                            <td class="tb-label">Apnea Status (Presence)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['apnea_status']}}</td>
+                          </tr> 
+                          <tr class="border-bottom">
+                            <td class="tb-label">Apnea Diagnosis</td>
+                            <td class="tb-value text-right">{{responseArray[0]['apnea_diagnosis']}}</td>
+                          </tr> 
+                          <tr class="border-bottom">
+                            <td class="tb-label">Respiratory Support (Yes/No)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['baby_respiratory_support_if_yes']}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                     </div>
+                  </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="m-3 div-shadow" *ngIf="responseArray?.length<1 || isBabyRespEdit">
+      <form [formGroup]="babyRespForm" class="form-css card" (ngSubmit)="respiratoryFormSubmit()" novalidate>
+        <div class="modal-header custom-modal-header add-btn">
+          <!-- <button type="submit" class="btn btn-primary">
+            <span>Save</span>
+
+          </button> -->
+          <div class="custom-modal-title">BABY RESPIRATORY FUNCTION</div>
+
+        </div>
+        <div class="modal-body scroll">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="record_type">Record Id</label>
+                <input type="text" readonly [value]="id" class="form-control" name="" id="">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="groaning">Groaning</label>
+                <select class="form-control" name="groaning" id="groaning" formControlName="groaning">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyRespForm.controls['groaning'].invalid && (babyRespForm.controls['groaning'].dirty ||
+                babyRespForm.controls['groaning'].touched || submitted)"
+                  class="error-msg">
+                  <div *ngIf="babyRespForm.controls['groaning'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="grunting">Grunting</label>
+                <select class="form-control" name="grunting" id="grunting" formControlName="grunting">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyRespForm.controls['grunting'].invalid && (babyRespForm.controls['grunting'].dirty ||
+                babyRespForm.controls['grunting'].touched || submitted)"
+                  class="error-msg">
+                  <div *ngIf="babyRespForm.controls['grunting'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="stridor">Stridor</label>
+                <select class="form-control" name="stridor" id="stridor" formControlName="stridor">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyRespForm.controls['stridor'].invalid && (babyRespForm.controls['stridor'].dirty ||
+                babyRespForm.controls['stridor'].touched || submitted)"
+                  class="error-msg">
+                  <div *ngIf="babyRespForm.controls['stridor'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="retraction">Retraction</label>
+                <select class="form-control" name="retraction" id="retraction" formControlName="retraction">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyRespForm.controls['retraction'].invalid && (babyRespForm.controls['retraction'].dirty ||
+                babyRespForm.controls['retraction'].touched || submitted)"
+                  class="error-msg">
+                  <div *ngIf="babyRespForm.controls['retraction'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="fast_breathing">Fast Breathing</label>
+                <select class="form-control" name="fast_breathing" id="fast_breathing" formControlName="fast_breathing">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyRespForm.controls['fast_breathing'].invalid && (babyRespForm.controls['fast_breathing'].dirty
+                || babyRespForm.controls['fast_breathing'].touched || submitted)"
+                  class="error-msg">
+                  <div *ngIf="babyRespForm.controls['fast_breathing'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="oxygen_saturation">Oxygen Saturation</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isSaturation" (click)="onInputChange($event)"
+                        value="1" name="Saturation">Level
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isSaturation" (click)="onInputChange($event)"
+                        value="2" name="Saturation">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                    <input *ngIf="this.isSaturation" type="number" min="1" max="100" maxlength="3" oninput="validity.valid||(value='');" class="form-control" id="oxygen_saturation"
+                    formControlName="oxygen_saturation" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isSaturation">
+                    <span class="input-group-text">%</span>
+                  </div>
+                  <input type="text" value="NA" readonly class="disable-field" *ngIf="!this.isSaturation" class="form-control">
+                </div>
+                <div *ngIf="babyRespForm.controls['oxygen_saturation'].invalid &&
+                (babyRespForm.controls['oxygen_saturation'].dirty || babyRespForm.controls['oxygen_saturation'].touched ||
+                submitted)"
+                  class="error-msg">
+                  <div *ngIf="babyRespForm.controls['oxygen_saturation'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="breathing_rate">Breathing Rate</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isRate" (click)="onInputChange($event)"
+                        value="1" name="Rate">Rate
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isRate" (click)="onInputChange($event)"
+                        value="2" name="Rate">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isRate" [dropSpecialCharacters]="false" mask="99" class="form-control" id="breathing_rate"
+                    formControlName="breathing_rate" min="0" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isRate">
+                    <span class="input-group-text">per minute</span>
+                  </div>
+                  <input type="text" value="NA" readonly class="disable-field" *ngIf="!this.isRate" class="form-control">
+                </div>
+                <div *ngIf="babyRespForm.controls['breathing_rate'].invalid && (babyRespForm.controls['breathing_rate'].dirty
+                || babyRespForm.controls['breathing_rate'].touched || submitted)"
+                  class="error-msg">
+                  <div *ngIf="babyRespForm.controls['breathing_rate'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="baby_chest_indrawing">Chest In-drawing</label>
+                <select class="form-control" name="baby_chest_indrawing" id="baby_chest_indrawing" formControlName="baby_chest_indrawing">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyRespForm.controls['baby_chest_indrawing'].invalid &&
+                (babyRespForm.controls['baby_chest_indrawing'].dirty ||
+                babyRespForm.controls['baby_chest_indrawing'].touched || submitted)"
+                  class="error-msg">
+                  <div *ngIf="babyRespForm.controls['baby_chest_indrawing'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="x_ray_status_done">X-Ray Status (Done)</label>
+                <select class="form-control" name="x_ray_status_done" id="x_ray_status_done" formControlName="x_ray_status_done">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyRespForm.controls['x_ray_status_done'].invalid &&
+                (babyRespForm.controls['x_ray_status_done'].dirty || babyRespForm.controls['x_ray_status_done'].touched ||
+                submitted)"
+                  class="error-msg">
+                  <div *ngIf="babyRespForm.controls['x_ray_status_done'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="x_ray_result">X-Ray Result</label>
+                <select class="form-control" name="x_ray_result" id="x_ray_result" formControlName="x_ray_result">
+                  <option value="Normal">Normal</option>
+                  <option value="Abnormal">Abnormal</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyRespForm.controls['x_ray_result'].invalid && (babyRespForm.controls['x_ray_result'].dirty ||
+                babyRespForm.controls['x_ray_result'].touched || submitted)"
+                  class="error-msg">
+                  <div *ngIf="babyRespForm.controls['x_ray_result'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="x_ray_status">X-Ray Diagnosis (if Abnormal)</label>
+                <select class="form-control" name="x_ray_status" id="x_ray_status" formControlName="x_ray_status"
+                  (change)="changeDropdown($event.target.value,'x_ray_status')">
+                  <option value="Unilateral">Unilateral</option>
+                  <option value="Bilateral">Bilateral</option>
+                  <option value="Pneumonia">Pneumonia</option>
+                  <option value="Pulmonary Hemorrage">Pulmonary Hemorrage</option>
+                  <option value="TTNB">TTNB</option>
+                  <option value="MAS">MAS</option>
+                  <option value="RDS">RDS</option>
+                  <option value="Other">Other</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyRespForm.controls['x_ray_status'].invalid && (babyRespForm.controls['x_ray_status'].dirty ||
+                babyRespForm.controls['x_ray_status'].touched || submitted)"
+                  class="error-msg">
+                  <div *ngIf="babyRespForm.controls['x_ray_status'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6" *ngIf="isXrayDiagnosisAnyOther">
+              <div class="form-group">
+                <label for="x_ray_diagnosis_any_other">X-Ray Diagnosis (if Other)</label>
+                <input type="text" [patterns]="customPatterns" [dropSpecialCharacters]="false" mask="S*" class="form-control" id="x_ray_diagnosis_any_other"
+                  formControlName="x_ray_diagnosis_any_other" min="0">
+                <div *ngIf="babyRespForm.controls['x_ray_diagnosis_any_other'].invalid && (babyRespForm.controls['x_ray_diagnosis_any_other'].dirty ||
+                  babyRespForm.controls['x_ray_diagnosis_any_other'].touched || submitted)"
+                  class="error-msg">
+                  <div *ngIf="babyRespForm.controls['x_ray_diagnosis_any_other'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="apnea_status">Apnea Status (Presence)</label>
+                <select class="form-control" name="apnea_status" id="apnea_status" formControlName="apnea_status">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyRespForm.controls['apnea_status'].invalid && (babyRespForm.controls['apnea_status'].dirty ||
+                babyRespForm.controls['apnea_status'].touched || submitted)"
+                  class="error-msg">
+                  <div *ngIf="babyRespForm.controls['apnea_status'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="apnea_diagnosis">Apnea Diagnosis</label>
+                <select class="form-control" name="apnea_diagnosis" id="apnea_diagnosis" formControlName="apnea_diagnosis">
+                  <option value="Central Apnea">Central Apnea</option>
+                  <option value="Obstructive Apnea">Obstructive Apnea</option>
+                  <option value="Mixed Apnea">Mixed Apnea</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyRespForm.controls['apnea_diagnosis'].invalid && (babyRespForm.controls['apnea_diagnosis'].dirty
+                || babyRespForm.controls['apnea_diagnosis'].touched || submitted)"
+                  class="error-msg">
+                  <div *ngIf="babyRespForm.controls['apnea_diagnosis'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="baby_respiratory_support_if_yes">Respiratory Support (Yes/No)</label>
+                <select class="form-control" name="baby_respiratory_support_if_yes" id="baby_respiratory_support_if_yes"
+                  formControlName="baby_respiratory_support_if_yes">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyRespForm.controls['baby_respiratory_support_if_yes'].invalid &&
+                (babyRespForm.controls['baby_respiratory_support_if_yes'].dirty ||
+                babyRespForm.controls['baby_respiratory_support_if_yes'].touched || submitted)"
+                  class="error-msg">
+                  <div *ngIf="babyRespForm.controls['baby_respiratory_support_if_yes'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="baby_respiratory_support">Respiratory Support (Type)</label>
+                <angular2-multiselect style="width:inherit;" [(ngModel)]="selectedRespItems" id="baby_respiratory_support" 
+                      [data]="respiratorySupportList" [settings]="settings" formControlName="baby_respiratory_support"></angular2-multiselect>
+                <div *ngIf="babyRespForm.controls['baby_respiratory_support'].invalid &&
+                (babyRespForm.controls['baby_respiratory_support'].dirty ||
+                babyRespForm.controls['baby_respiratory_support'].touched || submitted)"
+                  class="error-msg">
+                  <div *ngIf="babyRespForm.controls['baby_respiratory_support'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button  *ngIf="!isEditClicked" type="submit" class="btn btn-primary float-right">
+              <span>Next</span>
+            </button>
+            <button *ngIf="isEditClicked" type="button" (click)="updateRespForm()" class="btn btn-primary float-right">
+              <span>Update</span>
+            </button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+
+    <!-- <div *ngIf="responseArray?.length<1 && !isBabyRespEdit">
+      <ng-container>
+          <div class="container">
+              <div class="row">
+                <div class="col-12 p-3">
+                   <div class="card py-3">
+                       <div class="card-body">
+                         <h5 class="card-title text-center alert alert-warning">No Record Found!!</h5>
+                   
+                       </div>
+                       <img src="assets/svgs/Instructions.png" class="card-img-top w-75 mx-auto" alt="...">
+                     </div>
+                </div>
+              </div>
+            </div>
+      </ng-container>
+    </div> -->
+
+    <!-- Remind Passowrd -->
+  </div>
+</div>

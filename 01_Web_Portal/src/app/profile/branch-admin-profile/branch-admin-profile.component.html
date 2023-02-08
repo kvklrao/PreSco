@@ -1,0 +1,667 @@
+<div class="container-fluid">
+
+
+  <!-- Page Heading -->
+  <div class="mt-160">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h4 class="h4 mb-0 text-gray-800"> <i class="fas fa-fw fa-hospital text-primary mr-2"></i>Profile</h4>
+    </div>
+  </div>
+
+  <!-- Content Row -->
+  <div class="row">
+
+    <div class="col-xl-12 col-md-12 mb-4">
+      <div class="card shadow mb-4" *ngIf="!isEdit">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Hospital Branch Information</h6>
+        </div>
+        <div class="card-body" *ngIf="branchProfile?.length>0">
+          <!-- <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Hospital ID:</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{myProfile[0].hospital_id}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">User Name:</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{this.myProfile[0].username}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Hospital Name</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{this.branchProfile[0].hospital_name}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Branch Name</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                      <div>{{this.branchProfile[0].branch_name}}</div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">User Name</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{this.branchProfile[0].user_name}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Password</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <div>{{this.branchProfile[0].password | passwordEcryptPipe}}</div>
+                      </div>
+                  <!-- <div class="form-group has-error has-danger ">
+                    <div><a href="#" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm"><i
+                          class="fas fa-key fa-sm text-white-50"></i> Change Password</a></div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Email</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{this.branchProfile[0].email_address}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Contact Number</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <div>{{this.branchProfile[0].contact_number}}</div>
+                      </div>
+                  <!-- <div class="form-group has-error has-danger ">
+                    <div><a href="#" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm"><i
+                          class="fas fa-key fa-sm text-white-50"></i> Change Password</a></div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Address</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{this.branchProfile[0].address | emptyDataPipe}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">City</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <div>{{this.branchProfile[0].city | emptyDataPipe}}</div>
+                      </div>
+                  <!-- <div class="form-group has-error has-danger ">
+                    <div><a href="#" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm"><i
+                          class="fas fa-key fa-sm text-white-50"></i> Change Password</a></div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">State</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{this.branchProfile[0].state | emptyDataPipe}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Pincode</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <div>{{this.branchProfile[0].pincode | emptyDataPipe}}</div>
+                      </div>
+                  <!-- <div class="form-group has-error has-danger ">
+                    <div><a href="#" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm"><i
+                          class="fas fa-key fa-sm text-white-50"></i> Change Password</a></div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Village:</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>-</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">District:</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>-</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <!-- <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">City:</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{this.myProfile[0].city}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">State:</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{this.myProfile[0].state}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <div class="row">
+            <!-- <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Pin Code:</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{this.myProfile[0].pincode}}</div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Change Password:</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <div>{{this.myProfile[0].password}}</div>
+                      </div> -->
+                  <!-- <div class="form-group has-error has-danger ">
+                    <div><a href="#" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm"><i
+                          class="fas fa-key fa-sm text-white-50"></i> Change Password</a></div>
+                  </div> -->
+                <!-- </div>
+              </div>
+            </div> -->
+            <div class="col-md-12 text-right">
+              <div class="form-group has-error has-danger ">
+                <button class="d-sm-inline-block btn btn-md btn-secondary shadow-sm" (click)="updateForm(this.branchProfile[0])">Edit</button>
+                <!-- <a href="#" class="d-none d-sm-inline-block btn btn-md btn-success shadow-sm">Save</a> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow mb-4" *ngIf="isEdit">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Hospital Branch Information</h6>
+          </div>
+          <div class="card-body" *ngIf="branchProfile?.length>0">
+            <form [formGroup]="branchProfileForm" (ngSubmit)="f.form.valid"
+            #f="ngForm" novalidate>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Hospital Name</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <input class="form-control" [value]="branchProfile[0].hospital_name" readonly/>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Branch Name</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <input class="form-control" formControlName="branchName" readonly/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">User Name</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <input class="form-control" formControlName="userName"  [patterns]="customPatterns" [dropSpecialCharacters]="false"
+                        mask="A*" autocomplete="doNotAutoComplete"/>
+                        <div
+                        *ngIf="branchProfileForm.controls['userName'].invalid && (branchProfileForm.controls['userName'].dirty || branchProfileForm.controls['userName'].touched)"
+                        class="error-msg">
+                        <div *ngIf="branchProfileForm.controls['userName'].errors.required">
+                          This field is required.
+                        </div>
+                        <div *ngIf="branchProfileForm.controls.userName.errors.minlength">
+                          Minimum 6 characters required.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Password</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                        <input type="{{password}}" autocomplete="off" class="form-control" formControlName="password"
+                        name="login" placeholder="Password">
+                        <i class="{{password_class}} field-icon password-icon" style="position: absolute;right: 20px;bottom: 25px;" aria-hidden=true (click)="show_password()"></i>
+                        <div
+                        *ngIf="branchProfileForm.controls['password'].invalid && (branchProfileForm.controls['password'].dirty || branchProfileForm.controls['password'].touched)"
+                        class="error-msg">
+                        <div *ngIf="branchProfileForm.controls['password'].errors.required">
+                          This field is required.
+                        </div>
+                        <div *ngIf="branchProfileForm.controls.password.errors.minlength">
+                          Minimum 6 characters required.
+                        </div>
+                      </div>
+                    <!-- <div class="form-group has-error has-danger ">
+                      <div><a href="#" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm"><i
+                            class="fas fa-key fa-sm text-white-50"></i> Change Password</a></div>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Email</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <input class="form-control" formControlName="emailAddress" autocomplete="doNotAutoComplete" />
+                        <div
+                        *ngIf="branchProfileForm.controls['emailAddress'].invalid && (branchProfileForm.controls['emailAddress'].dirty || branchProfileForm.controls['emailAddress'].touched)"
+                        class="error-msg">
+                        <div *ngIf="branchProfileForm.controls['emailAddress'].errors.required">
+                          This field is required.
+                        </div>
+                        <div *ngIf="branchProfileForm.controls.emailAddress.errors.email || branchProfileForm.controls.emailAddress.errors.pattern ">
+                          Invalid email id.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Contact Number</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                      <div class="form-group has-error has-danger ">
+                        <input  autocomplete="off" class="form-control" mask="0000000000" formControlName="contactNumber" autocomplete="doNotAutoComplete" >
+                        </div>
+                        <div
+                        *ngIf="branchProfileForm.controls['contactNumber'].invalid && (branchProfileForm.controls['contactNumber'].dirty || branchProfileForm.controls['contactNumber'].touched)"
+                        class="error-msg">
+                        <div *ngIf="branchProfileForm.controls['contactNumber'].errors.required">
+                          This field is required.
+                        </div>
+                        <div *ngIf="branchProfileForm.controls['contactNumber'].length!=10 && !branchProfileForm.controls['contactNumber'].errors.required">
+                          Minimum 10 numbers required.
+                        </div>
+                      </div>
+                    <!-- <div class="form-group has-error has-danger ">
+                      <div><a href="#" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm"><i
+                            class="fas fa-key fa-sm text-white-50"></i> Change Password</a></div>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Address</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <input class="form-control" formControlName="address" [patterns]="addressPatterns" [dropSpecialCharacters]="false"
+                        mask="A*" autocomplete="doNotAutoComplete"/>
+                        <div
+                        *ngIf="branchProfileForm.controls['address'].invalid && (branchProfileForm.controls['address'].dirty || branchProfileForm.controls['address'].touched)"
+                        class="error-msg">
+                        <div *ngIf="branchProfileForm.controls['address'].errors.required">
+                          This field is required.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">City</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <input class="form-control" formControlName="city" [patterns]="customPatterns" [dropSpecialCharacters]="false"
+                        mask="A*" autocomplete="doNotAutoComplete"/>
+                        <div
+                        *ngIf="branchProfileForm.controls['city'].invalid && (branchProfileForm.controls['city'].dirty || branchProfileForm.controls['city'].touched)"
+                        class="error-msg">
+                        <div *ngIf="branchProfileForm.controls['city'].errors.required">
+                          This field is required.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">State</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <input class="form-control" formControlName="state" autocomplete="doNotAutoComplete"/>
+                        <div
+                        *ngIf="branchProfileForm.controls['state'].invalid && (branchProfileForm.controls['state'].dirty || branchProfileForm.controls['state'].touched)"
+                        class="error-msg">
+                        <div *ngIf="branchProfileForm.controls['state'].errors.required">
+                          This field is required.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Pincode</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <input class="form-control" formControlName="pincode" mask="000000"  autocomplete="doNotAutoComplete"/>
+                        <div
+                        *ngIf="branchProfileForm.controls['pincode'].invalid && (branchProfileForm.controls['pincode'].dirty || branchProfileForm.controls['pincode'].touched)"
+                        class="error-msg">
+                        <div *ngIf="branchProfileForm.controls['pincode'].errors.required">
+                          This field is required.
+                        </div>
+                        <div *ngIf="branchProfileForm.controls.pincode.length !=6 && !branchProfileForm.controls['pincode'].errors.required">
+                            Minimum 6 characters required.
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Village:</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                      <div>-</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">District:</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                      <div>-</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">City:</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <input class="form-control" formControlName="city"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">State:</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <input class="form-control" formControlName="state"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <div class="row">
+              <!-- <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Pin Code:</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <input class="form-control" formControlName="pincode"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Change Password:</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                      <div class="form-group has-error has-danger ">
+                          <input class="form-control" formControlName="password"/>
+                        </div> -->
+                    <!-- <div class="form-group has-error has-danger ">
+                      <div><a href="#" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm"><i
+                            class="fas fa-key fa-sm text-white-50"></i> Change Password</a></div>
+                    </div> -->
+                  <!-- </div>
+                </div>
+              </div> -->
+              <div class="col-md-12 text-right">
+                <div class="form-group has-error has-danger ">
+                  <button class="d-sm-inline-block btn btn-md btn-secondary shadow-sm mr-2" (click)="cancel()">Cancel</button>
+                  <button class="d-sm-inline-block btn btn-md btn-success shadow-sm" (click)="updateBranchProfile()"
+                  [disabled]="branchProfileForm.invalid">Save</button>
+                </div>
+              </div>
+            </div>
+            </form>
+          </div>
+        </div>
+    </div>
+    
+  </div>
+</div>

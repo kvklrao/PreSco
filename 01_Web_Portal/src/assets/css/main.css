@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600|Yeseva+One&display=swap');
+
+
+
+
+body{
+  font-family: 'Open Sans', sans-serif;
+    background-color: #f7f9f9;
+  height: 100% !important;
+}
+ .navbar {
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
+}
+
+ul li{
+    list-style-type: none;
+}
+
+
+/*Custom Classes*/
+
+.logo-type{
+    font-family: 'Yeseva One', cursive;
+}
+
+.text-orange{
+    color: #f26122!important
+}
+
+/*Text Grey*/
+
+.text-grey-200{
+    color: #777777!important;
+}
+
+.text-grey-300{
+    color: #595959!important;
+}
+
+
+
+
+/*Top Action Buttons*/
+
+
+.btn-download{
+  border-radius: 3px;
+  background-color: rgb(20, 70, 160);
+  padding: 7px 16px;
+}
+
+.btn-logout{
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, .10);
+  border-style: solid;
+  border-radius: 2px;
+  padding: 7px 16px;
+  color: #5a5a5a;
+}
+
+
+/*HERO SECTION CSS*/
+.hero {
+  background-image: -moz-linear-gradient( -15deg, rgb(26,89,167) 0%, rgb(41,210,160) 100%);
+  background-image: -webkit-linear-gradient( -15deg, rgb(26,89,167) 0%, rgb(41,210,160) 100%);
+  background-image: -ms-linear-gradient( -15deg, rgb(26,89,167) 0%, rgb(41,210,160) 100%);
+  padding: 50px 0;
+}
+
+.search .input-icon{
+    z-index: 99;
+    top: 12px;
+    left: 30px;
+}
+
+.search input{
+  border-width: 1px;
+  border-color: rgb(20, 70, 160);
+  border-style: solid;
+  border-radius: 3px;
+  background-color: rgb(247, 249, 249);
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.16);
+  padding: 14px 40px;
+  height: 50px;
+}
+
+.search .search-button{
+    position: absolute;
+    right: 16px;
+    padding: 12px 40px;
+    background-color: #1446a0;
+    color: #fff;
+    border: none;
+    border-radius: 0px;
+}
+ 
+
+.hero .btn-score {
+  border-radius: 3px;
+  background-color: #AB87FF !important;
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.16);
+}
+
+
+
+/*SIDEBAR CSS*/
+.neonatal-data{}
+.neonatal-data .card{
+  border-radius: 3px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.2);
+  border-top: 4px solid #ab87ff;
+}
+.neonatal-data .card .card-header{
+  background: transparent;
+  border: none;
+}
+.neonatal-data .card .card-title{
+  font-size: 20px;
+  font-family: "Calibri";
+  color: rgb(171, 135, 255);
+  font-weight: bold !important;
+  text-align: left;
+}
+.neonatal-data .card .card-btn, .neonatal-data .card .card-btn i{
+  line-height: 0;
+}
+.neonatal-data .card hr{
+  margin-left: -31.5px;
+  margin-right: -31.5px;
+    
+}
+
+.neonatal-data .factors-list li{
+ padding: 13px 20px   ;
+ background-color: transparent;
+ border-left: 4px solid transparent;
+ transition: .5s ease-in-out;
+}
+
+.neonatal-data .factors-list li:hover {
+ background-color: #eaecec;
+ border-left: 4px solid #57bb82;
+}
+
+.neonatal-data .factors-list li.active{
+ background-color: #eaecec;
+ border-left: 4px solid #57bb82;
+}
+
+.neonatal-data .factors-list li.active a{
+    color: #000 !important;
+}
+.neonatal-data .factors-list li a{
+    color: #5a5a5a !important;
+}
+
+.tb-label{
+  font-size: 15px;
+  color: #212529;
+}
+.tb-value{
+	font-weight: bold;
+    font-size: 15px;
+    color: #00abad;
+}
+ 
+
+.btn-create{
+    border-radius: 3px;
+  background-color: rgb(241, 115, 0)!important;
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.16)!important;
+}
+
+.mt-60{margin-top:60px;}
+.mt-160{margin-top:160px;}
+
+.ml-10{margin-left:10px;}
+.ml-20{margin-left:20px;}
+.ml-30{margin-left:30px;}
+.ml-40{margin-left:40px;}
+.ml-50{margin-left:50px;}
+
+.mr-10{margin-right:10px;}
+.mr-20{margin-right:20px;}
+.mr-30{margin-right:30px;}
+.mr-40{margin-right:40px;}
+.mr-50{margin-right:50px;}
+
+footer{background:#1a499d; position:fixed; bottom:0px; width:100%; z-index: 1;}
+
+.text-bold{font-weight: bold;}
+
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: right;
+}
+
+div.dataTables_wrapper div.dataTables_filter label {
+    font-weight: normal;
+    white-space: nowrap;
+    text-align: left;
+}
+
+div.dataTables_wrapper div.dataTables_filter input {
+    margin-left: 0.5em;
+    display: inline-block;
+    width: auto;
+}
+
+div.dataTables_wrapper div.dataTables_length label {
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+}
+
+div.dataTables_wrapper div.dataTables_length select {
+    width: auto;
+    display: inline-block;
+}
+
+.shadow-lg2{
+	-webkit-box-shadow: 0px 12px 13px 2px rgba(0,0,0,0.19)!important;
+-moz-box-shadow: 0px 12px 13px 2px rgba(0,0,0,0.19)!important;
+box-shadow: 0px 12px 13px 2px rgba(0,0,0,0.19)!important;
+}
+ 
+.active{
+	border-top: 2px solid #1cc88a;
+}
+
+
+
+
+
+
+ 

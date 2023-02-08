@@ -1,0 +1,468 @@
+<div class="container-fluid">
+
+
+  <!-- Page Heading -->
+  <div class="mt-160">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h4 class="h4 mb-0 text-gray-800"> <i class="fas fa-fw fa-hospital text-primary mr-2"></i>Profile</h4>
+    </div>
+  </div>
+
+  <!-- Content Row -->
+  <div class="row">
+
+    <div class="col-xl-12 col-md-12 mb-4">
+      <div class="card shadow mb-4" *ngIf="!isEdit">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Hospital Information</h6>
+        </div>
+        <div class="card-body" *ngIf="myProfile?.length>0">
+          <!-- <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Hospital ID:</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{myProfile[0].hospital_id}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">User Name:</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{this.myProfile[0].user_name}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Hospital Name</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{this.myProfile[0].hospital_name}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Email</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                      <div>{{this.myProfile[0].email_address}}</div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">User Name</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{this.myProfile[0].user_name}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Password</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <div>{{this.myProfile[0].password | passwordEcryptPipe}}</div>
+                      </div>
+                  <!-- <div class="form-group has-error has-danger ">
+                    <div><a href="#" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm"><i
+                          class="fas fa-key fa-sm text-white-50"></i> Change Password</a></div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Village:</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>-</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">District:</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>-</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <!-- <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">City:</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{this.myProfile[0].city}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">State:</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{this.myProfile[0].state}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <div class="row">
+            <!-- <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Pin Code:</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{this.myProfile[0].pincode}}</div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Change Password:</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <div>{{this.myProfile[0].password}}</div>
+                      </div> -->
+                  <!-- <div class="form-group has-error has-danger ">
+                    <div><a href="#" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm"><i
+                          class="fas fa-key fa-sm text-white-50"></i> Change Password</a></div>
+                  </div> -->
+                <!-- </div>
+              </div>
+            </div> -->
+            <div class="col-md-12 text-right">
+              <div class="form-group has-error has-danger ">
+                <button class="d-sm-inline-block btn btn-md btn-secondary shadow-sm" (click)="updateForm(this.myProfile[0])">Edit</button>
+                <!-- <a href="#" class="d-none d-sm-inline-block btn btn-md btn-success shadow-sm">Save</a> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow mb-4" *ngIf="isEdit">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Hospital Information</h6>
+          </div>
+          <div class="card-body" *ngIf="myProfile?.length>0">
+            <form [formGroup]="myProfileForm" (ngSubmit)="f.form.valid"
+            #f="ngForm" novalidate>
+            <!-- <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Hospital ID:</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                      <input class="form-control" formControlName="hospital_id"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">User Name:</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <input class="form-control" formControlName="user_name"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Hospital Name</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <input class="form-control" formControlName="hospital_name" [patterns]="onlyCharWithSpace" [dropSpecialCharacters]="false" mask="S*"/>
+                        <div
+                        *ngIf="myProfileForm.controls['hospital_name'].invalid && (myProfileForm.controls['hospital_name'].dirty || myProfileForm.controls['hospital_name'].touched)"
+                        class="error-msg">
+                        <div *ngIf="myProfileForm.controls['hospital_name'].errors.required">
+                          This field is required.
+                        </div>
+                        <div *ngIf="myProfileForm.controls.hospital_name.errors.maxlength">
+                          Hospital name cannot have more than 20 characters 
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Email</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <input class="form-control" formControlName="email_address"/>
+                        <div
+                        *ngIf="myProfileForm.controls['email_address'].invalid && (myProfileForm.controls['email_address'].dirty || myProfileForm.controls['email_address'].touched)"
+                        class="error-msg">
+                        <div *ngIf="myProfileForm.controls['email_address'].errors.required">
+                          This field is required.
+                        </div>
+                        <div *ngIf="myProfileForm.controls.email_address.errors.email || myProfileForm.controls.email_address.errors.pattern">
+                          Invalid email address
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">User Name</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <input class="form-control" formControlName="user_name"  [patterns]="customPatterns" [dropSpecialCharacters]="false"
+                        mask="A*"/>
+                        <div
+                        *ngIf="myProfileForm.controls['user_name'].invalid && (myProfileForm.controls['user_name'].dirty || myProfileForm.controls['user_name'].touched)"
+                        class="error-msg">
+                        <div *ngIf="myProfileForm.controls['user_name'].errors.required">
+                          This field is required.
+                        </div>
+                        <div *ngIf="myProfileForm.controls.user_name.errors.minlength">
+                          Minimum 6 characters required.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Password</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                      <div class="form-group has-error has-danger ">
+                        <input type="{{password}}" autocomplete="off" class="form-control" formControlName="password"
+                        name="login" placeholder="Password">
+                      <i class="{{password_class}} field-icon password-icon" aria-hidden=true (click)="show_password()"></i>
+                        </div>
+                        <div
+                        *ngIf="myProfileForm.controls['password'].invalid && (myProfileForm.controls['password'].dirty || myProfileForm.controls['password'].touched)"
+                        class="error-msg">
+                        <div *ngIf="myProfileForm.controls['password'].errors.required">
+                          This field is required.
+                        </div>
+                        <div *ngIf="myProfileForm.controls.password.errors.minlength">
+                          Minimum 6 characters required.
+                        </div>
+                      </div>
+                    <!-- <div class="form-group has-error has-danger ">
+                      <div><a href="#" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm"><i
+                            class="fas fa-key fa-sm text-white-50"></i> Change Password</a></div>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Village:</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                      <div>-</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">District:</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                      <div>-</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">City:</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <input class="form-control" formControlName="city"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">State:</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <input class="form-control" formControlName="state"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <div class="row">
+              <!-- <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Pin Code:</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <input class="form-control" formControlName="pincode"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Change Password:</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                      <div class="form-group has-error has-danger ">
+                          <input class="form-control" formControlName="password"/>
+                        </div> -->
+                    <!-- <div class="form-group has-error has-danger ">
+                      <div><a href="#" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm"><i
+                            class="fas fa-key fa-sm text-white-50"></i> Change Password</a></div>
+                    </div> -->
+                  <!-- </div>
+                </div>
+              </div> -->
+              <div class="col-md-12 text-right">
+                <div class="form-group has-error has-danger ">
+                  <button class="d-sm-inline-block btn btn-md btn-secondary shadow-sm mr-2" (click)="cancel()">Cancel</button>
+                  <button class="d-sm-inline-block btn btn-md btn-success shadow-sm" (click)="updateProfile()"
+                  [disabled]="myProfileForm.invalid">Save</button>
+                </div>
+              </div>
+            </div>
+            </form>
+          </div>
+        </div>
+    </div>
+    
+  </div>
+</div>

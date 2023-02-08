@@ -1,0 +1,219 @@
+<div class="signup-screen">
+  <!-- As a link -->
+  <nav class="navbar shadow-sm bg-white p-0">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <a class="navbar-brand" href="#">
+            <img src="assets/svgs/avyantra-logo.svg" height="62" alt="avyantra" class="w-75 py-2">
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!--  Form-->
+  <div class="form-wrapper">
+    <div class="container my-5">
+      <div class="row justify-content-center">
+        <div class="col-sm-12 col-md-12 col-lg-6">
+          <div class="card-pocket card py-5 rounded-0">
+            <div class="presco text-center p-3">
+              <h1 class="text-orange logo-type">PreSco</h1>
+              <h5 class="text-grey-300"> Neonatal Sepsis Prediction Platform </h5>
+            </div>
+
+            <!-- signup Form -->
+            <form [formGroup]="signupReferralForm" (ngSubmit)="signup()" novalidate>
+              <div class="signup-form w-75 mx-auto">
+                <div class="form-group position-relative">
+                  <input type="text" autocomplete="off" id="firstName" class="form-control"
+                    formControlName="firstName" [patterns]="namePatters"
+                    [dropSpecialCharacters]="false" mask="S*" placeholder="First Name*"  autocomplete="doNotAutoComplete">
+                    <div
+                    *ngIf="signupReferralForm.controls['firstName'].invalid && (signupReferralForm.controls['firstName'].dirty || signupReferralForm.controls['firstName'].touched || submitted)"
+                    class="error-msg">
+                    <div *ngIf="signupReferralForm.controls['firstName'].errors.required">
+                      This field is required.
+                    </div>
+                    <div *ngIf="signupReferralForm.controls.firstName.errors.maxlength">
+                      First name can have only 15 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group position-relative">
+                  <input type="text"  id="lastName" class="form-control"
+                    formControlName="lastName" [patterns]="namePatters" [dropSpecialCharacters]="false" mask="S*" placeholder="Last Name*"  autocomplete="doNotAutoComplete">
+                    <div
+                    *ngIf="signupReferralForm.controls['lastName'].invalid && (signupReferralForm.controls['lastName'].dirty || signupReferralForm.controls['lastName'].touched || submitted)"
+                    class="error-msg">
+                    <div *ngIf="signupReferralForm.controls['lastName'].errors.required">
+                      This field is required.
+                    </div>
+                    <div *ngIf="signupReferralForm.controls.lastName.errors.maxlength">
+                      Last name can have only 15 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group position-relative">
+                  <input type="text" autocomplete="off" id="contactNumber" class="form-control"
+                    formControlName="contactNumber" mask="0000000000" placeholder="Contact Number*"  autocomplete="doNotAutoComplete">
+                    <div
+                      *ngIf="signupReferralForm.controls['contactNumber'].invalid && (signupReferralForm.controls['contactNumber'].dirty || signupReferralForm.controls['contactNumber'].touched || submitted)"
+                      class="error-msg">
+                      <div *ngIf="signupReferralForm.controls['contactNumber'].errors.required">
+                        This field is required.
+                      </div>
+                      <div *ngIf="signupReferralForm.controls.contactNumber.errors.minlength">
+                        Contact number should be 10 digits
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group position-relative">
+                  <input type="text" autocomplete="off" class="form-control" formControlName="email" placeholder="Email*"  autocomplete="doNotAutoComplete">
+                    <div
+                    *ngIf="signupReferralForm.controls['email'].invalid && (signupReferralForm.controls['email'].dirty || signupReferralForm.controls['email'].touched || submitted)"
+                    class="error-msg">
+                    <div *ngIf="signupReferralForm.controls['email'].errors.required">
+                      This field is required.
+                    </div>
+                    <div
+                      *ngIf="signupReferralForm.controls.email.errors.email || signupReferralForm.controls.email.errors.pattern">
+                      Invalid email address
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group position-relative">
+                  <select class="form-control" style="padding: 0px 28px 1px;" formControlName="speciality" >
+                      <option hidden [ngValue]="null">Speciality*</option>
+                    <option *ngFor="let list of specialityList" [value]="list.speciality_id">
+                      {{list.speciality}}
+                    </option>
+                  </select>
+                  <div *ngIf="signupReferralForm.controls['speciality'].invalid && (signupReferralForm.controls['speciality'].dirty ||
+                  signupReferralForm.controls['speciality'].touched || submitted)" class="error-msg text-left">
+                    <div *ngIf="signupReferralForm.controls['speciality'].errors.required">
+                      Required Field.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group position-relative">
+                  <input type="text" autocomplete="off" id="address" class="form-control"
+                    formControlName="address" [patterns]="customPatterns" mask="S*" placeholder="Address*"  autocomplete="doNotAutoComplete">
+                    <div
+                    *ngIf="signupReferralForm.controls['address'].invalid && (signupReferralForm.controls['address'].dirty || signupReferralForm.controls['address'].touched || submitted)"
+                    class="error-msg">
+                    <div *ngIf="signupReferralForm.controls['address'].errors.required">
+                      This field is required.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group position-relative">
+                  <input type="text" autocomplete="off" id="city" class="form-control"
+                    formControlName="city" [patterns]="namePatters" mask="S*" placeholder="City*"  autocomplete="doNotAutoComplete">
+                    <div
+                    *ngIf="signupReferralForm.controls['city'].invalid && (signupReferralForm.controls['city'].dirty || signupReferralForm.controls['city'].touched || submitted)"
+                    class="error-msg">
+                    <div *ngIf="signupReferralForm.controls['city'].errors.required">
+                      This field is required.
+                    </div>
+                    <div *ngIf="signupReferralForm.controls.city.errors.maxlength">
+                      City should not be more than 32 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group position-relative">
+                  <input type="text" autocomplete="off" id="state" class="form-control"
+                    formControlName="state"  [patterns]="namePatters" mask="S*" placeholder="State*"  autocomplete="doNotAutoComplete">
+                    <div
+                    *ngIf="signupReferralForm.controls['state'].invalid && (signupReferralForm.controls['state'].dirty || signupReferralForm.controls['state'].touched || submitted)"
+                    class="error-msg">
+                    <div *ngIf="signupReferralForm.controls['state'].errors.required">
+                      This field is required.
+                    </div>
+                    <div *ngIf="signupReferralForm.controls.state.errors.maxlength">
+                      State should not be more than 32 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group position-relative">
+                  <input type="text" autocomplete="off" id="pincode" class="form-control"
+                    formControlName="pincode" mask="000000" placeholder="Pincode"  autocomplete="doNotAutoComplete">
+                    <div
+                    *ngIf="signupReferralForm.controls['pincode'].invalid && (signupReferralForm.controls['pincode'].dirty || signupReferralForm.controls['pincode'].touched || submitted)"
+                    class="error-msg">
+                    <div *ngIf="signupReferralForm.controls.pincode.errors.minlength">
+                      Minimum 6 digits required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group position-relative">
+                  <input type="text" autocomplete="off" id="userName" class="form-control"
+                    formControlName="userName" [patterns]="customPatterns" mask="S*" placeholder="User Name*"  autocomplete="doNotAutoComplete" [dropSpecialCharacters]="false" >
+                    <div *ngIf="signupReferralForm.controls['userName'].invalid && (signupReferralForm.controls['userName'].dirty ||
+                      signupReferralForm.controls['userName'].touched || submitted)" class="error-msg text-left">
+                    <div *ngIf="signupReferralForm.controls['userName'].errors.required">
+                      Required Field.
+                    </div>
+                    <div *ngIf="signupReferralForm.controls['userName'].hasError('minlength') && signupReferralForm.controls['userName'].touched">
+                        Minimum 6 characters required.</div>
+                  </div>
+                </div>
+
+                <div class="form-group position-relative">
+                  <input type="text" autocomplete="off" class="form-control"
+                    formControlName="password" [patterns]="customPatterns" mask="S*" placeholder="Password*" >
+                  <div *ngIf="signupReferralForm.controls['password'].invalid && (signupReferralForm.controls['password'].dirty ||
+                  signupReferralForm.controls['password'].touched || submitted)" class="error-msg text-left">
+                    <div *ngIf="signupReferralForm.controls['password'].errors.required">
+                      Required Field.
+                    </div>
+                    <div *ngIf="signupReferralForm.controls['password'].errors.minlength">
+                      Minimum 6 digits required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group mt-4">
+                  <input type="submit" class="btn btn-primary btn-lg btn-block" value="Sign Up">
+                </div>
+                <div class="form-group mt-5">
+                  <button type="button" class="btn btn-outline btn-block" (click)="login()"> Have Account?
+                    Login</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <img src="assets/svgs/card-curve.svg" alt="" class="img-fluid curve-white">
+          <img src="assets/svgs/card-curve-shadow.svg" alt="" class="img-fluid curve-shadow">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-white text-center p-2">
+    <small class="text-grey-200"> Copyright © 2019-2020 Avyantra Health Technologies. All Rights Reserved</small>
+  </footer>
+
+</div>
+
+<!-- "firstName": "Prateek",
+"lastName": "verma",
+"userName": "Prateek141",
+"contactNumber": 9669438120,
+"email": "prateek@yahoo.in",
+"address": "indore",
+"city":"inodre",
+"state":"M.P",
+"pincode":"455001",
+"password":"prateek",
+"speciality":"doctor" -->

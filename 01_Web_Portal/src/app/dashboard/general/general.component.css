@@ -1,0 +1,84 @@
+.brdr-bottom {
+  border-bottom: 1px solid #e4e1e1;
+  margin: 10px 0;
+}
+
+/* .edit-btn {
+    background: #fff;
+    border: 1px solid #007bff;
+    color: #007bff!important;
+    line-height: 0px!important;
+    padding: 0!important;
+} */
+
+.card {
+  border: none !important;
+}
+
+.scroll {
+  overflow-y: scroll;
+  height: 480px;
+}
+
+/* For Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+/* Webkit browsers like Safari and Chrome */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#date_inpt_picker {
+  display: none !important;
+
+}
+
+#scrollable {
+
+  border-radius: 3px;
+  color: #333;
+  height: 250px;
+  padding: 16px 8px 16px 16px;
+  height: 450px;
+}
+
+.example-viewport {
+  height: 500px !important;
+  width: 100%;
+  border-radius: 3px !important;
+  color: #333 !important;
+}
+
+.example-item {
+  height: 500px !important;
+}
+
+.search-results {
+  height: 500px;
+  overflow-y: scroll;
+}
+
+.disabledDiv {
+  pointer-events: none;
+  background-color: #e9ecef;
+  color: #e9ecef;
+  opacity: 1;
+}
+
+.abc {
+  display: block;
+  width: 100%;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}

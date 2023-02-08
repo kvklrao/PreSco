@@ -1,0 +1,133 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="mt-160">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h4 class="h4 mb-0 text-gray-800"> <i class="fas fa-fw fa-mail-bulk text-primary mr-2"></i>Manage Messages</h4>
+    </div>
+  </div>
+  <!-- Content Row -->
+  <div class="row">
+    <div class="col-xl-12 col-md-12 mb-4">
+      <div class="card shadow mb-4">
+        	<div class="card-header py-3">
+              <div class="row">
+                <div class="col-sm-8">
+                  <h6 class="m-0 font-weight-bold text-primary">Messages</h6>
+                </div>
+                <div class="col-sm-4 text-right">
+                  <button class="d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                    (click)="refreshData()" [disabled]="noUserSelected"> Refresh</button>
+                </div>
+              </div>
+            </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="messaging">
+                <div class="inbox_msg">
+                  <div class="inbox_people">
+                    <div>
+                      <select id="form_need" name="need" class="form-control rounded-0" required="required"
+                        data-error="Please specify your need." (change)="getUsers($event)">
+                        <!-- <option value="">Please Select</option> -->
+                        <option *ngFor="let list of dropDownList" [value]="list.value" [selected]="list.value==selectedUserDropDown">{{list.name}}</option>
+                      </select>
+                    </div>
+                    <div class="headind_srch">
+                      <div class="recent_heading">
+                         <h5>Recent</h5>
+                      </div>
+                      <div class="srch_bar">
+                         <div class="stylish-input-group">
+                            <input type="text" class="search-bar"  placeholder="Search" [(ngModel)]="searchText" >
+                            <span class="input-group-addon">
+                            <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                            </span> 
+                         </div>
+                      </div>
+                   </div>
+                   <div class="inbox_chat menu-links">
+                      <cdk-virtual-scroll-viewport  style="height: 500px" itemSize="90" >
+                      <div class="chat_list"*cdkVirtualFor="let list of participantList | filter:searchText; let i=index" [ngClass]="{'active_chat': selectedItem===list.user_id}">
+                         <div class="chat_people" (click)="getUserMessages(list.user_id,list.is_read,i)">
+                            <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                            <div class="chat_ib" >
+                               <h5>{{list.name}} <span class="chat_date">{{list.contact_number}}</span></h5>
+                            </div>
+                            <i *ngIf="list.is_read==0"class="fas fa-comments float-right"></i>
+                         </div>
+                      </div>
+                      </cdk-virtual-scroll-viewport>
+                   </div>
+                  </div>
+                  <!-- <div class="inbox_people2">
+                    <div class="inbox_chat2">
+
+                      <div class="chat_list">
+                        <div class="chat_people">
+                          <div class="chat_img"> <img src="https://static.thenounproject.com/png/23420-200.png"
+                              alt="sunil"> </div>
+                          <div class="chat_ib">
+                            <h5>Dr. Ankita Sharma</h5>
+                            <p>P45874</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="chat_list active_chat">
+                        <div class="chat_people">
+                          <div class="chat_img"> <img src="https://png.pngtree.com/svg/20160504/8b1934e19d.png"
+                              alt="sunil"> </div>
+                          <div class="chat_ib">
+                            <h5>Aarti Gupta</h5>
+                            <p>P45214</p>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div> -->
+                  <div class="mesgs"  >
+                    <div   class="msg_history" [ngStyle]="setMsgContStyle()"  #container>
+                      <div *ngFor="let list of msgsList">
+                        <div class="incoming_msg" style="margin: 0px 0 24px;" *ngIf="!list['isSender']">
+                            <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png"
+                                alt="sunil"> </div>
+                            <div class="received_msg">
+                              <div class="received_withd_msg">
+                                <p style="white-space: pre-line">{{list['message']}}
+                                </p>
+                                <span class="time_date"> {{list['createdAt'] | date :'hh:mm a | MMM dd'}}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="outgoing_msg" *ngIf="list['isSender']">
+                            <div class="sent_msg">
+                              <p style="white-space: pre-line">{{list['message']}}
+                              </p>
+                              <span class="time_date">{{list['createdAt'] | date :'hh:mm a | MMM dd'}}</span>
+                            </div>
+                          </div>
+                        </div>
+                        {{scrollBottom()}}
+                    </div>
+            
+                    <div class="msg_history"  *ngIf="msgsList?.length == 0">
+                        <span>No Chat Found!!</span>
+                    </div>
+                    <div class="type_msg" *ngIf="recieverSelected">
+                      <div class="input_msg_write">
+                        <textarea rows="3" class="write_msg_area" placeholder="Type a message" [(ngModel)]="textMessage" ></textarea>
+                        <button  class="msg_send_btn" type="button" (click)="sendMessage()"><i class="fas fa-paper-plane fa-sm"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

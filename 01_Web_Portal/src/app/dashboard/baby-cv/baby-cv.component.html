@@ -1,0 +1,496 @@
+<div class="">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="container">
+      <!-- <button class="btn create-btn mr-2 mt-0 text-white" (click)="open(content,{})"><i class="fas fa-plus-circle"></i>
+        Create New Reading </button> -->
+        <div class="row">
+          <div class="col-md-4">
+          </div>
+          <div class="col-md-4">
+            <h5 *ngIf="readingDataService.reading" class="text-center">Reading: {{readingDataService.reading}} </h5>
+          </div>
+          <div class="col-md-4">
+            <div class="float-right" *ngIf="getMedicalRecordNumber">
+              <h5 class="mb-0"> BMRN: {{getMedicalRecordNumber}}</h5>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <ng-container *ngIf="responseArray?.length>0">
+      <div class="form-css scroll" *ngIf="!isBabyCvEdit">
+        <div class="row">
+          <div class="col-md-12 col-sm col-lg-12">
+            <div class="card ml-2">
+              <div class="card-body div-shadow">
+                <h5 class="">
+                  {{responseArray[0]['createdAt'] | date:'dd MMMM yyyy, h:mm a' || 'Loading...'}}
+                  <button class="btn edit-btn float-right">
+                    <mat-icon (click)="open(content ,responseArray[0])">edit</mat-icon>
+                  </button>
+                </h5>
+
+                <div class="row">
+                  <div class="col-12 col-lg-6">
+                    <div class="table-responsive p-3">
+                      <table class="table  table-borderless mb-0">
+                        <tbody>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Heart Rate</td>
+                            <td class="tb-value text-right">{{responseArray[0]['heart_rate']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Urine Output</td>
+                            <td class="tb-value text-right">{{responseArray[0]['urine_output']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">BP (Systolic)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['baby_blood_pressure_mean_arterial_bp']}}
+                            </td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">BP (Diastoilic)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['baby_blood_pressure_upper_limb']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">BP (Mean)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['baby_blood_pressure_lower_limb']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Capillary Refill</td>
+                            <td class="tb-value text-right">{{responseArray[0]['capillary_refill_unit']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Low Peripheral Pulse Volume</td>
+                            <td class="tb-value text-right">{{responseArray[0]['low_peripheral_pulse_volume']}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-lg-6">
+                    <div class="table-responsive p-3">
+                      <table class="table  table-borderless mb-0">
+                        <tbody>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Cool Peripheries</td>
+                            <td class="tb-value text-right">{{responseArray[0]['cool_peripheries']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">2D Echo (Done)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['two_d_echo_done']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">2D Echo Result (If Yes)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['two_d_echo_done_if_yes']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Ionotropes</td>
+                            <td class="tb-value text-right">{{responseArray[0]['baby_on_ionotropes']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Central Lines</td>
+                            <td class="tb-value text-right">{{responseArray[0]['central_line']}}</td>
+                          </tr>
+                          <!-- <tr class="border-bottom">
+                            <td class="tb-label">Skin Pustules (> 5)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['skin_pustules']}}</td>
+                          </tr> -->
+                          <tr class="border-bottom">
+                            <td class="tb-label">Infusion of Blood Products</td>
+                            <td class="tb-value text-right">{{responseArray[0]['infusion_of_blood_products']}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="m-3 div-shadow" *ngIf="responseArray?.length<1 || isBabyCvEdit">
+      <form [formGroup]="babyCvForm" class="form-css card" (ngSubmit)="babyCVFormSubmit()" novalidate>
+        <div class="modal-header custom-modal-header add-btn">
+          <!-- <button type="submit" class="btn btn-primary">
+            <span>Save</span>
+          </button> -->
+          <div class="custom-modal-title">BABY CARDIO VASCULAR FUNCTION</div>
+
+        </div>
+        <div class="modal-body scroll">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="record_type">Record Id</label>
+                <input type="text" readonly [value]="id" class="form-control" name="" id="">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="heart_rate">Heart Rate</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isHeartRate"
+                        (click)="onInputChange($event)" value="1" name="heart_rate">Rate
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isHeartRate"
+                        (click)="onInputChange($event)" value="2" name="heart_rate">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isHeartRate" [dropSpecialCharacters]="false" mask="999"
+                    class="form-control" id="heart_rate" formControlName="heart_rate" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isHeartRate">
+                    <span class="input-group-text">(beats/Min)</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.isHeartRate" class="form-control">
+                </div>
+                <div *ngIf="babyCvForm.controls['heart_rate'].invalid && (babyCvForm.controls['heart_rate'].dirty ||
+                babyCvForm.controls['heart_rate'].touched || submitted)" class="error-msg">
+                  <div *ngIf="babyCvForm.controls['heart_rate'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="urine_output">Urine Output</label>
+                <select class="form-control" name="urine_output" id="urine_output" formControlName="urine_output">
+                  <option value="Low">Low</option>
+                  <option value="High">High</option>
+                  <option value="Normal">Normal</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyCvForm.controls['urine_output'].invalid && (babyCvForm.controls['urine_output'].dirty ||
+                  babyCvForm.controls['urine_output'].touched || submitted)" class="error-msg">
+                  <div *ngIf="babyCvForm.controls['urine_output'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="baby_blood_pressure_mean_arterial_bp">BP (Systolic)</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isBpArterial"
+                        (click)="onInputChange($event)" value="1" name="Arterial_BP">Value
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isBpArterial"
+                        (click)="onInputChange($event)" value="2" name="Arterial_BP">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isBpArterial" class="form-control"
+                    id="baby_blood_pressure_mean_arterial_bp" [dropSpecialCharacters]="false" mask="99"
+                    formControlName="baby_blood_pressure_mean_arterial_bp" autocomplete="off">
+                  <input type="text" value="NA" readonly *ngIf="!this.isBpArterial" class="form-control">
+                </div>
+                <div *ngIf="babyCvForm.controls['baby_blood_pressure_mean_arterial_bp'].invalid &&
+                  (babyCvForm.controls['baby_blood_pressure_mean_arterial_bp'].dirty ||
+                  babyCvForm.controls['baby_blood_pressure_mean_arterial_bp'].touched || submitted)" class="error-msg">
+                  <div *ngIf="babyCvForm.controls['baby_blood_pressure_mean_arterial_bp'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="baby_blood_pressure_upper_limb"> BP (Diastoilic)</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isUpperLimb"
+                        (click)="onInputChange($event)" value="1" name="upper_limb">Value
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isUpperLimb"
+                        (click)="onInputChange($event)" value="2" name="upper_limb">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isUpperLimb" [dropSpecialCharacters]="false" mask="99"
+                    class="form-control" id="baby_blood_pressure_upper_limb"
+                    formControlName="baby_blood_pressure_upper_limb" min="0" autocomplete="off">
+                  <input type="text" value="NA" readonly *ngIf="!this.isUpperLimb" class="form-control">
+                </div>
+                <div *ngIf="babyCvForm.controls['baby_blood_pressure_upper_limb'].invalid &&
+                  (babyCvForm.controls['baby_blood_pressure_upper_limb'].dirty ||
+                  babyCvForm.controls['baby_blood_pressure_upper_limb'].touched || submitted)" class="error-msg">
+                  <div *ngIf="babyCvForm.controls['baby_blood_pressure_upper_limb'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="baby_blood_pressure_lower_limb">BP (Mean)</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isLowerLimb"
+                        (click)="onInputChange($event)" value="1" name="lower_limb">Value
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isLowerLimb"
+                        (click)="onInputChange($event)" value="2" name="lower_limb">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isLowerLimb" [dropSpecialCharacters]="false" mask="99"
+                    class="form-control" id="baby_blood_pressure_lower_limb"
+                    formControlName="baby_blood_pressure_lower_limb" autocomplete="off">
+                  <input type="text" value="NA" readonly *ngIf="!this.isLowerLimb" class="form-control">
+                </div>
+                <div *ngIf="babyCvForm.controls['baby_blood_pressure_lower_limb'].invalid &&
+                  (babyCvForm.controls['baby_blood_pressure_lower_limb'].dirty ||
+                  babyCvForm.controls['baby_blood_pressure_lower_limb'].touched || submitted)" class="error-msg">
+                  <div *ngIf="babyCvForm.controls['baby_blood_pressure_lower_limb'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="capillary_refill">Capillary Refill</label>
+                <select class="form-control" name="capillary_refill_unit" id="capillary_refill_unit"
+                  formControlName="capillary_refill_unit">
+                  <option value="> 3 Sec">> 3 Sec</option>
+                  <option value="< 3 Sec"> < 3 Sec</option>
+                  <option value="0">0</option>
+                  <option value="=3">=3</option> 
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyCvForm.controls['capillary_refill_unit'].invalid &&
+                  (babyCvForm.controls['capillary_refill_unit'].dirty ||
+                  babyCvForm.controls['capillary_refill_unit'].touched || submitted)" class="error-msg">
+                  <div *ngIf="babyCvForm.controls['capillary_refill_unit'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="low_peripheral_pulse_volume">Low Peripheral Pulse Volume</label>
+                <select class="form-control" name="low_peripheral_pulse_volume" id="low_peripheral_pulse_volume"
+                  formControlName="low_peripheral_pulse_volume">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyCvForm.controls['low_peripheral_pulse_volume'].invalid &&
+                  (babyCvForm.controls['low_peripheral_pulse_volume'].dirty ||
+                  babyCvForm.controls['low_peripheral_pulse_volume'].touched || submitted)" class="error-msg">
+                  <div *ngIf="babyCvForm.controls['low_peripheral_pulse_volume'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="cool_peripheries">Cool Peripheries</label>
+                <select class="form-control" name="cool_peripheries" id="cool_peripheries"
+                  formControlName="cool_peripheries">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyCvForm.controls['cool_peripheries'].invalid && (babyCvForm.controls['cool_peripheries'].dirty
+                  || babyCvForm.controls['cool_peripheries'].touched || submitted)" class="error-msg">
+                  <div *ngIf="babyCvForm.controls['cool_peripheries'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="two_d_echo_done">2D Echo (Done)</label>
+                <select class="form-control" name="two_d_echo_done" id="two_d_echo_done"
+                  formControlName="two_d_echo_done">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyCvForm.controls['two_d_echo_done'].invalid && (babyCvForm.controls['two_d_echo_done'].dirty
+                  || babyCvForm.controls['two_d_echo_done'].touched || submitted)" class="error-msg">
+                  <div *ngIf="babyCvForm.controls['two_d_echo_done'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="two_d_echo_done_if_yes">2D Echo Result (If Yes)</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isEchoResult"
+                        (click)="onInputChange($event)" value="1" name="echo_result">Result
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isEchoResult"
+                        (click)="onInputChange($event)" value="2" name="echo_result">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isEchoResult" [patterns]="customPatterns"
+                    [dropSpecialCharacters]="false" mask="S*" class="form-control" id="two_d_echo_done_if_yes"
+                    formControlName="two_d_echo_done_if_yes" min="0" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isEchoResult">
+                    <span class="input-group-text">Diagnosis</span>
+                  </div>
+                  <input type="text" value="NA" readonly *ngIf="!this.isEchoResult" class="form-control">
+                </div>
+                <div *ngIf="babyCvForm.controls['two_d_echo_done_if_yes'].invalid &&
+                  (babyCvForm.controls['two_d_echo_done_if_yes'].dirty ||
+                  babyCvForm.controls['two_d_echo_done_if_yes'].touched || submitted)" class="error-msg">
+                  <div *ngIf="babyCvForm.controls['two_d_echo_done_if_yes'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="baby_on_ionotropes">Ionotropes</label>
+                <select class="form-control" name="baby_on_ionotropes" id="baby_on_ionotropes"
+                  formControlName="baby_on_ionotropes">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyCvForm.controls['baby_on_ionotropes'].invalid &&
+                  (babyCvForm.controls['baby_on_ionotropes'].dirty || babyCvForm.controls['baby_on_ionotropes'].touched ||
+                  submitted)" class="error-msg">
+                  <div *ngIf="babyCvForm.controls['baby_on_ionotropes'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="central_line">Central Lines</label>
+                <select class="form-control" name="central_line" id="central_line" formControlName="central_line">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyCvForm.controls['central_line'].invalid &&
+                    (babyCvForm.controls['central_line'].dirty ||
+                    babyCvForm.controls['central_line'].touched || submitted)" class="error-msg">
+                  <div *ngIf="babyCvForm.controls['central_line'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="infusion_of_blood_products">Infusion of Blood Products</label>
+                <select class="form-control" name="infusion_of_blood_products" id="infusion_of_blood_products"
+                  formControlName="infusion_of_blood_products">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyCvForm.controls['infusion_of_blood_products'].invalid &&
+                    (babyCvForm.controls['infusion_of_blood_products'].dirty || babyCvForm.controls['infusion_of_blood_products'].touched ||
+                    submitted)" class="error-msg">
+                  <div *ngIf="babyCvForm.controls['infusion_of_blood_products'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="row">
+            <div class="col-md-6">
+              
+            </div>
+          </div> -->
+          <button type="submit" *ngIf="!isEditClicked" class="btn btn-primary float-right">
+            <span>Next</span>
+          </button>
+          <button type="button" *ngIf="isEditClicked" (click)="update_cv_form()" class="btn btn-primary float-right">
+            <span>Update</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- <div *ngIf="responseArray?.length<1 && !isBabyCvEdit">
+      <ng-container>
+        <div class="container">
+          <div class="row">
+            <div class="col-12 p-3">
+              <div class="card py-3">
+                <div class="card-body">
+                  <h5 class="card-title text-center alert alert-warning">No Record Found!!</h5>
+
+                </div>
+                <img src="assets/svgs/Instructions.png" class="card-img-top w-75 mx-auto" alt="...">
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div> -->
+    <!-- Remind Passowrd -->
+  </div>
+</div>

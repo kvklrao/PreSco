@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600|Yeseva+One&display=swap');
+
+html {
+  background-color: #56baed;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  height: 100vh;
+}
+
+.error-msg {
+  color: red
+}
+
+
+.field-icon {
+  position: absolute;
+  z-index: 2;
+  right: 20px;
+  top: 24px;
+}
+
+.ml-15 {
+  margin-left: 15px !important;
+}
+
+.forgot-screen {
+  font-family: 'Open Sans', sans-serif;
+  background: -webkit-linear-gradient(285deg, rgb(26,89,167) 0%, rgb(41,210,160) 100%);
+  background: -o-linear-gradient(285deg, rgb(26,89,167) 0%, rgb(41,210,160) 100%);
+  background: linear-gradient(15deg, rgb(26,89,167) 0%, rgb(41,210,160) 100%);
+  background-repeat: no-repeat;
+  height: 100% !important;
+}
+
+
+/*Custom Classes*/
+
+.logo-type{
+  font-family: 'Yeseva One', cursive;
+}
+
+.text-orange{
+  color: #f26122!important
+}
+
+/*Text Grey*/
+
+.text-grey-300{
+  color: #595959!important;
+}
+
+
+/*Login Form Style*/
+
+.form-wrapper{
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.form-wrapper .card{
+  border: none !important;
+}
+
+.form-wrapper .curve-white{
+  position: relative;
+  z-index: 2;
+}
+
+.form-wrapper .curve-shadow{
+  position: relative;
+  z-index: 0;
+  margin-top: -60px;
+}
+
+.forgot-form .form-control{
+  border: 1px solid rgb(237, 234, 234)!important;
+  border-radius: 3px !important;
+  background-color: rgb(247, 249, 249) !important;
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.3) !important;
+  padding: 17px 60px; /* Added */
+}
+
+.forgot-form .input-icon{
+  width: 20px;
+  z-index: 1;
+  top: 17px;
+  left: 30px;
+}
+
+.forgot-form::-webkit-input-placeholder{
+  color: #777777;
+}
+
+.forgot-form::-ms-input-placeholder {
+  color: #777777;
+}
+
+.forgot-form::placeholder{
+   color: #777777;
+}
+
+.forgot-form .custom-control-label{
+  color: #777777 !important;
+}
+
+
+.forgot-form .btn-primary{
+  background-color: #1446a0 !important;
+  border-color: #1446a0 !important;
+  padding: 14px;
+}
+
+.forgot-form .btn-outline{
+  border-width: 1px ;
+  border-color: rgb(171, 135, 255);
+  background: transparent; /* Added */
+  border-style: solid;
+  border-radius: 3px;
+  padding: 10px;
+  font-family: "Calibri";
+  color: rgb(20, 70, 160);
+  line-height: 2.2;
+  text-align: center;
+}

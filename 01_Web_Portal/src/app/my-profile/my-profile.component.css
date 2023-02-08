@@ -1,0 +1,6 @@
+.password-icon{
+    position: absolute;
+    z-index: 2;
+    right: 25px;
+    top: 10px;
+}

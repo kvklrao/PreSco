@@ -1,0 +1,442 @@
+<div class="">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="container">
+      <!-- <button class="btn create-btn mr-2 mt-0 text-white" (click)="open(content,{})"><i class="fas fa-plus-circle"></i>
+        Create New Reading </button> -->
+        <div class="row">
+          <div class="col-md-4">
+          </div>
+          <div class="col-md-4">
+            <h5 *ngIf="readingDataService.reading" class="text-center">Reading: {{readingDataService.reading}} </h5>
+          </div>
+          <div class="col-md-4">
+            <div class="float-right" *ngIf="getMedicalRecordNumber">
+              <h5 class="mb-0"> BMRN: {{getMedicalRecordNumber}}</h5>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <ng-container *ngIf="responseArray?.length>0">
+      <div class="form-css" *ngIf="!isAntibioticEdit">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card ml-2">
+              <div class="card-body div-shadow">
+                <h5 class="">
+                  {{responseArray[0]['createdAt'] | date:'dd MMMM yyyy, h:mm a' || 'Loading...'}}
+                  <button class="btn edit-btn float-right">
+                    <mat-icon (click)="open(content, responseArray[0])">edit</mat-icon>
+                  </button>
+                </h5>
+
+                <div class="row">
+                  <div class="col-12 col-lg-6">
+                    <div class="table-responsive p-3">
+                      <table class="table  table-borderless mb-0">
+                        <tbody>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Antibiotic Given</td>
+                            <td class="tb-value text-right">{{responseArray[0]['antibiotic_given']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Date of administration</td>
+                            <td class="tb-value text-right">
+                              {{responseArray[0]['date_of_administration_of_antiobiotic']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">Time of administration (0-23 Hours)</td>
+                            <td class="tb-value text-right">
+                              {{responseArray[0]['time_of_administration_of_antiobiotic_hours']}} Hrs.
+                              {{ responseArray[0]['time_of_administration_of_antiobiotic_minute']}} Min.</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-lg-6">
+                    <div class="table-responsive p-3">
+                      <table class="table  table-borderless mb-0">
+                        <tbody>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Blood Samples for Culture test</td>
+                            <td class="tb-value text-right">
+                              {{responseArray[0]['date_of_blood_samples_sent_for_culture_test']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">Time of Blood Samples (0-23 Hours)</td>
+                            <td class="tb-value text-right">
+                              {{responseArray[0]['time_of_blood_samples_sent_for_culture_test_hours']}} Hrs.
+                              {{ responseArray[0]['time_of_blood_samples_sent_for_culture_test_minute']}} Min.</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">Blood Sample Taken Prior to Antiobiotic administration</td>
+                            <td class="tb-value text-right">
+                              {{responseArray[0]['blood_sample_taken_prior_to_antiobiotic_administration']}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="m-3 div-shadow" *ngIf="responseArray?.length<1 || isAntibioticEdit">
+      <form [formGroup]="antibioticAdministrationForm" class="form-css card" (ngSubmit)="antibioticFormSubmit()" novalidate>
+        <div class="modal-header custom-modal-header add-btn">
+          <!-- <button type="submit" class="btn btn-primary">Save </button> -->
+          <div class="custom-modal-title">ANTIBIOTIC ADMINISTRATION</div>
+        </div>
+        <div class="modal-body scroll">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="record_type">Record Id</label>
+                <input type="text" readonly [value]="id" class="form-control" name="" id="">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="antibiotic_given">Antibiotic Given</label>
+                <select class="form-control" name="antibiotic_given" id="antibiotic_given"
+                  formControlName="antibiotic_given">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="antibioticAdministrationForm.controls['antibiotic_given'].invalid &&
+                  (antibioticAdministrationForm.controls['antibiotic_given'].dirty ||
+                  antibioticAdministrationForm.controls['antibiotic_given'].touched || submitted)" class="error-msg">
+                  <div *ngIf="antibioticAdministrationForm.controls['antibiotic_given'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="date_of_administration_of_antiobiotic">Date of administration</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isDateAdministration"
+                        (click)="onInputChange($event)" value="1" name="DateAdministration">Date
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isDateAdministration"
+                        (click)="onInputChange($event)" value="2" name="DateAdministration">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isDateAdministration" readonly class="form-control bg-white"
+                    id="date_of_administration_of_antiobiotic" formControlName="date_of_administration_of_antiobiotic"
+                    bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',showWeekNumbers:false }"
+                    placeholder="dd/mm/yyyy" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isDateAdministration">
+                    <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                  </div>
+                  <input type="text" readonly *ngIf="!this.isDateAdministration" class="form-control"
+                    formControlName="date_of_administration_of_antiobiotic">
+                </div>
+                <div
+                  *ngIf="antibioticAdministrationForm.controls['date_of_administration_of_antiobiotic'].invalid &&
+                    (antibioticAdministrationForm.controls['date_of_administration_of_antiobiotic'].dirty ||
+                    antibioticAdministrationForm.controls['date_of_administration_of_antiobiotic'].touched || submitted)"
+                  class="error-msg">
+                  <div
+                    *ngIf="antibioticAdministrationForm.controls['date_of_administration_of_antiobiotic'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="time_of_administration_of_antiobiotic">Time of administration (0-23 Hours)</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isTimeAdministration"
+                        (click)="onInputChange($event)" value="1" name="TimeAdministration">Time
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isTimeAdministration"
+                        (click)="onInputChange($event)" value="2" name="TimeAdministration">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-6">
+                    <div class="input-group">
+                      <input type="text" *ngIf="this.isTimeAdministration" class="form-control"
+                        id="time_of_administration_of_antiobiotic_hours" placeholder=""
+                        formControlName="time_of_administration_of_antiobiotic_hours" autocomplete="off"
+                        [dropSpecialCharacters]="false" mask="Hh">
+                      <div class="input-group-append" *ngIf="this.isTimeAdministration">
+                        <span class="input-group-text">Hrs</span>
+                      </div>
+                      <input type="text" readonly *ngIf="!this.isTimeAdministration" class="form-control" value="NA">
+                    </div>
+                    <div *ngIf="antibioticAdministrationForm.controls['time_of_administration_of_antiobiotic_hours'].invalid
+                        && (antibioticAdministrationForm.controls['time_of_administration_of_antiobiotic_hours'].dirty ||
+                        antibioticAdministrationForm.controls['time_of_administration_of_antiobiotic_hours'].touched ||
+                        submitted)" class="error-msg">
+                      <div
+                        *ngIf="antibioticAdministrationForm.controls['time_of_administration_of_antiobiotic_hours'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-6 pl-0">
+                    <div class="input-group">
+                      <input type="text" *ngIf="this.isTimeAdministration" [dropSpecialCharacters]="false" mask="m0"
+                        class="form-control" id="time_of_administration_of_antiobiotic_minute" placeholder=""
+                        formControlName="time_of_administration_of_antiobiotic_minute" autocomplete="off">
+                      <div class="input-group-append" *ngIf="this.isTimeAdministration">
+                        <span class="input-group-text">Min</span>
+                      </div>
+                      <input type="text" readonly value="NA" *ngIf="!this.isTimeAdministration" class="form-control">
+                    </div>
+                    <div *ngIf="antibioticAdministrationForm.controls['time_of_administration_of_antiobiotic_minute'].invalid
+                        && (antibioticAdministrationForm.controls['time_of_administration_of_antiobiotic_minute'].dirty ||
+                        antibioticAdministrationForm.controls['time_of_administration_of_antiobiotic_minute'].touched ||
+                        submitted)" class="error-msg">
+                      <div
+                        *ngIf="antibioticAdministrationForm.controls['time_of_administration_of_antiobiotic_minute'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="antibiotic_name">Antibiotic Name</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isAntibioticName"
+                        (click)="onInputChange($event)" value="1" name="antibiotic_name">Name
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isAntibioticName"
+                        (click)="onInputChange($event)" value="2" name="antibiotic_name">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <angular2-multiselect (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)"
+                    (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)" style="width:inherit;"
+                    *ngIf="this.isAntibioticName" [(ngModel)]="selectedItems" id="antibiotic_name"
+                    [data]="antibioticNameList" [settings]="settings" formControlName="antibiotic_name">
+                  </angular2-multiselect>
+
+                  <input type="text" value="NA" readonly *ngIf="!this.isAntibioticName" class="form-control">
+                </div>
+                <div *ngIf="antibioticAdministrationForm.controls['antibiotic_name'].invalid &&
+                    (antibioticAdministrationForm.controls['antibiotic_name'].dirty ||
+                    antibioticAdministrationForm.controls['antibiotic_name'].touched || submitted)" class="error-msg">
+                  <div *ngIf="antibioticAdministrationForm.controls['antibiotic_name'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="this.isAntibioticFreeField" class="col-md-6">
+              <div class="form-group">
+                <label for="">Antibiotic Name (Other) </label>
+                <div class="input-group">
+                  <input type="text" name="antibiotic_name_if_other" class="form-control" [patterns]="customPatterns"
+                    [dropSpecialCharacters]="false" mask="S*" formControlName="antibiotic_name_if_other"
+                    autocomplete="off">
+                </div>
+                <div *ngIf="antibioticAdministrationForm.controls['antibiotic_name_if_other'].invalid &&
+                    (antibioticAdministrationForm.controls['antibiotic_name_if_other'].dirty ||
+                    antibioticAdministrationForm.controls['antibiotic_name_if_other'].touched || submitted)"
+                  class="error-msg">
+                  <div *ngIf="antibioticAdministrationForm.controls['antibiotic_name_if_other'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="date_of_blood_samples_sent_for_culture_test">Blood Samples for Culture test</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isDateBloodSample"
+                        (click)="onInputChange($event)" value="1" name="date_of_blood">Date
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isDateBloodSample"
+                        (click)="onInputChange($event)" value="2" name="date_of_blood">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isDateBloodSample" class="form-control bg-white" readonly
+                    id="date_of_blood_samples_sent_for_culture_test"
+                    formControlName="date_of_blood_samples_sent_for_culture_test" bsDatepicker
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',showWeekNumbers:false }" placeholder="dd/mm/yyyy"
+                    autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isDateBloodSample">
+                    <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                  </div>
+                  <input type="text" readonly *ngIf="!this.isDateBloodSample" class="form-control"
+                    formControlName="date_of_blood_samples_sent_for_culture_test">
+                </div>
+                <div *ngIf="antibioticAdministrationForm.controls['date_of_blood_samples_sent_for_culture_test'].invalid &&
+                    (antibioticAdministrationForm.controls['date_of_blood_samples_sent_for_culture_test'].dirty ||
+                    antibioticAdministrationForm.controls['date_of_blood_samples_sent_for_culture_test'].touched ||
+                    submitted)" class="error-msg">
+                  <div
+                    *ngIf="antibioticAdministrationForm.controls['date_of_blood_samples_sent_for_culture_test'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="time_of_blood_samples_sent_for_culture_test">Time of Blood Samples (0-23 Hours)</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isTimeBloodSample"
+                        (click)="onInputChange($event)" value="1" name="time_of_blood">Time
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isTimeBloodSample"
+                        (click)="onInputChange($event)" value="2" name="time_of_blood">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-6 ">
+                    <div class="input-group">
+                      <input type="text" *ngIf="this.isTimeBloodSample" [dropSpecialCharacters]="false" mask="Hh"
+                        class="form-control" id="time_of_blood_samples_sent_for_culture_test_hours"
+                        formControlName="time_of_blood_samples_sent_for_culture_test_hours" autocomplete="off">
+                      <div class="input-group-append" *ngIf="this.isTimeBloodSample">
+                        <span class="input-group-text">Hrs</span>
+                      </div>
+                      <input type="text" readonly *ngIf="!this.isTimeBloodSample" class="form-control" value="NA">
+                    </div>
+                    <div *ngIf="antibioticAdministrationForm.controls['time_of_blood_samples_sent_for_culture_test_hours'].invalid
+                        && (antibioticAdministrationForm.controls['time_of_blood_samples_sent_for_culture_test_hours'].dirty
+                        ||
+                        antibioticAdministrationForm.controls['time_of_blood_samples_sent_for_culture_test_hours'].touched
+                        || submitted)" class="error-msg">
+                      <div
+                        *ngIf="antibioticAdministrationForm.controls['time_of_blood_samples_sent_for_culture_test_hours'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-6 pl-0">
+                    <div class="input-group">
+                      <input type="text" *ngIf="this.isTimeBloodSample" [dropSpecialCharacters]="false" mask="m0"
+                        class="form-control" id="time_of_blood_samples_sent_for_culture_test_minute"
+                        formControlName="time_of_blood_samples_sent_for_culture_test_minute" autocomplete="off">
+                      <div class="input-group-append" *ngIf="this.isTimeBloodSample">
+                        <span class="input-group-text">Min</span>
+                      </div>
+                      <input type="text" readonly *ngIf="!this.isTimeBloodSample" class="form-control" value="NA">
+                    </div>
+                    <div *ngIf="antibioticAdministrationForm.controls['time_of_blood_samples_sent_for_culture_test_minute'].invalid
+                        &&
+                        (antibioticAdministrationForm.controls['time_of_blood_samples_sent_for_culture_test_minute'].dirty
+                        ||
+                        antibioticAdministrationForm.controls['time_of_blood_samples_sent_for_culture_test_minute'].touched
+                        || submitted)" class="error-msg">
+                      <div
+                        *ngIf="antibioticAdministrationForm.controls['time_of_blood_samples_sent_for_culture_test_minute'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="blood_sample_taken_prior_to_antiobiotic_administration">Blood Sample Taken Prior to
+                  Antiobiotic
+                  administration</label>
+                <select class="form-control" name="blood_sample_taken_prior_to_antiobiotic_administration"
+                  id="blood_sample_taken_prior_to_antiobiotic_administration"
+                  formControlName="blood_sample_taken_prior_to_antiobiotic_administration">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="antibioticAdministrationForm.controls['blood_sample_taken_prior_to_antiobiotic_administration'].invalid
+                    &&
+                    (antibioticAdministrationForm.controls['blood_sample_taken_prior_to_antiobiotic_administration'].dirty
+                    ||
+                    antibioticAdministrationForm.controls['blood_sample_taken_prior_to_antiobiotic_administration'].touched
+                    || submitted)" class="error-msg">
+                  <div
+                    *ngIf="antibioticAdministrationForm.controls['blood_sample_taken_prior_to_antiobiotic_administration'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button *ngIf="!isEditClicked" type="submit" class="btn btn-primary float-right">Next </button>
+          <button *ngIf="isEditClicked" type="button" (click)="updateAntibioticForm()" class="btn btn-primary float-right">Update </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- <div *ngIf="responseArray?.length<1 && !isAntibioticEdit">
+      <ng-container>
+        <div class="container">
+          <div class="row">
+            <div class="col-12 p-3">
+              <div class="card py-3">
+                <div class="card-body">
+                  <h5 class="card-title text-center alert alert-warning">No Record Found!!</h5>
+
+                </div>
+                <img src="assets/svgs/Instructions.png" class="card-img-top w-75 mx-auto" alt="...">
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div> -->
+    <!-- Remind Passowrd -->
+  </div>
+</div>

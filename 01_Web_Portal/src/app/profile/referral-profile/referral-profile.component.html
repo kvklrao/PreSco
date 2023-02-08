@@ -1,0 +1,774 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="mt-160">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h4 class="h4 mb-0 text-gray-800"> <i class="fas fa-fw fa-user text-primary mr-2"></i>Profile</h4>
+    </div>
+  </div>
+
+  <!-- Content Row -->
+  <div class="row">
+    <div class="col-xl-12 col-md-12 mb-4">
+      <div class="card shadow mb-4" *ngIf="!isEdit">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Personal Information</h6>
+        </div>
+        <div class="card-body" *ngIf="referralProfile?.length>0">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Name</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{referralProfile[0]['first_name']}}&nbsp;{{referralProfile[0]['last_name']}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Speciality</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{referralProfile[0]['speciality']}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Contact Number</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{referralProfile[0]['contact_number']}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Email</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{referralProfile[0]['email_address']}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-miterror has-danger ">
+                    <label for="" class="text-bold text-gray-900">Address</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{referralProfile[0]['address']}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">City</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{referralProfile[0]['city']}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-miterror has-danger ">
+                    <label for="" class="text-bold text-gray-900">State</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{referralProfile[0]['state']}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Pincode</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{referralProfile[0]['pincode'] | emptyDataPipe}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group has-error has-danger ">
+                        <label for="" class="text-bold text-gray-900">Username</label>
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group has-error has-danger ">
+                            <div>{{referralProfile[0].user_name}}</div>
+                          </div>
+                    </div>
+                  </div>
+                </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Password</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <div>{{referralProfile[0].password | passwordEcryptPipe}}</div>
+                      </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 text-right">
+              <div class="form-group has-error has-danger ">
+                <button class="d-sm-inline-block btn btn-md btn-secondary shadow-sm"
+                  (click)="updateForm(this.referralProfile[0])">Edit</button>
+                <!-- <a href="#" class="d-none d-sm-inline-block btn btn-md btn-success shadow-sm">Save</a> -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      
+      <div class="card shadow mb-4" *ngIf="isEdit">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Personal Information</h6>
+        </div>
+        <div class="card-body" *ngIf="referralProfile?.length>0">
+            <form [formGroup]="referralProfileForm" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">First Name&nbsp;<span
+                        class="text-danger">*</span></label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <div>
+                          <input type="text" name="" class="form-control" formControlName="firstName" [patterns]="namePatters"
+                            [dropSpecialCharacters]="false" mask="S*" autocomplete="doNotAutoComplete">
+                          <div
+                            *ngIf="referralProfileForm.controls['firstName'].invalid && (referralProfileForm.controls['firstName'].dirty || referralProfileForm.controls['firstName'].touched)"
+                            class="error-msg">
+                            <div *ngIf="referralProfileForm.controls['firstName'].errors.required">
+                              This field is required.
+                            </div>
+                            <div *ngIf="referralProfileForm.controls.firstName.errors.maxlength">
+                              First name can referralProfileForm only 15 characters
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Last Name&nbsp;<span
+                        class="text-danger">*</span></label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <div>
+                          <input type="text" class="form-control" formControlName="lastName" [patterns]="namePatters"
+                            [dropSpecialCharacters]="false" mask="S*" autocomplete="doNotAutoComplete">
+                          <div
+                            *ngIf="referralProfileForm.controls['lastName'].invalid && (referralProfileForm.controls['lastName'].dirty || referralProfileForm.controls['lastName'].touched)"
+                            class="error-msg">
+                            <div *ngIf="referralProfileForm.controls['lastName'].errors.required">
+                              This field is required.
+                            </div>
+                            <div *ngIf="referralProfileForm.controls.lastName.errors.maxlength">
+                              Last name can have only 15 characters
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                        <label for="" class="text-bold text-gray-900">Contact Number&nbsp;<span
+                            class="text-danger">*</span></label>
+                </div></div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                      <div>
+                        <input type="text" class="form-control" formControlName="contactNumber"
+                          [dropSpecialCharacters]="false" [patterns]="onlyNumber" mask="0000000000" autocomplete="doNotAutoComplete">
+                        <div
+                          *ngIf="referralProfileForm.controls['contactNumber'].invalid && (referralProfileForm.controls['contactNumber'].dirty || referralProfileForm.controls['contactNumber'].touched)"
+                          class="error-msg">
+                          <div *ngIf="referralProfileForm.controls['contactNumber'].errors.required">
+                            This field is required.
+                          </div>
+                          <div *ngIf="referralProfileForm.controls.contactNumber.errors.minlength">
+                            Minimum 10 digits required
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              
+            </div>
+          </div>
+            <div class="col-md-6">
+              <div class="row">
+                  <div class="col-md-4">
+                      <div class="form-group has-error has-danger ">
+                        <label for="" class="text-bold text-gray-900">Email ID&nbsp;<span class="text-danger">*</span></label>
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="form-group has-error has-danger ">
+                        <div>
+                          <input type="text" class="form-control" formControlName="emailAddress" autocomplete="doNotAutoComplete">
+                          <div
+                            *ngIf="referralProfileForm.controls['emailAddress'].invalid && (referralProfileForm.controls['emailAddress'].dirty || referralProfileForm.controls['emailAddress'].touched)"
+                            class="error-msg">
+                            <div *ngIf="referralProfileForm.controls['emailAddress'].errors.required">
+                              This field is required.
+                            </div>
+                            <div
+                              *ngIf="referralProfileForm.controls.emailAddress.errors.email || referralProfileForm.controls.emailAddress.errors.pattern">
+                              Invalid email address
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="row">
+                  <div class="col-md-4">
+                      <div class="form-group has-error has-danger ">
+                        <label for="" class="text-bold text-gray-900">Address&nbsp;<span class="text-danger">*</span></label>
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="form-group has-error has-danger ">
+                        <div>
+                          <input type="text" class="form-control" [patterns]="onlyCharWithSpace" formControlName="address" [dropSpecialCharacters]="false"
+                            mask="S*" autocomplete="doNotAutoComplete">
+                          <div
+                            *ngIf="referralProfileForm.controls['address'].invalid && (referralProfileForm.controls['address'].dirty || referralProfileForm.controls['address'].touched)"
+                            class="error-msg">
+                            <div *ngIf="referralProfileForm.controls['address'].errors.required">
+                              This field is required.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                  <div class="col-md-4">
+                      <div class="form-group has-error has-danger ">
+                        <label for="" class="text-bold text-gray-900">City&nbsp;<span class="text-danger">*</span></label>
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="form-group has-error has-danger ">
+                        <div>
+                          <input type="text" class="form-control" [patterns]="namePatters" formControlName="city"
+                            [dropSpecialCharacters]="false" mask="S*" autocomplete="doNotAutoComplete">
+                          <div
+                            *ngIf="referralProfileForm.controls['city'].invalid && (referralProfileForm.controls['city'].dirty || referralProfileForm.controls['city'].touched)"
+                            class="error-msg">
+                            <div *ngIf="referralProfileForm.controls['city'].errors.required">
+                              This field is required.
+                            </div>
+                            <div *ngIf="referralProfileForm.controls.city.errors.maxlength">
+                              City should not be more than 32 characters
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="row">
+                  <div class="col-md-4">
+                      <div class="form-group has-error has-danger ">
+                        <label for="" class="text-bold text-gray-900">State&nbsp;<span class="text-danger">*</span></label>
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="form-group has-error has-danger ">
+                        <div>
+                          <input type="text" class="form-control" [patterns]="namePatters" formControlName="state"
+                            [dropSpecialCharacters]="false" mask="S*" autocomplete="doNotAutoComplete">
+                          <div
+                            *ngIf="referralProfileForm.controls['state'].invalid && (referralProfileForm.controls['state'].dirty || referralProfileForm.controls['state'].touched)"
+                            class="error-msg">
+                            <div *ngIf="referralProfileForm.controls['state'].errors.required">
+                              This field is required.
+                            </div>
+                            <div *ngIf="referralProfileForm.controls.state.errors.maxlength">
+                              State should not be more than 32 characters
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                  <div class="col-md-4">
+                      <div class="form-group has-error has-danger ">
+                        <label for="" class="text-bold text-gray-900">Pincode&nbsp;</label>
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="form-group has-error has-danger ">
+                        <div>
+                          <input type="text" class="form-control" formControlName="pincode" mask="000000" autocomplete="doNotAutoComplete">
+                          <div
+                            *ngIf="referralProfileForm.controls['pincode'].invalid && (referralProfileForm.controls['pincode'].dirty || referralProfileForm.controls['pincode'].touched)"
+                            class="error-msg">
+                            <div *ngIf="referralProfileForm.controls.pincode.length!=6">
+                              Minimum 6 digits required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="row">
+                      <div class="col-md-4">
+                          <div class="form-group has-error has-danger ">
+                              <label for="" class="text-bold text-gray-900">User Name&nbsp;<span
+                                  class="text-danger">*</span></label>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group has-error has-danger ">
+                                <div>
+                                  <input type="text" class="form-control" formControlName="userName" [patterns]="customPatterns"
+                                    [dropSpecialCharacters]="false" mask="A*" autocomplete="doNotAutoComplete">
+                                  <div
+                                    *ngIf="referralProfileForm.controls['userName'].invalid && (referralProfileForm.controls['userName'].dirty || referralProfileForm.controls['userName'].touched)"
+                                    class="error-msg">
+                                    <div *ngIf="referralProfileForm.controls['userName'].errors.required">
+                                      This field is required.
+                                    </div>
+                                    <div *ngIf="referralProfileForm.controls.userName.errors.maxlength">
+                                      Last name can have only 15 characters
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+                  </div>
+                </div>
+            <div class="col-md-6">
+              <div class="row">
+                  <div class="col-md-4">
+                      <div class="form-group has-error has-danger ">
+                        <label for="" class="text-bold text-gray-900">Password&nbsp;<span class="text-danger">*</span></label>
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="form-group has-error has-danger ">
+                        <div>
+                          <input type="{{password}}" class="form-control" formControlName="password" [patterns]="customPatterns"
+                            mask="A*">
+                            <i class="{{password_class}}" aria-hidden=true (click)="show_password()" style="position: absolute;right: 20px;bottom: 25px;"></i>
+                          <div *ngIf="referralProfileForm.controls['password'].invalid && (referralProfileForm.controls['password'].dirty ||
+                          referralProfileForm.controls['password'].touched)" class="error-msg text-left">
+                            <div *ngIf="referralProfileForm.controls['password'].errors.required">
+                              Required Field.
+                            </div>
+                            <div *ngIf="referralProfileForm.controls['password'].errors.minlength">
+                              Minimum 6 digits required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="row">
+                      <div class="col-md-4">
+                          <div class="form-group has-error has-danger ">
+                              <label for="" class="text-bold text-gray-900">Speciality&nbsp;<span
+                                  class="text-danger">*</span></label>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group has-error has-danger ">
+                                <div>
+                                  <input type="text" class="form-control" formControlName="speciality" readonly disabled>
+                                </div>
+                              </div>
+                        </div>
+                  </div>
+                </div>
+          </div>
+            <div class="row">
+            <div class="col-md-12 text-right">
+                <div class="form-group has-error has-danger ">
+                    <button class="d-sm-inline-block btn btn-md btn-secondary shadow-sm mr-2"
+                      (click)="cancel()">Cancel</button>
+                    <button class="d-sm-inline-block btn btn-md btn-success shadow-sm" (click)="updateProfile()"
+                      [disabled]="referralProfileForm.invalid">Save</button>
+                  </div>
+            </div></div>
+          </form>
+        </div>
+      </div>
+    
+      <!-- <div class="card shadow mb-4" *ngIf="isEdit">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Hospital Information</h6>
+        </div>
+        <div class="card-body" *ngIf="referralProfile?.length>0">
+          <form [formGroup]="referralProfileForm" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group has-error has-danger ">
+                  <label for="" class="text-bold text-gray-900">First Name&nbsp;<span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group has-error has-danger ">
+                  <div>
+                    <input type="text" name="" class="form-control" formControlName="firstName" [patterns]="namePatters"
+                      [dropSpecialCharacters]="false" mask="S*">
+                    <div
+                      *ngIf="referralProfileForm.controls['firstName'].invalid && (referralProfileForm.controls['firstName'].dirty || referralProfileForm.controls['firstName'].touched)"
+                      class="error-msg">
+                      <div *ngIf="referralProfileForm.controls['firstName'].errors.required">
+                        This field is required.
+                      </div>
+                      <div *ngIf="referralProfileForm.controls.firstName.errors.maxlength">
+                        First name can referralProfileForm only 15 characters
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group has-error has-danger ">
+                  <label for="" class="text-bold text-gray-900">Last Name&nbsp;<span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group has-error has-danger ">
+                  <div>
+                    <input type="text" class="form-control" formControlName="lastName" [patterns]="namePatters"
+                      [dropSpecialCharacters]="false" mask="S*">
+                    <div
+                      *ngIf="referralProfileForm.controls['lastName'].invalid && (referralProfileForm.controls['lastName'].dirty || referralProfileForm.controls['lastName'].touched)"
+                      class="error-msg">
+                      <div *ngIf="referralProfileForm.controls['lastName'].errors.required">
+                        This field is required.
+                      </div>
+                      <div *ngIf="referralProfileForm.controls.lastName.errors.maxlength">
+                        Last name can have only 15 characters
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group has-error has-danger ">
+                  <label for="" class="text-bold text-gray-900">User Name&nbsp;<span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group has-error has-danger ">
+                  <div>
+                    <input type="text" class="form-control" formControlName="userName" [patterns]="customPatterns"
+                      [dropSpecialCharacters]="false" mask="A*">
+                    <div
+                      *ngIf="referralProfileForm.controls['userName'].invalid && (referralProfileForm.controls['userName'].dirty || referralProfileForm.controls['userName'].touched)"
+                      class="error-msg">
+                      <div *ngIf="referralProfileForm.controls['userName'].errors.required">
+                        This field is required.
+                      </div>
+                      <div *ngIf="referralProfileForm.controls.userName.errors.maxlength">
+                        Last name can have only 15 characters
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group has-error has-danger ">
+                  <label for="" class="text-bold text-gray-900">Contact Number&nbsp;<span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group has-error has-danger ">
+                  <div>
+                    <input type="text" class="form-control" formControlName="contactNumber"
+                      [dropSpecialCharacters]="false" [patterns]="onlyNumber" mask="0000000000">
+                    <div
+                      *ngIf="referralProfileForm.controls['contactNumber'].invalid && (referralProfileForm.controls['contactNumber'].dirty || referralProfileForm.controls['contactNumber'].touched)"
+                      class="error-msg">
+                      <div *ngIf="referralProfileForm.controls['contactNumber'].errors.required">
+                        This field is required.
+                      </div>
+                      <div *ngIf="referralProfileForm.controls.contactNumber.errors.minlength">
+                        Minimum 10 digits required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group has-error has-danger ">
+                  <label for="" class="text-bold text-gray-900">Email ID&nbsp;<span class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group has-error has-danger ">
+                  <div>
+                    <input type="text" class="form-control" formControlName="emailAddress">
+                    <div
+                      *ngIf="referralProfileForm.controls['emailAddress'].invalid && (referralProfileForm.controls['emailAddress'].dirty || referralProfileForm.controls['emailAddress'].touched)"
+                      class="error-msg">
+                      <div *ngIf="referralProfileForm.controls['emailAddress'].errors.required">
+                        This field is required.
+                      </div>
+                      <div
+                        *ngIf="referralProfileForm.controls.emailAddress.errors.email || referralProfileForm.controls.emailAddress.errors.pattern">
+                        Invalid email address
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group has-error has-danger ">
+                  <label for="" class="text-bold text-gray-900">Address&nbsp;<span class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group has-error has-danger ">
+                  <div>
+                    <input type="text" class="form-control" [patterns]="onlyCharWithSpace" formControlName="address" [dropSpecialCharacters]="false"
+                      mask="S*">
+                    <div
+                      *ngIf="referralProfileForm.controls['address'].invalid && (referralProfileForm.controls['address'].dirty || referralProfileForm.controls['address'].touched)"
+                      class="error-msg">
+                      <div *ngIf="referralProfileForm.controls['address'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group has-error has-danger ">
+                  <label for="" class="text-bold text-gray-900">City&nbsp;<span class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group has-error has-danger ">
+                  <div>
+                    <input type="text" class="form-control" [patterns]="namePatters" formControlName="city"
+                      [dropSpecialCharacters]="false" mask="S*">
+                    <div
+                      *ngIf="referralProfileForm.controls['city'].invalid && (referralProfileForm.controls['city'].dirty || referralProfileForm.controls['city'].touched)"
+                      class="error-msg">
+                      <div *ngIf="referralProfileForm.controls['city'].errors.required">
+                        This field is required.
+                      </div>
+                      <div *ngIf="referralProfileForm.controls.city.errors.maxlength">
+                        City should not be more than 32 characters
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group has-error has-danger ">
+                  <label for="" class="text-bold text-gray-900">State&nbsp;<span class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group has-error has-danger ">
+                  <div>
+                    <input type="text" class="form-control" [patterns]="namePatters" formControlName="state"
+                      [dropSpecialCharacters]="false" mask="S*">
+                    <div
+                      *ngIf="referralProfileForm.controls['state'].invalid && (referralProfileForm.controls['state'].dirty || referralProfileForm.controls['state'].touched)"
+                      class="error-msg">
+                      <div *ngIf="referralProfileForm.controls['state'].errors.required">
+                        This field is required.
+                      </div>
+                      <div *ngIf="referralProfileForm.controls.state.errors.maxlength">
+                        State should not be more than 32 characters
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group has-error has-danger ">
+                  <label for="" class="text-bold text-gray-900">Pincode&nbsp;</label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group has-error has-danger ">
+                  <div>
+                    <input type="text" class="form-control" formControlName="pincode" mask="000000">
+                    <i class="{{password_class}}" aria-hidden=true (click)="show_password()" style="position: absolute;right: 20px;bottom: 25px;"></i>
+                    <div
+                      *ngIf="referralProfileForm.controls['pincode'].invalid && (referralProfileForm.controls['pincode'].dirty || referralProfileForm.controls['pincode'].touched)"
+                      class="error-msg">
+                      <div *ngIf="referralProfileForm.controls.pincode.errors.minlength">
+                        Minimum 6 digits required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group has-error has-danger ">
+                  <label for="" class="text-bold text-gray-900">Password&nbsp;<span class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group has-error has-danger ">
+                  <div>
+                    <input type="text" class="form-control" formControlName="password" [patterns]="customPatterns"
+                      mask="A*">
+                    <div *ngIf="referralProfileForm.controls['password'].invalid && (referralProfileForm.controls['password'].dirty ||
+                    referralProfileForm.controls['password'].touched)" class="error-msg text-left">
+                      <div *ngIf="referralProfileForm.controls['password'].errors.required">
+                        Required Field.
+                      </div>
+                      <div *ngIf="referralProfileForm.controls['password'].errors.minlength">
+                        Minimum 6 digits required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 text-right">
+                <div class="form-group has-error has-danger ">
+                  <button class="d-sm-inline-block btn btn-md btn-secondary shadow-sm mr-2"
+                    (click)="cancel()">Cancel</button>
+                  <button class="d-sm-inline-block btn btn-md btn-success shadow-sm" (click)="updateProfile()"
+                    [disabled]="referralProfileForm.invalid">Save</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>

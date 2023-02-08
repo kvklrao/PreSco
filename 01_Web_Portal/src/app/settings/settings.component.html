@@ -1,0 +1,333 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="mt-160">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <div class="col-md-8">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h4 class="h4 mb-0 text-gray-800"> <i class="fas fa-fw fa-cog text-primary mr-2"></i>Settings</h4>
+        </div>
+      </div>
+      <div class="col-md-4" *ngIf="login_hospital['user_type']=='Hospital'">
+        <div class="form-group has-error has-danger text-right">
+          <label for="" class="text-bold text-gray-900 pr-3 mt-2">Branch:</label>
+          <select id="form_need" name="need" class="form-control" required="required" data-error=""
+            style="width:200px; float:right;" (change)="changeBranch($event)">
+            <option *ngFor="let list of branchList" [value]="list.hospital_branch_id"
+              [selected]="list.hospital_branch_id == hospitalBranchId">{{list.branch_name}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row w-100">
+    <div class="col-xl-12 col-md-12 mb-4">
+      <div class="card shadow">
+        <!-- Nav pills -->
+        <ul class="nav nav-pills card-header" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="pill" (click)="onChangeTab('role')">Role</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" (click)="onChangeTab('speciality')">Speciality</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" (click)="onChangeTab('user_access')">User Access</a>
+          </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content mb-4">
+
+          <!-- Role Name -->
+          <div *ngIf="isRole" class="container-fluid tab-pane active"><br>
+            <div class="card-body">
+              <form #roleForm="ngForm" (keydown.enter)="$event.preventDefault()">
+                <div class="row">
+
+                  <div class="col-md-3">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Role Name:</label>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group has-error has-danger ">
+                      <div>
+                        <input id="" type="" required [(ngModel)]="model.role" name="name" #name="ngModel"
+                          class="form-control" autocomplete="off" [patterns]="namePatters"
+                          [dropSpecialCharacters]="false" mask="S*">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3 text-right">
+                    <div class="form-group has-error has-danger ">
+                      <div><button class=" d-sm-inline-block btn btn-md btn-success shadow-sm"
+                          [disabled]="!roleForm.form.valid" (click)="onRoleFormSubmit()"><i
+                            class="fas fa-plus fa-sm text-white-50"></i> Add</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+              <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid"
+                aria-describedby="dataTable_info" style="width: 100%;">
+                <thead>
+                  <tr role="row">
+                    <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      aria-sort="ascending" aria-label="Name: activate to sort column descending">Role Name</th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      aria-label="Salary: activate to sort column ascending text-right">Action</th>
+                  </tr>
+                </thead>
+
+                <tbody *ngIf="roleList?.length > 0">
+                  <tr role="row" *ngFor="let list of roleList; let i=index; let odd=odd; let even=even;"
+                    [ngClass]="{ odd: odd, even: even }">
+                    <td *ngIf="!editFlag[i]" class="sorting_1"> {{list.role}}</td>
+                    <td *ngIf="editFlag[i]" class="sorting_1"> <input class="form-control"
+                        [dropSpecialCharacters]="false" mask="S*" [(ngModel)]="updatedRole" type="text"></td>
+                    <td class="text-right">
+                      <a *ngIf="!editCalled[i]" (click)="edit(i,list.role)"
+                        class="d-sm-inline-block btn btn-sm btn-light border shadow-sm mr-2" title="View">Edit</a>
+                      <button *ngIf="!editCalled[i]" class="d-sm-inline-block btn btn-sm btn-danger shadow-sm"
+                        (click)="open(content, list.hospital_branch_role_id, 'role',i)" title="View">Remove</button>
+                      <button *ngIf="editCalled[i]" class="d-sm-inline-block btn btn-sm btn-succes shadow-sm"
+                        (click)="updateRole(i,list['hospital_branch_role_id'])" title="View"
+                        [disabled]="updatedRole==''">Update</button>
+                      <button *ngIf="editCalled[i]" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                        (click)="closeUpdate(i)" title="View">Cancel</button>
+                    </td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="roleList?.length==0">
+                  <tr>
+                    <td colspan="12">No Records Found !!! </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+
+          </div>
+
+          <!-- Speciality -->
+          <div *ngIf="isSpeciality" class="container-fluid tab-pane active"><br>
+            <div class="card-body">
+              <form #specialityForm="ngForm" (keydown.enter)="$event.preventDefault()">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Speciality Name:</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group has-error has-danger ">
+                      <div>
+                        <input type="text" required [(ngModel)]="speciality.speciality" name="name" #name="ngModel"
+                          class="form-control" autocomplete="off" [patterns]="namePatters"
+                          [dropSpecialCharacters]="false" mask="S*">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3 text-right">
+                    <div class="form-group has-error has-danger ">
+                      <div><button (click)="onSpecialityFormSubmit()"
+                          class=" d-sm-inline-block btn btn-md btn-success shadow-sm"
+                          [disabled]="!specialityForm.form.valid"><i class="fas fa-plus fa-sm text-white-50"></i>
+                          Add</button></div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+              <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid"
+                aria-describedby="dataTable_info" style="width: 100%;">
+                <thead>
+                  <tr role="row">
+                    <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      aria-sort="ascending" aria-label="Name: activate to sort column descending">Speciality Name</th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      aria-label="Salary: activate to sort column ascending text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="specialityList?.length > 0">
+                  <tr role="row" *ngFor="let list of specialityList;let i=index; let odd=odd; let even=even;"
+                    [ngClass]="{ odd: odd, even: even }">
+                    <td *ngIf="!specialityEditFlag[i]" class="sorting_1">{{list.speciality}}</td>
+                    <td *ngIf="specialityEditFlag[i]" class="sorting_1"> <input class="form-control"
+                        [(ngModel)]="updatedSpeciality" (change)="checkData(updatedSpeciality)"
+                        [dropSpecialCharacters]="false" mask="S*" type="text"></td>
+                    <td class="text-right">
+                      <a *ngIf="!specialityEditCalled[i]" (click)="editSpeaciality(i,list['speciality'])"
+                        class="d-sm-inline-block btn btn-sm btn-light border shadow-sm mr-2" title="View">Edit</a>
+                      <button *ngIf="specialityEditCalled[i]" class="d-sm-inline-block btn btn-sm btn-succes shadow-sm"
+                        (click)="updateSpeciality(i,list['hospital_branch_speciality_id'])" title="View"
+                        [disabled]="updatedSpeciality==''">Update</button>
+                      <button *ngIf="specialityEditCalled[i]" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                        (click)="closeSpecialty(i)" title="View">Cancel</button>
+                      <button *ngIf="!specialityEditCalled[i]" class="d-sm-inline-block btn btn-sm btn-danger shadow-sm"
+                        (click)="open(content, list.hospital_branch_speciality_id, 'speciality')"
+                        title="View">Remove</button>
+                    </td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="specialityList?.length==0">
+                  <tr>
+                    <td colspan="12">No Records Found !!! </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- User Access -->
+          <div *ngIf="isUserAccess" class="container-fluid tab-pane active"><br>
+            <div class="card-body">
+              <div class="table-responsive">
+                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                  <div class="row mb-3">
+                    <div class="col-sm-12 col-md-6">
+                      <div class="dataTables_length" id="dataTable_length">
+                        <label>
+                          Show
+                          <select name="dataTable_length" aria-controls="dataTable"
+                            class="custom-select custom-select-sm form-control form-control-sm" [(ngModel)]="pageLength"
+                            (change)="onDropDownChange(pageLength)">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                          </select>
+                          entries
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                      <div id="dataTable_filter" class="dataTables_filter"><label>Search:<input type="search"
+                            class="form-control form-control-sm" placeholder="" aria-controls="dataTable" (keyup)="searchUser($event)" name="search_text" [(ngModel)]="search_text"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
+                        role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                        <thead>
+                          <tr role="row">
+                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                              aria-sort="ascending" aria-label="Name: activate to sort column descending">Sr. No.</th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                              aria-label="Position: activate to sort column ascending">Staff Name</th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                              aria-label="Office: activate to sort column ascending">Role</th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                              aria-label="Age: activate to sort column ascending">Data Entry / Review</th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                              aria-label="Start date: activate to sort column ascending">Score Generate</th>
+                          </tr>
+                        </thead>
+                        <tbody *ngIf="userList?.length > 0">
+                          <tr
+                            *ngFor="let list of userList| paginate: {class:'pageItem', itemsPerPage: pageLength, currentPage: page,totalItems: totalCount };let i=index; let odd=odd; let even=even;"
+                            [ngClass]="{ odd: odd, even: even }">
+                            <td class="sorting_1">{{(page-1) *pageLength +(i+1)}}</td>
+                            <td>{{list.first_name}} {{list.last_name}}</td>
+                            <td>{{list.role}}</td>
+                            <td> <input type="checkbox" [checked]="list.dataEntry_review_permission"
+                                (change)="changePermission(i, 'dataEntry_review_permission', $event, list.staff_id,list)">
+                            </td>
+                            <td> <input type="checkbox" [checked]="list.scoreGenerate"
+                                (change)="changePermission(i, 'scoreGenerate', $event, list.staff_id,list)"> </td>
+                          </tr>
+
+                        </tbody>
+                        <tbody *ngIf="userList?.length==0">
+                          <tr>
+                            <td colspan="12">No Records Found !!! </td>
+                          </tr>
+                        </tbody>
+
+                      </table>
+                      <div class="float-right">
+                        <button class="btn btn-success" [disabled]="this.userListDummy.length == 0"
+                          (click)="updatePermission()">Save Permission</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mt-3">
+                    <div class="col-sm-12 col-md-5">
+                      <!-- <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">Showing 1 to
+                        {{totalCount}} of
+                        {{totalCount}} entries</div> -->
+                    </div>
+                    <!-- <div class="col-sm-12 col-md-7">
+                      <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                        <ul class="pagination">
+                          <li class="paginate_button page-item previous disabled" id="dataTable_previous"><a href="#"
+                              aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+                          </li>
+                          <li class="paginate_button page-item active"><a href="#" aria-controls="dataTable"
+                              data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                          <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="2"
+                              tabindex="0" class="page-link">2</a></li>
+                          <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="3"
+                              tabindex="0" class="page-link">3</a></li>
+                          <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="4"
+                              tabindex="0" class="page-link">4</a></li>
+                          <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="5"
+                              tabindex="0" class="page-link">5</a></li>
+                          <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="6"
+                              tabindex="0" class="page-link">6</a></li>
+                          <li class="paginate_button page-item next" id="dataTable_next"><a href="#"
+                              aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+                        </ul>
+                      </div>
+                    </div> -->
+                    <pagination-controls *ngIf="userList.length > 0" (pageChange)="nextPage($event)" directionLinks="true" autoHide="true"
+                      responsive="true" previousLabel="Previous" nextLabel="Next"
+                      screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                      screenReaderCurrentLabel="You're on page">
+                    </pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <form class="form-css" novalidate>
+    <!-- <div class="modal-header custom-modal-header add-btn">
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click');close()">
+        <span aria-hidden="true">&times;</span>
+
+      </button>
+    </div> -->
+    <!-- <form [formGroup]="generalForm" class="form-css-modal" (ngSubmit)="signup()" novalidate> -->
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group has-error has-danger ">
+            <label for="" *ngIf="isRole" class="text-bold text-gray-900">Are you sure you want remove Role?</label>
+            <label for="" *ngIf="isSpeciality" class="text-bold text-gray-900">Are you sure you want remove
+              Speciality?</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal"
+        (click)="d('Cross click');close()">Cancel</button>
+      <button class="btn btn-danger btn-sm" *ngIf="isRole"
+        (click)="removeBranchRole(this.hospital_branch_role_id)">Remove</button>
+      <button class="btn btn-danger btn-sm" *ngIf="isSpeciality"
+        (click)="removeSpeciality(this.hospital_branch_speciality_id)">Remove</button>
+    </div>
+  </form>
+</ng-template>

@@ -1,0 +1,167 @@
+<div class="container-fluid">
+    
+	
+  <!-- Page Heading -->
+   <div class="mt-160">
+       <div class="d-sm-flex align-items-center justify-content-between mb-4">
+         <h4 class="h4 mb-0 text-gray-800"> <i class="fas fa-fw fa-cog text-primary mr-2"></i>Hospital</h4>
+       </div>
+   </div>
+   
+   <!-- Content Row -->
+       <div class="row">
+   
+   <div class="col-xl-12 col-md-12 mb-4">
+   <div class="card shadow mb-4">
+             <div class="card-header py-3">
+         <h6 class="m-0 font-weight-bold text-primary">Request Detail</h6>
+             </div>
+     
+     
+             <div class="card-body">
+     <div class="table-responsive">
+     
+     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+     
+       
+       <div class="row mb-3">
+          <div class="col-sm-12 col-md-6">
+            <div class="dataTables_length" id="dataTable_length">
+              <label>
+                Show entries
+                <select name="dataTable_length" aria-controls="dataTable"
+                  class="custom-select custom-select-sm form-control form-control-sm"
+                  [(ngModel)]="pageLength"
+                  (change)="onDropDownChange(pageLength)">
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6">
+           <div id="dataTable_filter" class="dataTables_filter"><label>Search:<input type="text" (keyup)="searchReferralHospital()" [(ngModel)]="searchText" class="form-control form-control-sm" placeholder="" aria-controls="dataTable"></label></div>
+          </div>
+       </div>
+       
+       
+       <div class="row">
+       <div class="col-sm-12">
+       <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+         <thead>
+         <tr role="row">
+         <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">Sr. No.</th>
+         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending text-right">Hospital Name</th>
+         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending text-right">Email</th>
+         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending text-right">Action</th>
+         </tr>
+         </thead>
+         <tbody *ngIf="hospitalList?.length > 0">
+          <tr *ngFor="let list of hospitalList| paginate: {class:'pageItem', itemsPerPage: pageLength, currentPage: page,totalItems: totalCount } | orderBy: 'hospital_name':false:'case-insensitive';let i=index; let odd=odd; let even=even;"
+          [ngClass]="{ odd: odd, even: even }">
+            <td>{{(page-1) *pageLength +(i+1)}}</td>
+            <td>{{list.hospital_name}}</td>
+            <td>{{list.email_address}}</td>
+            <td class="text-right">
+                <a *ngIf="list.referral_initiation_status==='Request Initiation'" (click)="updateStatus(list.refferal_initiation_status_id,list.hospital_id,list)" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm text-white">Request Initiation</a>
+                <a *ngIf="list.referral_initiation_status==='Active'"  class="d-sm-inline-block btn btn-sm btn-success shadow-sm text-white">Active</a>
+                <a *ngIf="list.referral_initiation_status==='Pending Initiation'" class="d-sm-inline-block btn btn-sm btn-warning shadow-sm text-white">Pending Initiation</a>
+                <a *ngIf="list.referral_initiation_status==='Accept Initiation'" (click)="updateStatus(list.refferal_initiation_status_id,list.hospital_id,list)" class="d-sm-inline-block btn btn-sm btn-info shadow-sm text-white">Accept Initiation</a>
+            </td>
+          </tr>
+          
+        </tbody>
+        <tbody *ngIf="hospitalList?.length==0">
+          <tr>
+            <td colspan="12">No Records Found !!! </td>
+          </tr>
+        </tbody>
+         <!-- <tbody>
+         <tr role="row" class="odd">
+           <td class="sorting_1">01</td>
+           <td>CHL Apollo Hospital</td>
+           <td>admin@chlhospital.com</td>
+           <td class="text-right"><a href="#" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm">Request Initiation</a></td>
+         </tr>
+         <tr role="row" class="odd">
+          <td class="sorting_1">02</td>
+           <td>Life LineHospital</td>
+           <td>Bhopal</td>
+           <td>0755 54654874</td>
+           <td>admin@chlhospital.com</td>
+           <td class="text-right"><a href="#" class="d-sm-inline-block btn btn-sm btn-warning shadow-sm">Pending Initiation</a></td>
+         </tr>
+         <tr role="row" class="odd">
+           <td class="sorting_1">03</td>
+           <td>Vijaya Hospital</td>
+           <td>Nagpur</td>
+           <td>0731 54654874</td>
+           <td>admin@chlhospital.com</td>
+           <td class="text-right"><a href="#" class="d-sm-inline-block btn btn-sm btn-success shadow-sm">Active</a></td>
+         </tr>
+         <tr role="row" class="odd">
+           <td class="sorting_1">04</td>
+           <td>Golden Hospital</td>
+           <td>Hyderabad</td>
+           <td>0755 54654874</td>
+           <td>admin@chlhospital.com</td>
+           <td class="text-right"><a href="#" class="d-sm-inline-block btn btn-sm btn-info shadow-sm">Accept Initiation</a></td>
+         </tr>
+         <tr role="row" class="odd">
+           <td class="sorting_1">05</td>
+           <td>CHL Apollo Hospital</td>
+           <td>Indore</td>
+           <td>0731 54654874</td>
+           <td>admin@chlhospital.com</td>
+           <td class="text-right"><a href="#" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm">Request Initiation</a></td>
+         </tr>
+         <tr role="row" class="odd">
+          <td class="sorting_1">06</td>
+           <td>Life LineHospital</td>
+           <td>Bhopal</td>
+           <td>0755 54654874</td>
+           <td>admin@chlhospital.com</td>
+           <td class="text-right"><a href="#" class="d-sm-inline-block btn btn-sm btn-warning shadow-sm">Pending Initiation</a></td>
+         </tr>
+         <tr role="row" class="odd">
+           <td class="sorting_1">07</td>
+           <td>Vijaya Hospital</td>
+           <td>Nagpur</td>
+           <td>0731 54654874</td>
+           <td>admin@chlhospital.com</td>
+           <td class="text-right"><a href="#" class="d-sm-inline-block btn btn-sm btn-success shadow-sm">Active</a></td>
+         </tr>
+         </tbody> -->
+         </table>
+     </div>
+     </div>
+     
+     <div class="row mt-3">
+        <div class="col-sm-12 col-md-5">
+          <!-- <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">Showing
+            {{hospitalList?.length}}  of
+            {{totalCount}} entries</div> -->
+        </div>
+        <pagination-controls *ngIf="hospitalList?.length > 0" (pageChange)="nextPage($event)" directionLinks="true" autoHide="true"
+          responsive="true" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
+          screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+        </pagination-controls>
+      </div>
+     
+     
+     </div>
+     
+     </div>
+
+     
+     </div>	
+     
+         </div>
+         </div>
+ 
+     
+   </div>
+   </div>

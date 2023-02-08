@@ -1,0 +1,306 @@
+<!-- Fontawesome-->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+  integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <app-top-nav-bar></app-top-nav-bar>
+
+<!-- Desktop Menu -->
+<div class="desktop-navigation mt-1">
+  <nav class="navbar shadow-sm bg-white p-0">
+    <div class="container">
+      <div class="avy-logo d-flex">
+        <a class="navbar-brand" href="#">
+          <img src="assets/svgs/avyantra-logo.svg" alt="avyantra" class="w-75 py-2">
+        </a>
+        <button type="button" class="d-md-none d-sm-block btn btn-logout border-0" (click)="logout()"> <i
+            class="fas fa-sign-out-alt"></i> Logout</button>
+      </div>
+      <div class="top-action d-none d-sm-none d-md-block">
+        <a href="#" class="btn btn-download text-white mr-2"><i class="fas fa-file-excel"></i> Download</a>
+        <button type="button" class="btn btn-logout" (click)="logout()"> <i class="fas fa-sign-out-alt"></i>
+          Logout</button>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<!-- SEARCH SECTION-->
+<app-search class="table-responsive1" (id)="get_id($event)"></app-search>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10 col-md-3 ml-auto">
+
+    </div>
+  </div>
+</div>
+
+<div class="neonatal-data">
+  <div class="container">
+    <div class="row mt-2">
+
+      <div class="hamburger-menu mb-3 mt-2" (click)="clickHamburger()">
+        <div class="hamburger-button">
+          <div class="hamburger-line"></div>
+          <div class="hamburger-line"></div>
+          <div class="hamburger-line"></div>
+        </div>
+        <div class="hamburger-flyout">
+          <div class="card">
+            <div class="card-header m-0 p-3">
+              <h5 class="m-0 font-weight-bold card-title">NEONATAL FACTORS</h5>
+            </div>
+            <hr class="m-0">
+            <ul class="list-group" id="myList" role="tablist">
+              <li [ngClass]="{'active': selectedItem==='baby-profile'}" routerLink="/dashboard/baby-profile"
+                (click)="closeMenu();">
+                <a class="list-group-item list-group-item-action" data-toggle="list" role="tab">BABY PROFILE</a>
+              </li>
+              <li [ngClass]="{'active': selectedItem==='mother-profile'}" routerLink="/dashboard/mother-profile"
+                (click)="closeMenu();">
+                <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"> MOTHER PROFILE </a>
+              </li>
+
+              <li [ngClass]="{'active': selectedItem==='baby-appearence'}" routerLink="/dashboard/baby-appearence"
+                (click)="closeMenu();"
+                *ngIf="readingDataService.checkComponentState['baby-appear'] == true;else elseAppearMobile">
+                <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"> BABY APPEARANCE </a>
+              </li>
+              <ng-template #elseAppearMobile>
+                <li style="opacity:0.3;pointer-events:none; padding: 13px 20px;">
+                  BABY APPEARANCE
+                </li>
+              </ng-template>
+
+              <li [ngClass]="{'active': selectedItem==='baby-respiratory'}" routerLink="/dashboard/baby-respiratory"
+                (click)="closeMenu();"
+                *ngIf="readingDataService.checkComponentState['baby-resp'] == true;else elseRespMobile">
+                <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"> BABY RESPIRATORY
+                  FUNCTION </a>
+              </li>
+              <ng-template #elseRespMobile>
+                <li style="opacity:0.3;pointer-events:none; padding: 13px 20px;">
+                  BABY RESPIRATORY FUNCTION
+                </li>
+              </ng-template>
+
+              <li [ngClass]="{'active': selectedItem==='baby-cardio-vascular'}"
+                routerLink="/dashboard/baby-cardio-vascular" (click)="closeMenu();"
+                *ngIf="readingDataService.checkComponentState['baby-cv'] == true;else elseCVMobile">
+                <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"> BABY CARDIO VASCULAR
+                  FUNCTION </a>
+              </li>
+              <ng-template #elseCVMobile>
+                <li style="opacity:0.3;pointer-events:none; padding: 13px 20px;">
+                  BABY CARDIO VASCULAR FUNCTION
+                </li>
+              </ng-template>
+
+              <li [ngClass]="{'active': selectedItem==='baby-cns'}" routerLink="/dashboard/baby-cns"
+                (click)="closeMenu();"
+                *ngIf="readingDataService.checkComponentState['baby-cns'] == true;else elseCNSMobile">
+                <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"> BABY CNS FUNCTION </a>
+              </li>
+              <ng-template #elseCNSMobile>
+                <li style="opacity:0.3;pointer-events:none; padding: 13px 20px;">
+                  BABY CNS FUNCTION
+                </li>
+              </ng-template>
+
+              <li [ngClass]="{'active': selectedItem==='baby-gi-tract'}" routerLink="/dashboard/baby-gi-tract"
+                (click)="closeMenu();"
+                *ngIf="readingDataService.checkComponentState['baby-git'] == true;else elseGITMobile">
+                <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"> BABY GI TRACT FUNCTION
+                </a>
+              </li>
+              <ng-template #elseGITMobile>
+                <li style="opacity:0.3;pointer-events:none; padding: 13px 20px;">
+                  BABY GI TRACT FUNCTION
+                </li>
+              </ng-template>
+
+              <li [ngClass]="{'active': selectedItem==='baby-investigation'}" routerLink="/dashboard/baby-investigation"
+                (click)="closeMenu();"
+                *ngIf="readingDataService.checkComponentState['baby-investigation'] == true;else elseInvestigationMobile">
+                <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"> BABY INVESTIGATIONS
+                </a>
+              </li>
+              <ng-template #elseInvestigationMobile>
+                <li style="opacity:0.3;pointer-events:none; padding: 13px 20px;">
+                  BABY INVESTIGATIONS
+                </li>
+              </ng-template>
+
+              <li [ngClass]="{'active': selectedItem==='anitibiotic-administration'}"
+                routerLink="/dashboard/anitibiotic-administration" (click)="closeMenu();"
+                *ngIf="readingDataService.checkComponentState['baby-antibiotic'] == true;else elseAntibioticMobile">
+                <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"> ANTIBIOTIC
+                  ADMINISTRATION <span class="sr-only">(current)</span></a>
+              </li>
+              <ng-template #elseAntibioticMobile>
+                <li style="opacity:0.3;pointer-events:none; padding: 13px 20px;">
+                  ANTIBIOTIC ADMINISTRATION
+                </li>
+              </ng-template>
+
+              <li [ngClass]="{'active': selectedItem==='final-diagnosis'}" routerLink="/dashboard/final-diagnosis"
+                (click)="closeMenu();"
+                *ngIf="readingDataService.checkComponentState['baby-final'] == true;else elseFinalMobile">
+                <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"> FINAL DIAGNOSIS <span
+                    class="sr-only">(current)</span></a>
+              </li>
+              <!-- <li [ngClass]="{'active': selectedItem==='final-diagnosis'}" routerLink="/dashboard/final-diagnosis" 
+                          (click)="activeTab('final-diagnosis')"
+                          *ngIf="readingDataService.checkComponentState['baby-final'] == true;else elseFinal">
+                          <a class=""  > FINAL DIAGNOSIS <span class="sr-only">(current)</span></a>
+                        </li> -->
+              <ng-template #elseFinalMobile>
+                <li style="opacity:0.3;pointer-events:none; padding: 13px 20px;">
+                  <a class="list-group-item list-group-item-action" data-toggle="list" role="tab"> FINAL DIAGNOSIS </a>
+                </li>
+              </ng-template>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 d-none d-sm-none d-md-block">
+        <!-- <div class="mobile-menu">
+                    <div  (click)="menuOrder()"><img src="https://static.thenounproject.com/png/547169-200.png" width="50px"></div>
+                    <input type="text" id="showData" value="none" style="display:none">
+                </div> -->
+        <!-- <div class="avy-logo d-flex">
+                    <button class="btn create-btn mr-2 mt-0 text-white" routerLink="/dashboard/baby-profile"  ><i class="fas fa-plus-circle"></i>
+                     Create New Record </button>
+                   </div> -->
+
+        <div class="card mt-3">
+          <ng-container>
+            <ul class="factors-list p-0 my-0">
+              <li [ngClass]="{'active': selectedItem==='baby-profile'}" routerLink="/dashboard/baby-profile"
+                (click)="activeTab('baby-profile')">
+                <a class=""> BABY PROFILE <span class="sr-only">(current)</span></a>
+              </li>
+              <li [ngClass]="{'active': selectedItem==='mother-profile'}" routerLink="/dashboard/mother-profile"
+                (click)="activeTab('mother-profile')">
+                <a> MOTHER PROFILE </a>
+              </li>
+              <!-- <ng-template #elseMotheProfile>
+                          <li style="opacity:0.3;pointer-events:none;">
+                            MOTHER PROFILE
+                          </li>
+                        </ng-template > -->
+              <li [ngClass]="{'active': selectedItem==='baby-appearence' }" routerLink="/dashboard/baby-appearence"
+                (click)="activeTab('baby-appearence')"
+                *ngIf="readingDataService.checkComponentState['baby-appear'] == true;else elseAppear">
+                <a> BABY APPEARANCE </a>
+              </li>
+              <ng-template #elseAppear>
+                <li style="opacity:0.3;pointer-events:none;">
+                  BABY APPEARANCE
+                </li>
+              </ng-template>
+              <li [ngClass]="{'active': selectedItem==='baby-respiratory'}" routerLink="/dashboard/baby-respiratory"
+                (click)="activeTab('baby-respiratory')"
+                *ngIf="readingDataService.checkComponentState['baby-resp'] == true;else elseResp">
+                <a> BABY RESPIRATORY FUNCTION </a>
+              </li>
+              <ng-template #elseResp>
+                <li style="opacity:0.3;pointer-events:none;">
+                  BABY RESPIRATORY FUNCTION
+                </li>
+              </ng-template>
+              <li [ngClass]="{'active': selectedItem==='baby-cardio-vascular'}"
+                routerLink="/dashboard/baby-cardio-vascular" (click)="activeTab('baby-cardio-vascular')"
+                *ngIf="readingDataService.checkComponentState['baby-cv'] == true;else elseCV">
+                <a> BABY CARDIO VASCULAR FUNCTION </a>
+              </li>
+              <ng-template #elseCV>
+                <li style="opacity:0.3;pointer-events:none;">
+                  BABY CARDIO VASCULAR FUNCTION
+                </li>
+              </ng-template>
+              <li [ngClass]="{'active': selectedItem==='baby-cns'}" routerLink="/dashboard/baby-cns"
+                (click)="activeTab('baby-cns')"
+                *ngIf="readingDataService.checkComponentState['baby-cns'] == true;else elseCNS">
+                <a class=""> BABY CNS FUNCTION </a>
+              </li>
+              <ng-template #elseCNS>
+                <li style="opacity:0.3;pointer-events:none;">
+                  BABY CNS FUNCTION
+                </li>
+              </ng-template>
+              <li [ngClass]="{'active': selectedItem==='baby-gi-tract'}" routerLink="/dashboard/baby-gi-tract"
+                (click)="activeTab('baby-gi-tract')"
+                *ngIf="readingDataService.checkComponentState['baby-git'] == true;else elseGIT">
+                <a class=""> BABY GI TRACT FUNCTION </a>
+              </li>
+              <ng-template #elseGIT>
+                <li style="opacity:0.3;pointer-events:none;">
+                  BABY GI TRACT FUNCTION
+                </li>
+              </ng-template>
+              <li [ngClass]="{'active': selectedItem==='baby-investigation'}" routerLink="/dashboard/baby-investigation"
+                (click)="activeTab('baby-investigation')"
+                *ngIf="readingDataService.checkComponentState['baby-investigation'] == true;else elseInvestigation">
+                <a class=""> BABY INVESTIGATIONS </a>
+              </li>
+              <ng-template #elseInvestigation>
+                <li style="opacity:0.3;pointer-events:none;">
+                  BABY INVESTIGATIONS
+                </li>
+              </ng-template>
+              <li [ngClass]="{'active': selectedItem==='anitibiotic-administration'}"
+                routerLink="/dashboard/anitibiotic-administration" (click)="activeTab('anitibiotic-administration')"
+                *ngIf="readingDataService.checkComponentState['baby-antibiotic'] == true;else elseAntibiotic">
+                <a class=""> ANTIBIOTIC ADMINISTRATION <span class="sr-only">(current)</span></a>
+              </li>
+              <ng-template #elseAntibiotic>
+                <li style="opacity:0.3;pointer-events:none;">
+                  ANTIBIOTIC ADMINISTRATION
+                </li>
+              </ng-template>
+              <li [ngClass]="{'active': selectedItem==='final-diagnosis'}" routerLink="/dashboard/final-diagnosis"
+                (click)="activeTab('final-diagnosis')"
+                *ngIf="readingDataService.checkComponentState['baby-final'] == true;else elseFinal">
+                <a class=""> FINAL DIAGNOSIS <span class="sr-only">(current)</span></a>
+              </li>
+              <ng-template #elseFinal>
+                <li style="opacity:0.3;pointer-events:none;">
+                  FINAL DIAGNOSIS
+                </li>
+              </ng-template>
+            </ul>
+          </ng-container>
+        </div>
+
+
+      </div>
+      <div class="col-md-9 col-12 mt-3">
+        <div class="row avy-logo mb-3">
+          <div class="col-md-12 d-md-flex justify-content-space">
+            <!-- <button class="btn create-btn text-white my-1" style="background:#615c5d;"
+              (click)="openBabyProfile()"><i class="fas fa-plus-circle"></i>
+              Create New Profile </button> -->
+            <button class="btn create-btn text-white my-1 ml-md-3" style="background:#bd6924;"
+              [disabled]="this.readingDataService.isMotherProfileHaveResp" (click)="openBabyAppear()"><i
+                class="fas fa-plus-circle"></i>
+              Create New Reading </button>
+            <button class="btn btn-primary save-btn text-white ml-md-auto my-1" (click)="goToDashboard()">
+            Back to Dashboard </button>
+          </div>
+          <!-- <div class="col-md-6 col-xs-12 d-flex remove_d_flex_mobile">
+            <button class="btn btn-primary create-btn mr-2 mt-0 mb-2 text-white ml-auto" (click)="saveReading()"
+              [disabled]="readingDataService.showSaveReadingButton"><i class="fas fa-plus-circle"></i>
+              Save Reading </button>
+          </div> -->
+        </div>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="bg-white text-center footerCss">
+  <small class="text-grey-200"> Copyright © 2019-2020 Avyantra Health Technologies. All Rights Reserved</small>
+</footer>

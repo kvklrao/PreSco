@@ -1,0 +1,61 @@
+features
+Baby Weight At Admission
+Baby Blood Glucose_value
+Baby Blood Glucose_Increasing
+Baby Blood Glucose_No Change
+Baby Age at Admission
+Baby Appearance_Increasing
+Baby Appearance_No Change
+Baby Appearance_value_Dull
+Baby Appearance_value_Lethargic
+Baby Appearance_value_Normal
+Baby Blood Pressure Mean Arterial Bp_value
+Baby Blood Pressure Mean Arterial Bp_Increasing
+Baby Blood Pressure Mean Arterial Bp_No Change
+Frequency Of Stools_value
+Frequency Of Stools_Increasing
+Frequency Of Stools_No Change
+Baby Weight At Birth
+Smelly Amniotic Fluid_No
+Smelly Amniotic Fluid_Yes
+Baby Chest Indrawing_No
+Baby Chest Indrawing_Yes
+Baby Blood Pressure Lower Limb_value
+Baby Blood Pressure Lower Limb_Increasing
+Baby Blood Pressure Lower Limb_No Change
+Baby Appearance_Increasing
+Baby Appearance_No Change
+Baby Appearance_value_Dull
+Baby Appearance_value_Lethargic
+Baby Appearance_value_Normal
+Baby Gestational Age
+Baby Feeding Status_Increasing
+Baby Feeding Status_No Change
+Baby Feeding Status_value_No Feeding
+Baby Feeding Status_value_Normal
+Baby Feeding Status_value_Poor
+Baby Blood Pressure Upper Limb_value
+Baby Blood Pressure Upper Limb_Increasing
+Baby Blood Pressure Upper Limb_No Change
+Breast Feeding Initiation_No
+Breast Feeding Initiation_Yes
+Baby Preterm_Yes
+Abdominal Dystension_No
+Abdominal Dystension_Yes
+Delayed Cord Clamping_No
+Delayed Cord Clamping_Yes
+Baby Movement_No
+Baby Movement_Yes
+Baby Movement_No
+Baby Movement_Yes
+Groaning_No
+Groaning_Yes
+Delayed Cord Clamping_No
+Delayed Cord Clamping_Yes
+Baby Gender_Male
+Birth Facility_NA
+Birth Facility_NICU
+Fast Breathing_No
+Fast Breathing_Yes
+Type Of Delivery_NA
+Type Of Delivery_Normal

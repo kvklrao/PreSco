@@ -1,0 +1,79 @@
+<div class="forgot-screen">
+  <!-- As a link -->
+  <nav class="navbar shadow-sm bg-white p-0">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <a class="navbar-brand" href="#">
+            <img src="assets/svgs/avyantra-logo.svg" alt="avyantra" class="w-75 py-2">
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!--  Form-->
+  <div class="form-wrapper">
+    <div class="container my-5">
+      <div  *ngIf="!mailSuccessfull" class="row justify-content-center">
+        <div class="col-sm-12 col-md-12 col-lg-6">
+          <div class="card-pocket card py-5 rounded-0">
+            <div class="presco text-center p-3">
+              <h1 class="text-orange logo-type">PreSco</h1>
+              <h5 class="text-grey-300"> Neonatal Sepsis Prediction Platform </h5>
+            </div>
+
+            <form *ngIf="!this.isEmailExist"  [formGroup]="forgetForm" (ngSubmit)="sendEmail()" novalidate>
+              <div class="forgot-form w-75 mx-auto">
+                <div class="form-group position-relative">
+                  <span class="position-absolute input-icon"><img style="margin-top: -121%;" src="assets/svgs/user-icon.svg" alt=""></span>
+                  <input type="text" autocomplete="off" formControlName="email" id="forgot" class="form-control"  placeholder="Email" >
+                  <div
+                    *ngIf="forgetForm.controls['email'].invalid && (forgetForm.controls['email'].dirty || forgetForm.controls['email'].touched)"
+                    class="error-msg text-left ml-5">
+                    <div *ngIf="forgetForm.controls['email'].errors.required">
+                      Required Field.
+                    </div>
+                    <div *ngIf="forgetForm.controls['email'].errors.email || forgetForm.controls['email'].errors.pattern">
+                      invalid Email ID
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="submit" class="btn btn-primary btn-lg btn-block" value="Send"
+                    [disabled]="forgetForm.invalid">
+                </div>
+              </div>
+            </form>
+          </div>
+          <img src="assets/svgs/card-curve.svg" alt="" class="img-fluid curve-white">
+          <img src="assets/svgs/card-curve-shadow.svg" alt="" class="img-fluid curve-shadow">
+        </div>
+      </div>
+
+      <div  *ngIf="mailSuccessfull" class="row justify-content-center">
+        <div class="col-sm-12 col-md-12 col-lg-6">
+          <div class="card-pocket card py-5 rounded-0">
+            <div class="presco text-center p-3">
+              <h1 class="text-orange logo-type">PreSco</h1>
+              <h5 class="text-grey-300"> Neonatal Sepsis Prediction Platform </h5>
+            </div>
+            <div class="presco text-center p-3">
+                <h4 class="text-grey-300">{{forgetForm['value']['email']}}</h4>
+              <p class="text-grey-300"> A verification email has been sent to your registered email ID. </p>
+            </div>
+
+          </div>
+          <img src="assets/svgs/card-curve.svg" alt="" class="img-fluid curve-white">
+          <img src="assets/svgs/card-curve-shadow.svg" alt="" class="img-fluid curve-shadow">
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <footer class="bg-white text-center p-2">
+    <small class="text-grey-200"> Copyright © 2019-2020 Avyantra Health Technologies. All Rights Reserved</small>
+</footer>
+
+</div>

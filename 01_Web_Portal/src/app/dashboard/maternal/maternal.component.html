@@ -1,0 +1,1034 @@
+<div class="">
+  <div id="formContent">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-4">
+              </div>
+              <div class="col-md-4">
+                <h5 *ngIf="readingDataService.reading" class="text-center">Reading: {{readingDataService.reading}} </h5>
+              </div>
+              <div class="col-md-4">
+                <div class="float-right" *ngIf="getMedicalRecordNumber">
+                  <h5 class="mb-0"> BMRN: {{getMedicalRecordNumber}}</h5>
+                </div>
+              </div>
+            </div>
+        </div>
+
+    <ng-container *ngIf="responseArray?.length>0">
+      <div class="form-css scroll" *ngIf="!isMotherEdit">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card mt-2">
+              <div class="card-body div-shadow">
+                <h5 class="">
+                  {{responseArray[0]['createdAt'] | date:'dd MMMM yyyy, h:mm a'}}
+                  <button class="btn edit-btn float-right">
+                    <mat-icon (click)="open(content,responseArray[0])">edit</mat-icon>
+                  </button>
+                </h5>
+                <div class="row">
+                  <div class="col-12 col-lg-6">
+                    <div class="table-responsive p-3">
+                      <table class="table  table-borderless mb-0">
+                        <tbody>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Age</td>
+                            <td class="tb-value text-right">{{responseArray[0]['mother_age']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Weight</td>
+                            <td class="tb-value text-right">{{responseArray[0]['mother_weight']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Height</td>
+                            <td class="tb-value text-right">{{responseArray[0]['mother_height']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">BMI</td>
+                            <td class="tb-value text-right">{{responseArray[0]['mother_bmi']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Haemoglobin</td>
+                            <td class="tb-value text-right">{{responseArray[0]['mother_haemoglobin']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Blood Pressure(Systolic)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['maternal_blood_pressure']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Blood Pressure (Diastolic)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['maternal_blood_pressure_diastolic']}}
+                            </td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Diabetes (Present)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['maternal_diabetes']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Fever (Present)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['maternal_fever_basic']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Fever (Units)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['maternal_fever']}}
+                              {{responseArray[0]['maternal_fever_unit']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Thyroid Function</td>
+                            <td class="tb-value text-right">{{responseArray[0]['maternal_thyroid_function']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">Thyroid Function (Diagnosis)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['maternal_thyroid_function_basic']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Thyroid Function (Unit)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['maternal_thyroid_function_unit_basic']}}
+                            </td>
+                          </tr>
+
+                          <tr class="border-bottom">
+                            <td class="tb-label">More than 3 Vaginal Examinations During Labor</td>
+                            <td class="tb-value text-right">
+                              {{responseArray[0]['more_than_3_vaginal_examinations_during_labor']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Leaking PV</td>
+                            <td class="tb-value text-right">{{responseArray[0]['leaking_pv']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Rupture Of Membranes (ROM)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['rupture_of_membranes_rom']}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-lg-6">
+                    <div class="table-responsive p-3">
+                      <table class="table  table-borderless mb-0">
+                        <tbody>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Rupture Of Membranes (PROM/SROM)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['rupture_of_membranes_rom_one']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Rupture Of Membranes(IF PROM)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['rupture_of_membranes_rom_two']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Smelly Amniotic Fluid</td>
+                            <td class="tb-value text-right">{{responseArray[0]['smelly_amniotic_fluid']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Chorioamnionitis</td>
+                            <td class="tb-value text-right">{{responseArray[0]['chorioamnionitis']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">GBS Infection</td>
+                            <td class="tb-value text-right">{{responseArray[0]['gbs_infection']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Urinary Tract Infection</td>
+                            <td class="tb-value text-right">
+                              {{responseArray[0]['colonisation_or_urinary_tract_infection']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Torch Infection</td>
+                            <td class="tb-value text-right">{{responseArray[0]['torch_infections']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Type Of Delivery</td>
+                            <td class="tb-value text-right">{{responseArray[0]['type_of_delivery']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Delayed Cord Clamping</td>
+                            <td class="tb-value text-right">{{responseArray[0]['delayed_cord_clamping']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Vaginal Swab Culture (Done)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['vaginal_swab_culture']}}</td>
+                          </tr>
+
+                          <tr class="border-bottom">
+                            <td class="tb-label">Vaginal Swab Culture (Result)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['vaginal_swab_culture_two']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Vaginal Swab Culture</td>
+                            <td class="tb-value text-right">{{responseArray[0]['vaginal_swab_culture_three']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Amniotic Fluid Culture (Done)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['amniotic_fluid_culture']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Amniotic Fluid Culture (Result)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['amniotic_fluid_culture_two']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">AF Culture (If Positive)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['amniotic_fluid_culture_three']}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="mt-3 ml-0 div-shadow" *ngIf="isMotherEdit || responseArray?.length<1">
+      <form [formGroup]="maternalForm" class="form-css card" (ngSubmit)="maternalFormSubmit()" Novalidate>
+        <div class="modal-header custom-modal-header add-btn">
+          <button type="submit" *ngIf="!updateFlag" class="btn btn-primary">Save</button>
+          <button type="button" *ngIf="updateFlag" class="btn btn-primary" (click)="update_maternal_form()">Update</button>
+          <div class="custom-modal-title">MOTHER PROFILE</div>
+        </div>
+        <div class="modal-body scroll">
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="record_type">Record Id</label>
+                <input type="text" readonly [value]="id" class="form-control" name="" id="">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Age </label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" [checked]="this.chkMotherAge" (click)="onInputChange($event)"
+                        class="form-check-input" value="1" name="mother_age">Age
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" [checked]="!this.chkMotherAge" (click)="onInputChange($event)"
+                        class="form-check-input" value="2" name="mother_age">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.chkMotherAge" [dropSpecialCharacters]="false" mask="999"
+                    class="form-control" id="mother_age" formControlName="mother_age" min="0" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.chkMotherAge">
+                    <span class="input-group-text">Yrs</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.chkMotherAge" class="form-control">
+                </div>
+                <div *ngIf="maternalForm.controls['mother_age'].invalid &&
+                  (maternalForm.controls['mother_age'].dirty ||
+                  maternalForm.controls['mother_age'].touched || submitted)" class="error-msg">
+                  <div *ngIf="maternalForm.controls['mother_age'].errors.required">
+                    This field is required.
+                  </div>
+                  <div *ngIf="maternalForm.controls['mother_age'].errors.pattern">
+                    please enter numric value.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Weight</label>
+                <div class="row">
+                  <div class="col-md-5 col-5">
+                    <div class="input-group">
+                      <select formControlName="mother_weight_unit" class="form-control"
+                        (change)="changeDropdown($event.target.value,'mother_weight')">
+                        <option value="Kgs">Kgs</option>
+                        <!-- <option value="Lbs">Lbs</option> -->
+                        <option value="NA">NA</option>
+                      </select>
+                    </div>
+                    <div *ngIf="maternalForm.controls['mother_weight_unit'].invalid &&
+                        (maternalForm.controls['mother_weight_unit'].dirty ||
+                        maternalForm.controls['mother_weight_unit'].touched || submitted)" class="error-msg">
+                      <div class="error-msg" *ngIf="maternalForm.controls['mother_weight_unit'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-7 col-7 pl-0">
+                    <div class="input-group">
+                      <input type="text" id="mother_weight" (ngModelChange)="calculateBMI()" [dropSpecialCharacters]="false" mask="999.09"
+                        *ngIf="this.chkMotherWeight" class="form-control" formControlName="mother_weight"
+                        autocomplete="off">
+                      <input type="text" readonly value="NA" *ngIf="!this.chkMotherWeight" class="form-control">
+                    </div>
+                    <div *ngIf="maternalForm.controls['mother_weight'].invalid &&
+                      (maternalForm.controls['mother_weight'].dirty ||
+                      maternalForm.controls['mother_weight'].touched || submitted)" class="error-msg">
+                      <div class="error-msg" *ngIf="maternalForm.controls['mother_weight'].errors.required">
+                        This field is required.
+                      </div>
+                      <div *ngIf="maternalForm.controls['mother_weight'].errors.pattern">
+                        please enter numric value.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Height</label>
+                <div class="row">
+                  <div class="col-md-5 col-5">
+                    <select name="" id="" formControlName="mother_height_unit" class="form-control"
+                      (change)="changeDropdown($event.target.value,'mother_height')">
+                      <option value="ft">ft</option>
+                      <option value="NA">NA</option>
+                    </select>
+                    <div *ngIf="maternalForm.controls['mother_height_unit'].invalid &&
+                      (maternalForm.controls['mother_height_unit'].dirty ||
+                      maternalForm.controls['mother_height_unit'].touched || submitted)" class="error-msg">
+                      <div class="error-msg" *ngIf="maternalForm.controls['mother_height_unit'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-7 col-7 pl-0">
+                    <div class="input-group">
+                      <input type="text" (ngModelChange)="calculateBMI()" class="form-control" id="mother_height" formControlName="mother_height"
+                        [dropSpecialCharacters]="false" mask="999.09" min="0" *ngIf="this.chkMotherHeight"
+                        autocomplete="off">
+
+                      <input type="text" readonly value="NA" *ngIf="!this.chkMotherHeight" class="form-control">
+                    </div>
+                    <div *ngIf="maternalForm.controls['mother_height'].invalid &&
+                      (maternalForm.controls['mother_height'].dirty ||
+                      maternalForm.controls['mother_height'].touched || submitted)" class="error-msg">
+                      <div class="error-msg" *ngIf="maternalForm.controls['mother_height'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">BMI </label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" id="motherMRNo"
+                        [checked]="this.hasBmi" (click)="onInputChange($event)" value="1"
+                        name="motherBMI">Number
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" id="motherMRNo"
+                        [checked]="!this.hasBmi" (click)="onInputChange($event)" value="2"
+                        name="motherBMI">NA
+                    </label>
+                  </div>
+                </div>
+                <input type="text" readonly value="NA" *ngIf="!this.hasBmi" class="form-control">
+                <input *ngIf="this.hasBmi" [readonly]="isEditable" formControlName="mother_bmi" [dropSpecialCharacters]="false"
+                  mask="999.09" type="text" class="form-control" id="mother_bmi" autocomplete="off">
+                <div *ngIf="maternalForm.controls['mother_bmi'].invalid &&
+                (maternalForm.controls['mother_bmi'].dirty ||
+                maternalForm.controls['mother_bmi'].touched || submitted)" class="error-msg">
+                  <div class="error-msg" *ngIf="maternalForm.controls['mother_bmi'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Haemoglobin</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.chkMotherHaemoglobin"
+                        (click)="onInputChange($event)" value="1" name="motherHaemoglobin">Level
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.chkMotherHaemoglobin"
+                        (click)="onInputChange($event)" value="2" name="motherHaemoglobin">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" class="form-control" [dropSpecialCharacters]="false" mask="999.09"
+                    *ngIf="this.chkMotherHaemoglobin" id="mother_haemoglobin" formControlName="mother_haemoglobin"
+                    min="0" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.chkMotherHaemoglobin">
+                    <span class="input-group-text">g/DL</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.chkMotherHaemoglobin" class="form-control">
+                </div>
+                <div *ngIf="maternalForm.controls['mother_haemoglobin'].invalid &&
+                (maternalForm.controls['mother_haemoglobin'].dirty ||
+                maternalForm.controls['mother_haemoglobin'].touched || submitted)" class="error-msg">
+                  <div class="error-msg" *ngIf="maternalForm.controls['mother_haemoglobin'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Blood Pressure(Systolic)</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.chkMaternalBPSys"
+                        (click)="onInputChange($event)" value="1" name="maternalBpSys">Level
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.chkMaternalBPSys"
+                        (click)="onInputChange($event)" value="2" name="maternalBpSys">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" class="form-control" [dropSpecialCharacters]="false" mask="999"
+                    *ngIf="this.chkMaternalBPSys" id="maternal_blood_pressure" formControlName="maternal_blood_pressure"
+                    min="0" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.chkMaternalBPSys">
+                    <span class="input-group-text">Systolic</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.chkMaternalBPSys" class="form-control">
+                </div>
+                <div *ngIf="maternalForm.controls['maternal_blood_pressure'].invalid &&
+                (maternalForm.controls['maternal_blood_pressure'].dirty ||
+                maternalForm.controls['maternal_blood_pressure'].touched || submitted)" class="error-msg">
+                  <div *ngIf="maternalForm.controls['maternal_blood_pressure'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Blood Pressure (Diastolic)</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.chkMaternalBPDias"
+                        (click)="onInputChange($event)" value="1" name="maternalBpDias">Level
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.chkMaternalBPDias"
+                        (click)="onInputChange($event)" value="2" name="maternalBpDias">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" class="form-control" [dropSpecialCharacters]="false" mask="999"
+                    *ngIf="this.chkMaternalBPDias" id="maternal_blood_pressure_diastolic"
+                    formControlName="maternal_blood_pressure_diastolic" min="0" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.chkMaternalBPDias">
+                    <span class="input-group-text">Diastolic</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.chkMaternalBPDias" class="form-control">
+                </div>
+                <div *ngIf="maternalForm.controls['maternal_blood_pressure_diastolic'].invalid &&
+                (maternalForm.controls['maternal_blood_pressure_diastolic'].dirty ||
+                maternalForm.controls['maternal_blood_pressure_diastolic'].touched || submitted)" class="error-msg">
+                  <div *ngIf="maternalForm.controls['maternal_blood_pressure_diastolic'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="maternal_diabetes">Diabetes (Present)</label>
+                <div class="input-group">
+                  <select name="" id="" formControlName="maternal_diabetes" class="form-control">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="NA">NA</option>
+                  </select>
+                </div>
+                <div *ngIf="maternalForm.controls['maternal_diabetes'].invalid &&
+                (maternalForm.controls['maternal_diabetes'].dirty ||
+                maternalForm.controls['maternal_diabetes'].touched || submitted)" class="error-msg">
+                  <div class="error-msg" *ngIf="maternalForm.controls['maternal_diabetes'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="maternal_diabetes">Fever (Present)</label>
+                <div class="input-group">
+                  <select name="" id="" formControlName="maternal_fever_basic" class="form-control">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="NA">NA</option>
+                  </select>
+                </div>
+                <div *ngIf="maternalForm.controls['maternal_fever_basic'].invalid &&
+                (maternalForm.controls['maternal_fever_basic'].dirty ||
+                maternalForm.controls['maternal_fever_basic'].touched || submitted)" class="error-msg">
+                  <div class="error-msg" *ngIf="maternalForm.controls['maternal_fever_basic'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Fever (Units)</label>
+                <div class="row">
+                  <div class="col-md-5 col-5">
+                    <select name="" id="" formControlName="maternal_fever_unit" class="form-control"
+                      (change)="changeDropdown($event.target.value,'maternal_feverId')">
+                      <option value="Centigrade">Centigrade</option>
+                      <option value="Fahrenheit">Fahrenheit</option>
+                      <option value="NA">NA</option>
+                    </select>
+                    <div *ngIf="maternalForm.controls['maternal_fever_unit'].invalid &&
+                      (maternalForm.controls['maternal_fever_unit'].dirty ||
+                      maternalForm.controls['maternal_fever_unit'].touched || submitted)" class="error-msg">
+                      <div class="error-msg" *ngIf="maternalForm.controls['maternal_fever_unit'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-7 col-7  pl-0">
+                    <input type="text" *ngIf="this.chkFeverUnit" [dropSpecialCharacters]="false" mask="999.09"
+                      class="form-control" id="maternal_feverId" formControlName="maternal_fever" min="0"
+                      autocomplete="off">
+
+                    <input type="text" readonly value="NA" *ngIf="!this.chkFeverUnit" class="form-control">
+                    <div *ngIf="maternalForm.controls['maternal_fever'].invalid &&
+                    (maternalForm.controls['maternal_fever'].dirty ||
+                    maternalForm.controls['maternal_fever'].touched || submitted)" class="error-msg">
+                      <div class="error-msg" *ngIf="maternalForm.controls['maternal_fever'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="babymothername">Thyroid Function </label>
+                <select class="form-control" name="maternal_thyroid_function" id="maternal_thyroid_function"
+                  formControlName="maternal_thyroid_function">
+                  <option value="Normal">Normal</option>
+                  <option value="Abnormal">Abnormal</option>
+                  <option value="NA">NA</option>
+                </select>
+              </div>
+              <div *ngIf="maternalForm.controls['maternal_thyroid_function'].invalid &&
+                    (maternalForm.controls['maternal_thyroid_function'].dirty ||
+                    maternalForm.controls['maternal_thyroid_function'].touched || submitted)" class="error-msg">
+                <div class="error-msg" *ngIf="maternalForm.controls['maternal_thyroid_function'].errors.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="babymothername">Thyroid Function (Diagnosis)</label>
+                <select class="form-control" name="maternal_thyroid_function_basic" id="maternal_thyroid_function_basic"
+                  formControlName="maternal_thyroid_function_basic">
+                  <option value="Hypo">Hypo</option>
+                  <option value="Hyper">Hyper</option>
+                  <option value="NA">NA</option>
+                </select>
+              </div>
+              <div *ngIf="maternalForm.controls['maternal_thyroid_function_basic'].invalid &&
+                    (maternalForm.controls['maternal_thyroid_function_basic'].dirty ||
+                    maternalForm.controls['maternal_thyroid_function_basic'].touched || submitted)" class="error-msg">
+                <div class="error-msg" *ngIf="maternalForm.controls['maternal_thyroid_function_basic'].errors.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Thyroid Function (Unit)</label>
+                <div class="row">
+                  <div class="col-md-5 col-5">
+                    <select name="" id="" formControlName="maternal_thyroid_function_unit_basic_unit"
+                      class="form-control width-40 ml-1"
+                      (change)="changeDropdown($event.target.value,'maternal_thyroid_function_unit_basic_id')">
+                      <option value="mU/L">mU/L</option>
+                      <option value="NA">NA</option>
+                    </select>
+                    <div *ngIf="maternalForm.controls['maternal_thyroid_function_unit_basic_unit'].invalid &&
+                      (maternalForm.controls['maternal_thyroid_function_unit_basic_unit'].dirty ||
+                      maternalForm.controls['maternal_thyroid_function_unit_basic_unit'].touched || submitted)"
+                      class="error-msg">
+                      <div class="error-msg"
+                        *ngIf="maternalForm.controls['maternal_thyroid_function_unit_basic_unit'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-7 col-7  pl-0">
+                    <input type="text" class="form-control" id="maternal_thyroid_function_unit_basic_id"
+                      formControlName="maternal_thyroid_function_unit_basic" min="0" *ngIf="this.chkThyroidUnit"
+                      [dropSpecialCharacters]="false" mask="999.09" autocomplete="off">
+
+                    <input type="text" readonly value="NA" *ngIf="!this.chkThyroidUnit" class="form-control">
+                    <div *ngIf="maternalForm.controls['maternal_thyroid_function_unit_basic'].invalid &&
+                    (maternalForm.controls['maternal_thyroid_function_unit_basic'].dirty ||
+                    maternalForm.controls['maternal_thyroid_function_unit_basic'].touched || submitted)"
+                      class="error-msg">
+                      <div class="error-msg"
+                        *ngIf="maternalForm.controls['maternal_thyroid_function_unit_basic'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="babymothername">More than 3 Vaginal Examinations During Labor </label>
+                <select class="form-control" name="more_than_3_vaginal_examinations_during_labor"
+                  id="more_than_3_vaginal_examinations_during_labor"
+                  formControlName="more_than_3_vaginal_examinations_during_labor">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+              </div>
+              <div *ngIf="maternalForm.controls['more_than_3_vaginal_examinations_during_labor'].invalid &&
+                    (maternalForm.controls['more_than_3_vaginal_examinations_during_labor'].dirty ||
+                    maternalForm.controls['more_than_3_vaginal_examinations_during_labor'].touched || submitted)"
+                class="error-msg">
+                <div class="error-msg"
+                  *ngIf="maternalForm.controls['more_than_3_vaginal_examinations_during_labor'].errors.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="babymothername">Leaking PV </label>
+                <select class="form-control" name="leaking_pv" id="leaking_pv" formControlName="leaking_pv">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+              </div>
+              <div *ngIf="maternalForm.controls['leaking_pv'].invalid &&
+                    (maternalForm.controls['leaking_pv'].dirty ||
+                    maternalForm.controls['leaking_pv'].touched || submitted)" class="error-msg">
+                <div class="error-msg" *ngIf="maternalForm.controls['leaking_pv'].errors.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="babymothername">Rupture Of Membranes (ROM)</label>
+                <select class="form-control" name="rupture_of_membranes_rom" id="rupture_of_membranes_rom"
+                  formControlName="rupture_of_membranes_rom">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+              </div>
+              <div *ngIf="maternalForm.controls['rupture_of_membranes_rom'].invalid &&
+                    (maternalForm.controls['rupture_of_membranes_rom'].dirty ||
+                    maternalForm.controls['rupture_of_membranes_rom'].touched || submitted)" class="error-msg">
+                <div class="error-msg" *ngIf="maternalForm.controls['rupture_of_membranes_rom'].errors.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="babymothername">Rupture Of Membranes (PROM/SROM/ARM)</label>
+                <select class="form-control" name="rupture_of_membranes_rom_one" id="rupture_of_membranes_rom_one"
+                  formControlName="rupture_of_membranes_rom_one">
+                  <option value="PROM">PROM</option>
+                  <option value="SROM">SROM</option>
+                  <option value="ARM">ARM</option>
+                  <option value="NA">NA</option>
+                </select>
+              </div>
+              <div *ngIf="maternalForm.controls['rupture_of_membranes_rom_one'].invalid &&
+                    (maternalForm.controls['rupture_of_membranes_rom_one'].dirty ||
+                    maternalForm.controls['rupture_of_membranes_rom_one'].touched || submitted)" class="error-msg">
+                <div class="error-msg" *ngIf="maternalForm.controls['rupture_of_membranes_rom_one'].errors.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="babymothername">Rupture Of Membranes(IF PROM)</label>
+                <span></span><div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.chkRuptureIfProm"
+                        (click)="onInputChange($event)" value="1" name="ruptureIfProm">Time
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.chkRuptureIfProm"
+                        (click)="onInputChange($event)" value="2" name="ruptureIfProm">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                 <!---- <input type="text" [dropSpecialCharacters]="false" mask="999" class="form-control"
+                    id="rupture_of_membranes_rom_two" *ngIf="this.chkRuptureIfProm"
+                    formControlName="rupture_of_membranes_rom_two" min="0" autocomplete="off">
+                 -->
+                 <select class="form-control" name="rupture_of_membranes_rom_two" id="rupture_of_membranes_rom_two"
+                  formControlName="rupture_of_membranes_rom_two" *ngIf="this.chkRuptureIfProm">
+                  <option value=">12">> 12</option>
+                  <option value="<12">< 12</option>
+                  <option value="NA">NA</option>
+                </select>
+
+                  <div class="input-group-append" *ngIf="this.chkRuptureIfProm">
+                    <span class="input-group-text">Hrs</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.chkRuptureIfProm" class="form-control">
+                 
+                </div>
+                <div *ngIf="maternalForm.controls['rupture_of_membranes_rom_two'].invalid &&
+                    (maternalForm.controls['rupture_of_membranes_rom_two'].dirty ||
+                    maternalForm.controls['rupture_of_membranes_rom_two'].touched || submitted)" class="error-msg">
+                  <div class="error-msg" *ngIf="maternalForm.controls['rupture_of_membranes_rom_two'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="babymothername">Smelly Amniotic Fluid </label>
+                <select class="form-control" name="smelly_amniotic_fluid" id="rupture_of_membranes_rom"
+                  formControlName="smelly_amniotic_fluid">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+              </div>
+              <div *ngIf="maternalForm.controls['smelly_amniotic_fluid'].invalid &&
+                    (maternalForm.controls['smelly_amniotic_fluid'].dirty ||
+                    maternalForm.controls['smelly_amniotic_fluid'].touched || submitted)" class="error-msg">
+                <div class="error-msg" *ngIf="maternalForm.controls['smelly_amniotic_fluid'].errors.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="baby_weight_at_birth">Chorioamnionitis </label>
+                <select class="form-control" name="chorioamnionitis" id="chorioamnionitis"
+                  formControlName="chorioamnionitis">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+              </div>
+              <div *ngIf="maternalForm.controls['chorioamnionitis'].invalid &&
+                    (maternalForm.controls['chorioamnionitis'].dirty ||
+                    maternalForm.controls['chorioamnionitis'].touched || submitted)" class="error-msg">
+                <div class="error-msg" *ngIf="maternalForm.controls['chorioamnionitis'].errors.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="babymothername">GBS Infection </label>
+                <select class="form-control" name="gbs_infection" id="gbs_infection" formControlName="gbs_infection">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+              </div>
+              <div *ngIf="maternalForm.controls['gbs_infection'].invalid &&
+                    (maternalForm.controls['gbs_infection'].dirty ||
+                    maternalForm.controls['gbs_infection'].touched || submitted)" class="error-msg">
+                <div class="error-msg" *ngIf="maternalForm.controls['gbs_infection'].errors.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="babymothername">Urinary Tract Infection </label>
+                <select class="form-control" name="colonisation_or_urinary_tract_infection"
+                  id="colonisation_or_urinary_tract_infection"
+                  formControlName="colonisation_or_urinary_tract_infection">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+              </div>
+              <div *ngIf="maternalForm.controls['colonisation_or_urinary_tract_infection'].invalid &&
+                    (maternalForm.controls['colonisation_or_urinary_tract_infection'].dirty ||
+                    maternalForm.controls['colonisation_or_urinary_tract_infection'].touched || submitted)"
+                class="error-msg">
+                <div class="error-msg"
+                  *ngIf="maternalForm.controls['colonisation_or_urinary_tract_infection'].errors.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="babymothername">Torch Infection</label>
+                <select class="form-control" name="torch_infections" id="torch_infections"
+                  formControlName="torch_infections">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+              </div>
+              <div *ngIf="maternalForm.controls['torch_infections'].invalid &&
+                    (maternalForm.controls['torch_infections'].dirty ||
+                    maternalForm.controls['torch_infections'].touched || submitted)" class="error-msg">
+                <div class="error-msg" *ngIf="maternalForm.controls['torch_infections'].errors.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="babymothername">Type Of Delivery </label>
+                <select class="form-control" name="type_of_delivery" id="type_of_delivery"
+                  formControlName="type_of_delivery">
+                  <option value="Cesarean">Cesarean</option>
+                  <option value="Normal">Normal</option>
+                  <option value="NA">NA</option>
+                </select>
+              </div>
+              <div *ngIf="maternalForm.controls['type_of_delivery'].invalid &&
+                    (maternalForm.controls['type_of_delivery'].dirty ||
+                    maternalForm.controls['type_of_delivery'].touched || submitted)" class="error-msg">
+                <div class="error-msg" *ngIf="maternalForm.controls['type_of_delivery'].errors.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="babymothername">Delayed Cord Clamping </label>
+                <select class="form-control" name="delayed_cord_clamping" id="delayed_cord_clamping"
+                  formControlName="delayed_cord_clamping">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+              </div>
+              <div *ngIf="maternalForm.controls['delayed_cord_clamping'].invalid &&
+                    (maternalForm.controls['delayed_cord_clamping'].dirty ||
+                    maternalForm.controls['delayed_cord_clamping'].touched || submitted)" class="error-msg">
+                <div class="error-msg" *ngIf="maternalForm.controls['delayed_cord_clamping'].errors.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="babymothername">Vaginal Swab Culture (Done)</label>
+                <select class="form-control" name="vaginal_swab_culture" id="type_of_delivery"
+                  formControlName="vaginal_swab_culture">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+              </div>
+              <div *ngIf="maternalForm.controls['vaginal_swab_culture'].invalid &&
+                    (maternalForm.controls['vaginal_swab_culture'].dirty ||
+                    maternalForm.controls['vaginal_swab_culture'].touched || submitted)" class="error-msg">
+                <div class="error-msg" *ngIf="maternalForm.controls['vaginal_swab_culture'].errors.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="babymothername">Vaginal Swab Culture (Result)</label>
+                <select class="form-control" name="vaginal_swab_culture_two" id="vaginal_swab_culture_two"
+                  formControlName="vaginal_swab_culture_two">
+                  <option value="Positive">Positive</option>
+                  <option value="Negative">Negative</option>
+                  <option value="NA">NA</option>
+                </select>
+              </div>
+              <div *ngIf="maternalForm.controls['vaginal_swab_culture_two'].invalid &&
+                    (maternalForm.controls['vaginal_swab_culture_two'].dirty ||
+                    maternalForm.controls['vaginal_swab_culture_two'].touched || submitted)" class="error-msg">
+                <div class="error-msg" *ngIf="maternalForm.controls['vaginal_swab_culture_two'].errors.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="babymothername">Vaginal Swab Culture </label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.chkVagSwabCulture"
+                        (click)="onInputChange($event)" value="1" name="vagSwabCulture">Organism
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.chkVagSwabCulture"
+                        (click)="onInputChange($event)" value="2" name="vagSwabCulture">NA
+                    </label>
+                  </div>
+                </div>
+                <input type="text" [dropSpecialCharacters]="false" mask="S*" class="form-control"
+                  *ngIf="this.chkVagSwabCulture" formControlName="vaginal_swab_culture_three" autocomplete="off">
+                <input type="text" readonly value="NA" *ngIf="!this.chkVagSwabCulture" class="form-control">
+              </div>
+              <div *ngIf="maternalForm.controls['vaginal_swab_culture_three'].invalid &&
+                    (maternalForm.controls['vaginal_swab_culture_three'].dirty ||
+                    maternalForm.controls['vaginal_swab_culture_three'].touched || submitted)" class="error-msg">
+                <div class="error-msg" *ngIf="maternalForm.controls['vaginal_swab_culture_three'].errors.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="babymothername">Amniotic Fluid Culture (Done)</label>
+                <select class="form-control" name="amniotic_fluid_culture" id="amniotic_fluid_culture"
+                  formControlName="amniotic_fluid_culture">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="maternalForm.controls['amniotic_fluid_culture'].invalid &&
+                    (maternalForm.controls['amniotic_fluid_culture'].dirty ||
+                    maternalForm.controls['amniotic_fluid_culture'].touched || submitted)" class="error-msg">
+                  <div class="error-msg" *ngIf="maternalForm.controls['amniotic_fluid_culture'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="babymothername">Amniotic Fluid Culture (Result)</label>
+                <select class="form-control" name="amniotic_fluid_culture" id="amniotic_fluid_culture"
+                  formControlName="amniotic_fluid_culture_two">
+                  <option value="Positive">Positive</option>
+                  <option value="Negative">Negative</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="maternalForm.controls['amniotic_fluid_culture'].invalid &&
+                    (maternalForm.controls['amniotic_fluid_culture'].dirty ||
+                    maternalForm.controls['amniotic_fluid_culture'].touched || submitted)" class="error-msg">
+                  <div class="error-msg" *ngIf="maternalForm.controls['amniotic_fluid_culture'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="babymothername">AF Culture (If Positive)</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.chkAminoticFluidCultureIfPos"
+                        (click)="onInputChange($event)" value="1" name="amnioticFluidCultureIfPos">Organism
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.chkAminoticFluidCultureIfPos"
+                        (click)="onInputChange($event)" value="2" name="amnioticFluidCultureIfPos">NA
+                    </label>
+                  </div>
+                </div>
+                <input type="text" class="form-control" *ngIf="this.chkAminoticFluidCultureIfPos"
+                  formControlName="amniotic_fluid_culture_three" [dropSpecialCharacters]="false" mask="S*" autocomplete="off">
+                <input type="text" readonly value="NA" *ngIf="!this.chkAminoticFluidCultureIfPos" class="form-control">
+              </div>
+              <div *ngIf="maternalForm.controls['amniotic_fluid_culture_three'].invalid &&
+                    (maternalForm.controls['amniotic_fluid_culture_three'].dirty ||
+                    maternalForm.controls['amniotic_fluid_culture_three'].touched || submitted)" class="error-msg">
+                <div class="error-msg" *ngIf="maternalForm.controls['amniotic_fluid_culture_three'].errors.required">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

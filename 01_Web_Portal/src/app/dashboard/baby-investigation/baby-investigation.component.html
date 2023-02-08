@@ -1,0 +1,1332 @@
+<div class="">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="container">
+      <!-- <button class="btn create-btn mr-2 mt-0 text-white" (click)="open(content,{})"><i class="fas fa-plus-circle"></i> Create New Reading</button> -->
+      <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+          <h5 *ngIf="readingDataService.reading" class="text-center">Reading: {{readingDataService.reading}} </h5>
+        </div>
+        <div class="col-md-4">
+          <div class="float-right" *ngIf="getMedicalRecordNumber">
+            <h5 class="mb-0"> BMRN: {{getMedicalRecordNumber}}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngIf="responseArray?.length>0">
+      <div class="form-css scroll" *ngIf="!isBabyInvestEdit">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card ml-2">
+              <div class="card-body div-shadow">
+                <h5 class="">
+                  {{responseArray[0]['createdAt'] | date:'dd MMMM yyyy, h:mm a' || 'Loading...'}}
+                  <button class="btn edit-btn float-right">
+                    <mat-icon (click)="open(content, responseArray[0])">edit</mat-icon>
+                  </button>
+                </h5>
+
+                <div class="row">
+                  <div class="col-12 col-lg-6">
+                     <div class="table-responsive p-3">
+                      <table class="table  table-borderless mb-0">
+                        <tbody>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Thyroid Status</td>
+                            <td class="tb-value text-right">{{responseArray[0]['baby_thyroid_status']}}</td>
+                          </tr>     
+                          <tr class="border-bottom">
+                            <td class="tb-label">Thyroid Result</td>
+                            <td class="tb-value text-right">{{responseArray[0]['baby_thyroid_result']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">Blood Glucose</td>
+                            <td class="tb-value text-right">{{responseArray[0]['baby_blood_glucose']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">Haemoglobin Level</td>
+                            <td class="tb-value text-right">{{responseArray[0]['baby_haemoglobin_levels']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">C Reactive Protien Levels</td>
+                            <td class="tb-value text-right">{{responseArray[0]['baby_c_reactive_protien_levels']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">Micro ESR</td>
+                            <td class="tb-value text-right">{{responseArray[0]['micro_esr']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">Procalcitonin</td>
+                            <td class="tb-value text-right">{{responseArray[0]['baby_procalcitonin_levels']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">Total Leucocytes Count</td>
+                            <td class="tb-value text-right">{{responseArray[0]['total_leucocute_count']}} {{responseArray[0]['total_leucocute_count_unit']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">Absolute Neutrophil Count</td>
+                            <td class="tb-value text-right">{{responseArray[0]['absolute_neutrophil_count']}} {{responseArray[0]['absolute_neutrophil_count_unit']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">Immature to mature neutrophil ratios > 0.2</td>
+                            <td class="tb-value text-right">{{responseArray[0]['immature_to_mature_neutrophil_ratios']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">Thrombocytopenia (Platelet Count)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['thrombocytopenia']}} {{responseArray[0]['thrombocytopenia_unit']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">Urine test for Pus Cells</td>
+                            <td class="tb-value text-right">{{responseArray[0]['urine_rest_for_pus_cells']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">Urine culture test</td>
+                            <td class="tb-value text-right">{{responseArray[0]['urine_culture_test']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">Blood Culture Report</td>
+                            <td class="tb-value text-right">{{responseArray[0]['blood_culture_report']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">Other Organism</td>
+                            <td class="tb-value text-right">{{responseArray[0]['other_organism']}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                     </div>
+                  </div>
+                  
+                  <div class="col-12 col-lg-6">
+                     <div class="table-responsive p-3">
+                      <table class="table  table-borderless mb-0">
+                        <tbody>    
+                          <tr class="border-bottom">
+                            <td class="tb-label">Sodium (Na)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['sodium']}}</td>
+                          </tr> 
+                          <tr class="border-bottom">
+                            <td class="tb-label">Potassium (K)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['potassium']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Chloride</td>
+                            <td class="tb-value text-right">{{responseArray[0]['chlorine']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Calcium (Ca)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['calcium']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Phosphate (PO4)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['phosphate']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Magnesium (Mg)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['magnesium']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Urea</td>
+                            <td class="tb-value text-right">{{responseArray[0]['urea']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Creatinine</td>
+                            <td class="tb-value text-right">{{responseArray[0]['creatinine']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Lactate level</td>
+                            <td class="tb-value text-right">{{responseArray[0]['lactate_levels']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Bilirubin level</td>
+                            <td class="tb-value text-right">{{responseArray[0]['bilirubin_levels']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Cord pH</td>
+                            <td class="tb-value text-right">{{responseArray[0]['cord_ph']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">ECG - Arrhythmia (Present)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['arrhythmia']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">CSF Culture (Result)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['csf_culture']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">CSF Culture</td>
+                            <td class="tb-value text-right">{{responseArray[0]['csf_culture_tsb_value']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">Prothrombin Type(PT)</td>
+                            <td class="tb-value text-right">{{responseArray[0]['prothrombin_type']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">Activated Partial Prothrombin</td>
+                            <td class="tb-value text-right">{{responseArray[0]['activated_prothrombin_type']}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                     </div>
+                  </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="m-3 div-shadow" *ngIf="responseArray?.length<1 || isBabyInvestEdit">
+    <form [formGroup]="invetigationForm" class="form-css card" (ngSubmit)="investigationFormSubmit()" novalidate>
+        <div class="modal-header custom-modal-header add-btn">
+          <!-- <button type="submit" class="btn btn-primary">
+            <span>Save</span>
+          </button> -->
+          <div class="custom-modal-title">BABY INVESTIGATIONS</div>
+          
+        </div>
+        <div class="modal-body scroll">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="record_type">Record Id</label>
+                <input type="text" readonly [value]="id" class="form-control" name="" id="">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="baby_thyroid_status">Thyroid Status</label>
+                <select class="form-control" name="baby_thyroid_status" id="baby_thyroid_status"
+                  formControlName="baby_thyroid_status">
+                  <option value="Normal">Normal</option>
+                  <option value="Abnormal">Abnormal</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="invetigationForm.controls['baby_thyroid_status'].invalid &&
+                  (invetigationForm.controls['baby_thyroid_status'].dirty ||
+                  invetigationForm.controls['baby_thyroid_status'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['baby_thyroid_status'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="baby_thyroid_result">Thyroid Result</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isBabyThyroidResult"
+                        (click)="onInputChange($event)" value="1" name="BabyThyroidResult">Units
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isBabyThyroidResult"
+                        (click)="onInputChange($event)" value="2" name="BabyThyroidResult">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isBabyThyroidResult" [dropSpecialCharacters]="false" mask="999.09"
+                    class="form-control" id="baby_thyroid_result" formControlName="baby_thyroid_result" min="0" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isBabyThyroidResult">
+                    <span class="input-group-text">mlU/L</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.isBabyThyroidResult" class="form-control">
+                </div>
+                <div *ngIf="invetigationForm.controls['baby_thyroid_result'].invalid &&
+                  (invetigationForm.controls['baby_thyroid_result'].dirty ||
+                  invetigationForm.controls['baby_thyroid_result'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['baby_thyroid_result'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="baby_blood_glucose">Blood Glucose</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isBabyBloodGlucose"
+                        (click)="onInputChange($event)" value="1" name="BabyBloodGlucose">Level
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isBabyBloodGlucose"
+                        (click)="onInputChange($event)" value="2" name="BabyBloodGlucose">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isBabyBloodGlucose" [dropSpecialCharacters]="false" mask="999.09"
+                    class="form-control" id="baby_blood_glucose" formControlName="baby_blood_glucose" min="0" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isBabyBloodGlucose">
+                    <span class="input-group-text">mg/dL</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.isBabyBloodGlucose" class="form-control">
+                </div>
+                <div *ngIf="invetigationForm.controls['baby_blood_glucose'].invalid &&
+                  (invetigationForm.controls['baby_blood_glucose'].dirty ||
+                  invetigationForm.controls['baby_blood_glucose'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['baby_blood_glucose'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="baby_haemoglobin_levels">Haemoglobin Level</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isBabyHaemoglobin"
+                        (click)="onInputChange($event)" value="1" name="BabyHaemoglobin">Units
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isBabyHaemoglobin"
+                        (click)="onInputChange($event)" value="2" name="BabyHaemoglobin">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isBabyHaemoglobin" [dropSpecialCharacters]="false" mask="999.09" class="form-control"
+                    id="baby_haemoglobin_levels" formControlName="baby_haemoglobin_levels" min="0" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isBabyHaemoglobin">
+                    <span class="input-group-text">g/dL</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.isBabyHaemoglobin" class="form-control">
+                </div>
+                <div *ngIf="invetigationForm.controls['baby_haemoglobin_levels'].invalid &&
+                  (invetigationForm.controls['baby_haemoglobin_levels'].dirty ||
+                  invetigationForm.controls['baby_haemoglobin_levels'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['baby_haemoglobin_levels'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="baby_c_reactive_protien_levels">C-Reactive Protein Level</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isBabyProtien"
+                        (click)="onInputChange($event)" value="1" name="BabyProtien">Level
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isBabyProtien"
+                        (click)="onInputChange($event)" value="2" name="BabyProtien">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isBabyProtien" [dropSpecialCharacters]="false" mask="999.09" class="form-control"
+                    id="baby_c_reactive_protien_levels" formControlName="baby_c_reactive_protien_levels" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isBabyProtien">
+                    <span class="input-group-text">mg/l</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.isBabyProtien" class="form-control">
+                </div>
+                <div *ngIf="invetigationForm.controls['baby_c_reactive_protien_levels'].invalid &&
+                  (invetigationForm.controls['baby_c_reactive_protien_levels'].dirty ||
+                  invetigationForm.controls['baby_c_reactive_protien_levels'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['baby_c_reactive_protien_levels'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="micro_esr"> Micro ESR</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isBabyEsr"
+                        (click)="onInputChange($event)" value="1" name="BabyEsr">mm/hr
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isBabyEsr"
+                        (click)="onInputChange($event)" value="2" name="BabyEsr">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isBabyEsr" [dropSpecialCharacters]="false" mask="999.09"
+                    class="form-control" id="micro_esr" formControlName="micro_esr" min="0" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isBabyEsr">
+                    <span class="input-group-text">mm</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.isBabyEsr" class="form-control">
+                </div>
+                <div *ngIf="invetigationForm.controls['micro_esr'].invalid && (invetigationForm.controls['micro_esr'].dirty ||
+                  invetigationForm.controls['micro_esr'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['micro_esr'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="baby_procalcitonin_levels">Procalcitonin</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isBabyProcalcitonin"
+                        (click)="onInputChange($event)" value="1" name="BabyProcalcitonin">Level
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isBabyProcalcitonin"
+                        (click)="onInputChange($event)" value="2" name="BabyProcalcitonin">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isBabyProcalcitonin" [dropSpecialCharacters]="false" mask="999.09"
+                    class="form-control" id="baby_procalcitonin_levels" formControlName="baby_procalcitonin_levels" min="0" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isBabyProcalcitonin">
+                    <span class="input-group-text">ng/mL</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.isBabyProcalcitonin" class="form-control">
+                </div>
+                <div *ngIf="invetigationForm.controls['baby_procalcitonin_levels'].invalid &&
+                  (invetigationForm.controls['baby_procalcitonin_levels'].dirty ||
+                  invetigationForm.controls['baby_procalcitonin_levels'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['baby_procalcitonin_levels'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="micro_esr"> Prothrombin Type(PT)</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isprothrombin"
+                        (click)="onInputChange($event)" value="1" name="babyProthrombin">Value
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isprothrombin"
+                        (click)="onInputChange($event)" value="2" name="babyProthrombin">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isprothrombin" [dropSpecialCharacters]="false" mask="999.09"
+                    class="form-control" id="prothrombin_type" formControlName="prothrombin_type" min="0" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isprothrombin">
+                    <span class="input-group-text">second</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.isprothrombin" class="form-control">
+                </div>
+                <div *ngIf="invetigationForm.controls['prothrombin_type'].invalid && (invetigationForm.controls['prothrombin_type'].dirty ||
+                  invetigationForm.controls['prothrombin_type'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['prothrombin_type'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="baby_procalcitonin_levels">Activated Partial Prothrombin</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isActiveProthrombin"
+                        (click)="onInputChange($event)" value="1" name="babyActiveProthrombin">Value
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isActiveProthrombin"
+                        (click)="onInputChange($event)" value="2" name="babyActiveProthrombin">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isActiveProthrombin" [dropSpecialCharacters]="false" mask="9*"
+                    class="form-control" id="baby_procalcitonin_levels" formControlName="activated_prothrombin_type" min="0" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isActiveProthrombin">
+                    <span class="input-group-text">second</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.isActiveProthrombin" class="form-control">
+                </div>
+                <div *ngIf="invetigationForm.controls['activated_prothrombin_type'].invalid &&
+                  (invetigationForm.controls['activated_prothrombin_type'].dirty ||
+                  invetigationForm.controls['activated_prothrombin_type'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['activated_prothrombin_type'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="total_leucocute_count">Total Leucocytes Count</label>
+                <div class="row">
+                  <div class="col-md-4 col-4">
+                    <select class="form-control" name="total_leucocute_count_unit" id="total_leucocute_count_unit"
+                      formControlName="total_leucocute_count_unit" (change)="changeDropdown($event.target.value,'total_leucocute_count')">
+                      <option value="cu mm">cu mm</option>
+                      <option value="NA">NA</option>
+                    </select>
+                    <div *ngIf="invetigationForm.controls['total_leucocute_count_unit'].invalid &&
+                      (invetigationForm.controls['total_leucocute_count_unit'].dirty ||
+                      invetigationForm.controls['total_leucocute_count_unit'].touched || submitted)" class="error-msg">
+                      <div *ngIf="invetigationForm.controls['total_leucocute_count_unit'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-8 col-8 pl-0">
+                    <div class="input-group">
+                      <input type="text" *ngIf="this.isLeucocuteCount" [dropSpecialCharacters]="false" mask="999999" class="form-control"
+                        id="total_leucocute_count" formControlName="total_leucocute_count" min="0" autocomplete="off">
+                      <input type="text" readonly value="NA" *ngIf="!this.isLeucocuteCount"  class="form-control">
+                    </div>
+                    <div *ngIf="invetigationForm.controls['total_leucocute_count'].invalid &&
+                      (invetigationForm.controls['total_leucocute_count'].dirty ||
+                      invetigationForm.controls['total_leucocute_count'].touched || submitted)" class="error-msg">
+                      <div *ngIf="invetigationForm.controls['total_leucocute_count'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="absolute_neutrophil_count">Absolute Neutrophil Count</label>
+                <div class="row">
+                  <div class="col-md-4 col-4">
+                    <select class="form-control" name="absolute_neutrophil_count_unit" id="absolute_neutrophil_count_unit"
+                      formControlName="absolute_neutrophil_count_unit" (change)="changeDropdown($event.target.value,'absolute_neutrophil_count')">
+                      <option value="cu mm">cu mm</option>
+                      <option value="NA">NA</option>
+                    </select>
+                    <div *ngIf="invetigationForm.controls['absolute_neutrophil_count_unit'].invalid &&
+                      (invetigationForm.controls['absolute_neutrophil_count_unit'].dirty ||
+                      invetigationForm.controls['absolute_neutrophil_count_unit'].touched || submitted)" class="error-msg">
+                      <div *ngIf="invetigationForm.controls['absolute_neutrophil_count_unit'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-8 col-8 pl-0">
+                    <div class="input-group">
+                      <input type="text" *ngIf="this.isNeutrophilCount" [dropSpecialCharacters]="false" mask="99" class="form-control"
+                        id="absolute_neutrophil_count" formControlName="absolute_neutrophil_count" min="0" autocomplete="off">
+                        <input type="text" readonly value="NA" *ngIf="!this.isNeutrophilCount"  class="form-control">
+                    </div>
+                    <div *ngIf="invetigationForm.controls['absolute_neutrophil_count'].invalid &&
+                      (invetigationForm.controls['absolute_neutrophil_count'].dirty ||
+                      invetigationForm.controls['absolute_neutrophil_count'].touched || submitted)" class="error-msg">
+                      <div *ngIf="invetigationForm.controls['absolute_neutrophil_count'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="immature_to_mature_neutrophil_ratios">Immature to mature neutrophil ratios > 0.2</label>
+                <select class="form-control" name="immature_to_mature_neutrophil_ratios"
+                  id="immature_to_mature_neutrophil_ratios" formControlName="immature_to_mature_neutrophil_ratios">
+                  <option value="High">High</option>
+                  <option value="Normal">Normal</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="invetigationForm.controls['immature_to_mature_neutrophil_ratios'].invalid &&
+                  (invetigationForm.controls['immature_to_mature_neutrophil_ratios'].dirty ||
+                  invetigationForm.controls['immature_to_mature_neutrophil_ratios'].touched || submitted)"
+                  class="error-msg">
+                  <div *ngIf="invetigationForm.controls['immature_to_mature_neutrophil_ratios'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="thrombocytopenia">Thrombocytopenia (Platelet Count)</label>
+                <div class="row">
+                  <div class="col-md-4 col-4">
+                    <select class="form-control" name="thrombocytopenia_unit" id="thrombocytopenia_unit"
+                      formControlName="thrombocytopenia_unit" (change)="changeDropdown($event.target.value,'thrombocytopenia_unit')">
+                      <option value="Count">Count</option>
+                      <option value="NA">NA</option>
+                    </select>
+                    <div *ngIf="invetigationForm.controls['thrombocytopenia_unit'].invalid &&
+                      (invetigationForm.controls['thrombocytopenia_unit'].dirty ||
+                      invetigationForm.controls['thrombocytopenia_unit'].touched || submitted)" class="error-msg">
+                      <div *ngIf="invetigationForm.controls['thrombocytopenia_unit'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-8 col-8 pl-0">
+                    <div class="input-group">
+                      <input type="text" *ngIf="this.isThrombocytopenia" [dropSpecialCharacters]="false" mask="999999" class="form-control"
+                        id="thrombocytopenia" formControlName="thrombocytopenia" min="0" autocomplete="off">
+                        <input type="text" readonly value="NA" *ngIf="!this.isThrombocytopenia"  class="form-control">
+                      </div>
+                    <div *ngIf="invetigationForm.controls['thrombocytopenia'].invalid &&
+                      (invetigationForm.controls['thrombocytopenia'].dirty ||
+                      invetigationForm.controls['thrombocytopenia'].touched || submitted)" class="error-msg">
+                      <div *ngIf="invetigationForm.controls['thrombocytopenia'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="urine_rest_for_pus_cells">Urine test for Pus Cells</label>
+                <select class="form-control" name="urine_rest_for_pus_cells" id="urine_rest_for_pus_cells"
+                  formControlName="urine_rest_for_pus_cells">
+                  <option value="Positive">Positive</option>
+                  <option value="Negative">Negative</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="invetigationForm.controls['urine_rest_for_pus_cells'].invalid &&
+                  (invetigationForm.controls['urine_rest_for_pus_cells'].dirty ||
+                  invetigationForm.controls['urine_rest_for_pus_cells'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['urine_rest_for_pus_cells'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="urine_culture_test">Urine culture test</label>
+                <select class="form-control" name="urine_culture_test" id="urine_culture_test"
+                  formControlName="urine_culture_test">
+                  <option value="Positive">Positive</option>
+                  <option value="Negative">Negative</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="invetigationForm.controls['urine_culture_test'].invalid &&
+                  (invetigationForm.controls['urine_culture_test'].dirty ||
+                  invetigationForm.controls['urine_culture_test'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['urine_culture_test'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="blood_culture_report">Blood Culture Report</label>
+                <select class="form-control" name="blood_culture_report" id="blood_culture_report"
+                  formControlName="blood_culture_report">
+                  <option value="Positive">Positive</option>
+                  <option value="Negative">Negative</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="invetigationForm.controls['blood_culture_report'].invalid &&
+                  (invetigationForm.controls['blood_culture_report'].dirty ||
+                  invetigationForm.controls['blood_culture_report'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['blood_culture_report'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="gram_positive_bacteria">Gram Positive Bacteria</label>
+
+                <angular2-multiselect (onSelect)="onItemSelect($event, 'id_gram_positive_bacteria')" (onDeSelect)="OnItemDeSelect($event, 'id_gram_positive_bacteria')" 
+                (onSelectAll)="onSelectAll($event, 'id_gram_positive_bacteria')" (onDeSelectAll)="onDeSelectAll($event, 'id_gram_positive_bacteria')"
+                 [(ngModel)]="selectedGramPosBacteria" id="id_gram_positive_bacteria" [data]="gramPostBacteriaList" [settings]="settings" formControlName="gram_positive_bacteria" 
+                      ></angular2-multiselect>
+                <div *ngIf="invetigationForm.controls['gram_positive_bacteria'].invalid &&
+                  (invetigationForm.controls['gram_positive_bacteria'].dirty ||
+                  invetigationForm.controls['gram_positive_bacteria'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['gram_positive_bacteria'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="this.isPositiveBactFreeField" class="col-md-6">
+              <div class="form-group">
+                <label for="">Gram Positive Bacteria (Other) </label>
+                <div class="input-group">
+                  <input type="text" class="form-control" [patterns]="customPatterns" [dropSpecialCharacters]="false" mask="S*"
+                   formControlName="gram_positive_bacteria_if_other" autocomplete="off">
+                </div>
+                <div *ngIf="invetigationForm.controls['gram_positive_bacteria_if_other'].invalid &&
+                    (invetigationForm.controls['gram_positive_bacteria_if_other'].dirty ||
+                    invetigationForm.controls['gram_positive_bacteria_if_other'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['gram_positive_bacteria_if_other'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="gram_negative_bacteria">Gram Negative Bacteria</label>
+                
+                <angular2-multiselect (onSelect)="onItemSelect($event, 'id_gram_negative_bacteria')" (onDeSelect)="OnItemDeSelect($event, 'id_gram_negative_bacteria')" 
+                (onSelectAll)="onSelectAll($event, 'id_gram_negative_bacteria')" (onDeSelectAll)="onDeSelectAll($event, 'id_gram_negative_bacteria')"
+                [(ngModel)]="selectedGramNegBacItems" id="id_gram_negative_bacteria" [data]="gramNegBacList" [settings]="settings" formControlName="gram_negative_bacteria" 
+                      ></angular2-multiselect>
+    
+                <div *ngIf="invetigationForm.controls['gram_negative_bacteria'].invalid &&
+                  (invetigationForm.controls['gram_negative_bacteria'].dirty ||
+                  invetigationForm.controls['gram_negative_bacteria'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['gram_negative_bacteria'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="this.isNegativeBactFreeField" class="col-md-6">
+              <div class="form-group">
+                <label for="">Gram Negative Bacteria (Other) </label>
+                <div class="input-group">
+                  <input type="text" class="form-control" [patterns]="customPatterns" [dropSpecialCharacters]="false" mask="S*"
+                  formControlName="gram_negative_bacteria_if_other" autocomplete="off">
+                </div>
+                <div *ngIf="invetigationForm.controls['gram_negative_bacteria_if_other'].invalid &&
+                    (invetigationForm.controls['gram_negative_bacteria_if_other'].dirty ||
+                    invetigationForm.controls['gram_negative_bacteria_if_other'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['gram_negative_bacteria_if_other'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="fungi">Fungi</label>
+                <angular2-multiselect [(ngModel)]="selectedFungiItem" id="id_fungi" [data]="fungiList" [settings]="settings" formControlName="fungi"></angular2-multiselect>
+    
+                <div *ngIf="invetigationForm.controls['fungi'].invalid && (invetigationForm.controls['fungi'].dirty ||
+                  invetigationForm.controls['fungi'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['fungi'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="other_organism">Other Organism</label>
+                <select class="form-control" name="other_organism" id="other_organism" formControlName="other_organism">
+                  <option value="Normal Orophayngeal flora">Normal Orophayngeal flora</option>
+                  <option value="Others">Others</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="invetigationForm.controls['other_organism'].invalid &&
+                  (invetigationForm.controls['other_organism'].dirty || invetigationForm.controls['other_organism'].touched
+                  || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['other_organism'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="antibiotic_status">Antibiotic Status</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isAntibioticSensitive"
+                        (click)="onInputChange($event)" value="1" name="antibioticSensitive">Sensitive
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isAntibioticSensitive"
+                        (click)="onInputChange($event)" value="2" name="antibioticSensitive">NA
+                    </label>
+                  </div>
+                </div>
+                <angular2-multiselect  *ngIf="this.isAntibioticSensitive" [(ngModel)]="selectedItems" id="id_antibiotic_status_value" [data]="dropdownList" [settings]="settings" formControlName="antibiotic_status_value"></angular2-multiselect>
+                <input type="text" readonly class="form-control" *ngIf="!this.isAntibioticSensitive"
+                (click)="onInputChange($event)" formControlName="antibiotic_status_value">
+                <div
+                  *ngIf="invetigationForm.controls['antibiotic_status_value'].invalid && (invetigationForm.controls['antibiotic_status_value'].dirty || invetigationForm.controls['antibiotic_status_value'].touched || submitted)"
+                  class="error-msg">
+                  <div *ngIf="invetigationForm.controls['antibiotic_status_value'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+              <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="antibiotic_status">Antibiotic Status</label>
+                    <div class="float-right">
+                      <div class="form-check-inline">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" [checked]="this.isAntibioticResisitant"
+                            (click)="onInputChange($event)" value="1" name="antibioticResisitant">Resisitant
+                        </label>
+                      </div>
+                      <div class="form-check-inline mr-0">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" [checked]="!this.isAntibioticResisitant"
+                            (click)="onInputChange($event)" value="2" name="antibioticResisitant">NA
+                        </label>
+                      </div>
+                    </div>
+                    <angular2-multiselect *ngIf="this.isAntibioticResisitant" [(ngModel)]="selectedResisitantItems" id="id_antibiotic_status_resisitant" [data]="dropdownList" [settings]="settings" formControlName="antibiotic_status_resisitant"></angular2-multiselect>
+                    <input type="text" readonly class="form-control" *ngIf="!this.isAntibioticResisitant"
+                    (click)="onInputChange($event)" formControlName="antibiotic_status_resisitant">
+                    <div
+                      *ngIf="invetigationForm.controls['antibiotic_status_resisitant'].invalid && (invetigationForm.controls['antibiotic_status_resisitant'].dirty || invetigationForm.controls['antibiotic_status_resisitant'].touched || submitted)"
+                      class="error-msg">
+                      <div *ngIf="invetigationForm.controls['antibiotic_status_resisitant'].errors.required">
+                        This field is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="antibiotic_status">Antibiotic Status</label>
+                  <div class="float-right">
+                    <div class="form-check-inline">
+                      <label class="form-check-label">
+                        <input type="radio" class="form-check-input" [checked]="this.isAntibioticIntermediate"
+                          (click)="onInputChange($event)" value="1" name="antibioticIntermediate">Intermediate
+                      </label>
+                    </div>
+                    <div class="form-check-inline mr-0">
+                      <label class="form-check-label">
+                        <input type="radio" class="form-check-input" [checked]="!this.isAntibioticIntermediate"
+                          (click)="onInputChange($event)" value="2" name="antibioticIntermediate">NA
+                      </label>
+                    </div>
+                  </div>
+                  <angular2-multiselect *ngIf="this.isAntibioticIntermediate" [(ngModel)]="selectedIntermediateItems" id="id_antibiotic_status_intermediate" [data]="dropdownList" [settings]="settings" formControlName="antibiotic_status_intermediate"></angular2-multiselect>
+                  <input type="text" readonly class="form-control" *ngIf="!this.isAntibioticIntermediate"
+                    (click)="onInputChange($event)" formControlName="antibiotic_status_intermediate">
+                  <div
+                    *ngIf="invetigationForm.controls['antibiotic_status_intermediate'].invalid && (invetigationForm.controls['antibiotic_status_intermediate'].dirty || invetigationForm.controls['antibiotic_status_intermediate'].touched || submitted)"
+                    class="error-msg">
+                    <div *ngIf="invetigationForm.controls['antibiotic_status_intermediate'].errors.required">
+                      This field is required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="sodium">Sodium (Na)</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isSodium" (click)="onInputChange($event)"
+                        value="1" name="Sodium">Units
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isSodium"
+                        (click)="onInputChange($event)" value="2" name="Sodium">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isSodium" [dropSpecialCharacters]="false" mask="999.09"
+                    class="form-control" id="sodium" formControlName="sodium" min="0" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isSodium">
+                    <span class="input-group-text">mEq/L</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.isSodium" class="form-control">
+                </div>
+                <div *ngIf="invetigationForm.controls['sodium'].invalid && (invetigationForm.controls['sodium'].dirty ||
+                  invetigationForm.controls['sodium'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['sodium'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="potassium">Potassium (K)</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isPotassium"
+                        (click)="onInputChange($event)" value="1" name="Potassium">Units
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isPotassium"
+                        (click)="onInputChange($event)" value="2" name="Potassium">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isPotassium" [dropSpecialCharacters]="false" mask="999.09" class="form-control"
+                    id="potassium" formControlName="potassium" min="0" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isPotassium">
+                    <span class="input-group-text">mEq/L</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.isPotassium" class="form-control">
+                </div>
+                <div *ngIf="invetigationForm.controls['potassium'].invalid && (invetigationForm.controls['potassium'].dirty ||
+                  invetigationForm.controls['potassium'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['potassium'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="chlorine">Chloride</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isChlorine"
+                        (click)="onInputChange($event)" value="1" name="Chlorine">Units
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isChlorine"
+                        (click)="onInputChange($event)" value="2" name="Chlorine">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isChlorine" [dropSpecialCharacters]="false" mask="999.09"
+                    class="form-control" id="chlorine" formControlName="chlorine" min="0" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isChlorine">
+                    <span class="input-group-text">mEq/L</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.isChlorine" class="form-control">
+                </div>
+                <div *ngIf="invetigationForm.controls['chlorine'].invalid && (invetigationForm.controls['chlorine'].dirty ||
+                  invetigationForm.controls['chlorine'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['chlorine'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="calcium">Calcium (Ca)</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isCalcium"
+                        (click)="onInputChange($event)" value="1" name="Calcium">Units
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isCalcium"
+                        (click)="onInputChange($event)" value="2" name="Calcium">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isCalcium" [dropSpecialCharacters]="false" mask="999.09" class="form-control" id="calcium"
+                    formControlName="calcium" min="0" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isCalcium">
+                    <span class="input-group-text">mmol/L</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.isCalcium" class="form-control">
+                </div>
+                <div *ngIf="invetigationForm.controls['calcium'].invalid && (invetigationForm.controls['calcium'].dirty ||
+                    invetigationForm.controls['calcium'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['calcium'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="phosphate">Phosphate (PO4)</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isPhosphate"
+                        (click)="onInputChange($event)" value="1" name="Phosphate">Units
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isPhosphate"
+                        (click)="onInputChange($event)" value="2" name="Phosphate">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" [dropSpecialCharacters]="false" mask="999.09" *ngIf="this.isPhosphate"
+                    class="form-control" id="phosphate" formControlName="phosphate" min="0" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isPhosphate">
+                    <span class="input-group-text">mmol/L</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.isPhosphate" class="form-control">
+                </div>
+                <div *ngIf="invetigationForm.controls['phosphate'].invalid && (invetigationForm.controls['phosphate'].dirty ||
+                    invetigationForm.controls['phosphate'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['phosphate'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="magnesium">Magnesium (Mg)</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isMagnesium"
+                        (click)="onInputChange($event)" value="1" name="Magnesium">Units
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isMagnesium"
+                        (click)="onInputChange($event)" value="2" name="Magnesium">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isMagnesium" [dropSpecialCharacters]="false" mask="999.09"
+                    class="form-control" id="magnesium" formControlName="magnesium" min="0" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isMagnesium">
+                    <span class="input-group-text">mmol/L</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.isMagnesium" class="form-control">
+                </div>
+                <div *ngIf="invetigationForm.controls['magnesium'].invalid && (invetigationForm.controls['magnesium'].dirty ||
+                    invetigationForm.controls['magnesium'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['magnesium'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="urea">Urea</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isUrea" (click)="onInputChange($event)"
+                        value="1" name="Urea">Units
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isUrea" (click)="onInputChange($event)"
+                        value="2" name="Urea">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isUrea" [dropSpecialCharacters]="false" mask="999.09" class="form-control" id="urea"
+                    formControlName="urea" min="0" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isUrea">
+                    <span class="input-group-text">mmol/L</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.isUrea" class="form-control">
+                </div>
+                <div
+                  *ngIf="invetigationForm.controls['urea'].invalid && (invetigationForm.controls['urea'].dirty || invetigationForm.controls['urea'].touched)"
+                  class="error-msg">
+                  <div *ngIf="invetigationForm.controls['urea'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="creatinine">Creatinine</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isCreatinine"
+                        (click)="onInputChange($event)" value="1" name="Creatinine">mg/dL
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isCreatinine"
+                        (click)="onInputChange($event)" value="2" name="Creatinine">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isCreatinine" [dropSpecialCharacters]="false" mask="999.09" class="form-control"
+                    id="creatinine" formControlName="creatinine" min="0" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isCreatinine">
+                    <span class="input-group-text">mmol/L</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.isCreatinine" class="form-control">
+                </div>
+                <div *ngIf="invetigationForm.controls['creatinine'].invalid && (invetigationForm.controls['creatinine'].dirty
+                      || invetigationForm.controls['creatinine'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['creatinine'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="lactate_levels">Lactate level</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isLactate"
+                        (click)="onInputChange($event)" value="1" name="Lactate">Units
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isLactate"
+                        (click)="onInputChange($event)" value="2" name="Lactate">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isLactate" [dropSpecialCharacters]="false" mask="999.09" class="form-control"
+                    id="lactate_levels" formControlName="lactate_levels" min="0" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isLactate">
+                    <span class="input-group-text">mmol/L</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.isLactate" class="form-control">
+                </div>
+                <div *ngIf="invetigationForm.controls['lactate_levels'].invalid &&
+                        (invetigationForm.controls['lactate_levels'].dirty || invetigationForm.controls['lactate_levels'].touched
+                        || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['lactate_levels'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="bilirubin_levels">Bilirubin level</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isBilirubin"
+                        (click)="onInputChange($event)" value="1" name="Bilirubin">Units
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isBilirubin"
+                        (click)="onInputChange($event)" value="2" name="Bilirubin">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isBilirubin" [dropSpecialCharacters]="false" mask="999.09" class="form-control"
+                    id="bilirubin_levels" formControlName="bilirubin_levels" min="0" autocomplete="off">
+                  <div class="input-group-append" *ngIf="this.isBilirubin">
+                    <span class="input-group-text">mg/dL</span>
+                  </div>
+                  <input type="text" readonly value="NA" *ngIf="!this.isBilirubin" class="form-control">
+                </div>
+                <div *ngIf="invetigationForm.controls['bilirubin_levels'].invalid &&
+                        (invetigationForm.controls['bilirubin_levels'].dirty ||
+                        invetigationForm.controls['bilirubin_levels'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['bilirubin_levels'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="cord_pH">Cord pH</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isCord" (click)="onInputChange($event)"
+                        value="1" name="Cord_pH">Value
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isCord" (click)="onInputChange($event)"
+                        value="2" name="Cord_pH">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isCord" [dropSpecialCharacters]="false" mask="999.09" class="form-control" id="cord_pH"
+                    formControlName="cord_ph" autocomplete="off">
+                  <input type="text" readonly value="NA" *ngIf="!this.isCord" class="form-control">
+                </div>
+                <div *ngIf="invetigationForm.controls['cord_ph'].invalid && (invetigationForm.controls['cord_ph'].dirty ||
+                  invetigationForm.controls['cord_ph'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['cord_ph'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="arrhythmia">ECG - Arrhythmia (Present)</label>
+                <select class="form-control" name="arrhythmia" id="arrhythmia" formControlName="arrhythmia">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="invetigationForm.controls['arrhythmia'].invalid && (invetigationForm.controls['arrhythmia'].dirty
+                  || invetigationForm.controls['arrhythmia'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['arrhythmia'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="csf_culture">CSF Culture (Result)</label>
+                <select class="form-control" name="csf_culture" id="csf_culture" formControlName="csf_culture">
+                  <option value="Positive">Positive</option>
+                  <option value="Negative">Negative</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="invetigationForm.controls['csf_culture'].invalid && (invetigationForm.controls['csf_culture'].dirty ||
+                  invetigationForm.controls['csf_culture'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['csf_culture'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="csf_culture_tsb_value">CSF Culture</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isTSBValue"
+                        (click)="onInputChange($event)" value="1" name="TSBValue">Value
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isTSBValue"
+                        (click)="onInputChange($event)" value="2" name="TSBValue">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isTSBValue" [dropSpecialCharacters]="false" mask="999.09" class="form-control"
+                    id="csf_culture_tsb_value"
+                    formControlName="csf_culture_tsb_value" autocomplete="off">
+                  <input type="text" readonly value="NA" *ngIf="!this.isTSBValue" class="form-control">
+                </div>
+                <div *ngIf="invetigationForm.controls['csf_culture_tsb_value'].invalid && (invetigationForm.controls['csf_culture_tsb_value'].dirty
+                  || invetigationForm.controls['csf_culture_tsb_value'].touched || submitted)" class="error-msg">
+                  <div *ngIf="invetigationForm.controls['csf_culture_tsb_value'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button  *ngIf="!isEditClicked" type="submit" class="btn btn-primary float-right">
+            <span>Next</span>
+          </button>
+          <button *ngIf="isEditClicked" type="button" (click)="updateInvestigationForm()" class="btn btn-primary float-right">
+            <span>Update</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+      <!-- <div *ngIf="responseArray?.length<1 && !isBabyInvestEdit">
+      <ng-container>
+          <div class="container">
+              <div class="row">
+                <div class="col-12 p-3">
+                   <div class="card py-3">
+                       <div class="card-body">
+                         <h5 class="card-title text-center alert alert-warning">No Record Found!!</h5>
+                   
+                       </div>
+                       <img src="assets/svgs/Instructions.png" class="card-img-top w-75 mx-auto" alt="...">
+                     </div>
+                </div>
+              </div>
+            </div>
+      </ng-container>
+    </div> -->
+    <!-- Remind Passowrd -->
+  </div>
+</div>

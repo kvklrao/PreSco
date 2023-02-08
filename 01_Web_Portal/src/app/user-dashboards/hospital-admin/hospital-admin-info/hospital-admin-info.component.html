@@ -1,0 +1,126 @@
+<div class="container-fluid">
+    
+	
+  <!-- Page Heading -->
+   <div class="mt-160">
+       <div class="d-sm-flex align-items-center justify-content-between mb-4">
+   
+   
+     <div class="col-md-8">
+     <h4 class="h4 mb-0 text-gray-800"> <i class="fas fa-fw fa-tachometer-alt text-primary mr-2"></i> Dashboard</h4>
+     </div>
+     
+     <div class="col-md-4" *ngIf="login_hospital['user_type']=='Hospital'">
+     <div class="form-group has-error has-danger text-right">
+             <label for="" class="text-bold text-gray-900 pr-3 mt-2">Branch:</label>
+             <select id="form_need" name="need" class="form-control" required="required" data-error="" style="width:250px; float:right;" (change)="changeBranch($event)">
+                 <option *ngFor="let list of branchList" [value]="list.hospital_branch_id"  [selected]="list.hospital_branch_id == hospitalBranchId">{{list.branch_name}}</option>
+                                 </select>
+     </div>
+     </div>
+   
+   
+       </div>
+ </div>
+   
+    <!-- Content Row -->
+       <div class="row w-100">
+
+         <!-- Earnings (Monthly) Card Example -->
+         <div class="col-xl-3 col-md-6 mb-4">
+           <div class="card border-left-primary shadow py-2">
+             <div class="card-body">
+               <div class="row no-gutters align-items-center">
+                 <div class="col mr-2">
+                   <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">{{dashboardData['hospital_name']}}</div>
+                   <div class="h5 mb-0 font-weight-bold text-gray-800">ID: A12547845</div>
+                 </div>
+                 <div class="col-auto">
+                   <i class="fas fa-hospital fa-2x text-primary"></i>
+                 </div>
+               </div>
+             </div>
+           </div>
+     </div>
+
+         <!-- Earnings (Monthly) Card Example -->
+   <div class="col-xl-3 col-md-6 mb-4">
+           <div class="card border-left-info shadow py-2">
+             <div class="card-body">
+               <div class="row no-gutters align-items-center">
+                 <div class="col mr-2">
+                   <div class="text-sm font-weight-bold text-info text-uppercase mb-1">Total Baby medical Record No.</div>
+                   <div class="h5 mb-0 font-weight-bold text-gray-800">{{dashboardData['medical_record_count']}}</div>
+                 </div>
+                 <div class="col-auto">
+                   <i class="fas fa-procedures fa-2x text-info"></i>
+                 </div>
+               </div>
+             </div>
+           </div>
+     </div>
+        
+   
+   
+         <!-- Pending Requests Card Example -->
+         <div class="col-xl-3 col-md-6 mb-4">
+           <div class="card border-left-warning shadow py-2">
+             <div class="card-body">
+               <div class="row no-gutters align-items-center">
+                 <div class="col mr-2">
+                   <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">Total Staff</div>
+                   <div class="h5 mb-0 font-weight-bold text-gray-800">{{dashboardData['total_staff']}}</div>
+                 </div>
+                 <div class="col-auto">
+                   <i class="fas fa-user-nurse fa-2x text-warning"></i>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+   
+   
+   <!-- Pending Requests Card Example -->
+         <div class="col-xl-3 col-md-6 mb-4">
+           <div class="card border-left-success shadow py-2">
+             <div class="card-body">
+               <div class="row no-gutters align-items-center">
+                 <div class="col mr-2">
+                   <div class="text-sm font-weight-bold text-success text-uppercase mb-1">Total Referral Doctors</div>
+                   <div class="h5 mb-0 font-weight-bold text-gray-800">{{dashboardData['referral_doctor_count']}}</div>
+                 </div>
+                 <div class="col-auto">
+                   <i class="fas fa-user-md fa-2x text-success"></i>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+   
+
+
+       </div>
+   
+   
+    <!-- Approach -->
+           <div class="card shadow mb-4">
+             <div class="card-header py-3">
+               <h6 class="m-0 font-weight-bold text-primary">Recent Messages</h6>
+             </div>
+             <div class="card-body">
+                            <div class="table-responsive">
+                             <table class="table  table-borderless mb-0">
+                               <tbody>
+                                 <tr  *ngFor="let list of msgList"class="border-bottom">
+                                   <td class="text-gray-700" width="20%">{{list['first_name']}} {{list['last_name']}}</td>
+                                   <td class="tb-value text-left" width="30%">{{list['role']}}</td>
+                 <td class="tb-label"  width="50%"><a>{{list['message']}}</a></td>
+                                 </tr>     
+                               </tbody>
+                             </table>
+                            </div>
+             </div>
+           </div>
+   
+   </div>
+   

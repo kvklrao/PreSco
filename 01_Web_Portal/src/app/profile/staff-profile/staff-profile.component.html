@@ -1,0 +1,668 @@
+<div class="container-fluid">
+
+
+  <!-- Page Heading -->
+  <div class="mt-160">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h4 class="h4 mb-0 text-gray-800"> <i class="fas fa-fw fa-hospital text-primary mr-2"></i>Profile</h4>
+    </div>
+  </div>
+
+  <!-- Content Row -->
+  <div class="row">
+    <div class="col-xl-12 col-md-12 mb-4">
+      <div class="card shadow mb-4" *ngIf="!isEdit">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Personal Information</h6>
+        </div>
+        <div class="card-body" *ngIf="staffProfile?.length>0">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Hospital Name</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{this.staffProfile[0].hospital_name}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-error has-danger ">
+                      <label for="" class="text-bold text-gray-900">Branch</label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                      <div>{{this.staffProfile[0].branches}}</div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Name</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{this.staffProfile[0].first_name}} &nbsp;{{this.staffProfile[0].last_name}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Email</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <div>{{this.staffProfile[0].email_address}}</div>
+                      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Contact Number</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{this.staffProfile[0].contact_number}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Speciality</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <div>{{this.staffProfile[0].speciality}}</div>
+                      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Assign Role</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{this.staffProfile[0].role}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Report to</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <div>{{this.staffProfile[0].reporting_user}}</div>
+                      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">User Name</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>{{this.staffProfile[0].user_name}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Password</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group has-error has-danger ">
+                        <div>{{this.staffProfile[0].password | passwordEcryptPipe}}</div>
+                      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 text-right">
+              <div class="form-group has-error has-danger ">
+                <button class="d-sm-inline-block btn btn-md btn-secondary shadow-sm" (click)="updateForm(this.staffProfile[0])">Edit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow mb-4" *ngIf="isEdit">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Personal Information</h6>
+        </div>
+        <div class="card-body" *ngIf="staffProfile?.length>0">
+            <form [formGroup]="staffProfileForm" (ngSubmit)="f.form.valid"
+            #f="ngForm" novalidate>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">First Name<span
+                      class="text-danger">*</span></label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>
+                      <input type="text" name="" class="form-control" formControlName="firstName"
+                        [patterns]="namePatters" [dropSpecialCharacters]="false" mask="S*">
+                      <div *ngIf="staffProfileForm.controls['firstName'].invalid && (staffProfileForm.controls['firstName'].dirty || staffProfileForm.controls['firstName'].touched)"
+                        class="error-msg">
+                        <div *ngIf="staffProfileForm.controls['firstName'].errors.required">
+                          This field is required.
+                        </div>
+                        <div *ngIf="staffProfileForm.controls.firstName.errors.maxlength">
+                          First name can have only 15 characters
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Last Name<span
+                      class="text-danger">*</span></label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>
+                      <input type="text" class="form-control" formControlName="lastName"
+                        [patterns]="namePatters" [dropSpecialCharacters]="false" mask="S*">
+                      <div *ngIf="staffProfileForm.controls['lastName'].invalid && (staffProfileForm.controls['lastName'].dirty || staffProfileForm.controls['lastName'].touched)"
+                        class="error-msg">
+                        <div *ngIf="staffProfileForm.controls['lastName'].errors.required">
+                          This field is required.
+                        </div>
+                        <div *ngIf="staffProfileForm.controls.lastName.errors.maxlength">
+                          Last name can have only 15 characters
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Contact Number<span
+                      class="text-danger">*</span></label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>
+                      <input type="text" class="form-control" formControlName="contactNumber"
+                        [dropSpecialCharacters]="false" [patterns]="onlyNumber" mask="0000000000">
+                      <div *ngIf="staffProfileForm.controls['contactNumber'].invalid && (staffProfileForm.controls['contactNumber'].dirty || staffProfileForm.controls['contactNumber'].touched)"
+                        class="error-msg">
+                        <div *ngIf="staffProfileForm.controls['contactNumber'].errors.required">
+                          This field is required.
+                        </div>
+                        <div *ngIf="staffProfileForm.controls.contactNumber.errors.minlength">
+                          Minimum 10 digits required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Email ID<span
+                      class="text-danger">*</span></label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>
+                      <input type="text" class="form-control" formControlName="emailAddress">
+                      <div *ngIf="staffProfileForm.controls['emailAddress'].invalid && (staffProfileForm.controls['emailAddress'].dirty || staffProfileForm.controls['emailAddress'].touched)"
+                        class="error-msg">
+                        <div *ngIf="staffProfileForm.controls['emailAddress'].errors.required">
+                          This field is required.
+                        </div>
+                        <div
+                          *ngIf="staffProfileForm.controls.emailAddress.errors.email || staffProfileForm.controls.emailAddress.errors.pattern">
+                          Invalid email address
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Speciality<span
+                        class="text-danger">*</span></label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>
+                      <input type="text" class="form-control" readonly formControlName="speciality">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Assign Role<span
+                        class="text-danger">*</span></label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div>
+                      <input type="text" class="form-control" readonly formControlName="assignRole">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                <div class="form-group has-error has-danger ">
+                  <label for="" class="text-bold text-gray-900">Username<span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group has-error has-danger ">
+                  <div class="input-group">
+                    <input type="text" class="form-control " formControlName="userName"
+                      [patterns]="customPatterns" [dropSpecialCharacters]="false" mask="A*">
+                    
+                  </div>
+                  <div *ngIf="staffProfileForm.controls['userName'].invalid && (staffProfileForm.controls['userName'].dirty || staffProfileForm.controls['userName'].touched)"
+                      class="error-msg">
+                      <div *ngIf="staffProfileForm.controls['userName'].errors.required">
+                        This field is required.
+                      </div>
+                      <div *ngIf="staffProfileForm.controls.userName.errors.minlength">
+                        Minimum 6 digits required
+                      </div>
+                    </div>
+                </div>
+              </div>
+              </div> </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-error has-danger ">
+                    <label for="" class="text-bold text-gray-900">Password<span
+                        class="text-danger">*</span></label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group has-error has-danger ">
+                    <div class="input-group">
+                      <input type="{{password}}" class="form-control" autocomplete="off"
+                        formControlName="password">
+                    </div>
+                    <i class="{{password_class}}" aria-hidden=true (click)="show_password()" style="position: absolute;right: 20px;bottom: 25px;"></i>
+                    <div *ngIf="staffProfileForm.controls['password'].invalid && (staffProfileForm.controls['password'].dirty || staffProfileForm.controls['password'].touched)"
+                        class="error-msg">
+                        <div *ngIf="staffProfileForm.controls['password'].errors.required">
+                          This field is required.
+                        </div>
+                        <div *ngIf="staffProfileForm.controls.password.errors.minlength">
+                          Minimum 6 digits required
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+           <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+               <div class="col-md-4">
+                <div class="form-group has-error has-danger ">
+                  <label for="" class="text-bold text-gray-900">Report To<span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group has-error has-danger ">
+                  <div>
+                    <input type="text" class="form-control" readonly formControlName="reportTo">
+                  </div>
+                </div>
+              </div>
+              </div></div>
+            <div class="col-md-6">
+            </div>
+          
+          </div>
+          <div class="row">
+            <div class="col-md-12 text-right">
+              <div class="form-group has-error has-danger ">
+                <button class="d-sm-inline-block btn btn-md btn-secondary shadow-sm mr-2" (click)="cancel()">Cancel</button>
+                <button class="d-sm-inline-block btn btn-md btn-success shadow-sm" (click)="updateProfile()"
+                [disabled]="staffProfileForm.invalid">Save</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div> 
+      <!-- <div class="card shadow mb-4" *ngIf="isEdit">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Hospital Information</h6>
+          </div>
+          <div class="card-body" *ngIf="staffProfile?.length>0">
+            <form [formGroup]="staffProfileForm" (ngSubmit)="f.form.valid"
+            #f="ngForm" novalidate>
+            
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group has-error has-danger ">
+                  <label for="" class="text-bold text-gray-900">First Name&nbsp;<span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group has-error has-danger ">
+                  <div>
+                    <input type="text" name="" class="form-control" formControlName="firstName"
+                      [patterns]="namePatters" [dropSpecialCharacters]="false" mask="S*">
+                    <div *ngIf="staffProfileForm.controls['firstName'].invalid && (staffProfileForm.controls['firstName'].dirty || staffProfileForm.controls['firstName'].touched)"
+                      class="error-msg">
+                      <div *ngIf="staffProfileForm.controls['firstName'].errors.required">
+                        This field is required.
+                      </div>
+                      <div *ngIf="staffProfileForm.controls.firstName.errors.maxlength">
+                        First name can have only 15 characters
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group has-error has-danger ">
+                  <label for="" class="text-bold text-gray-900">Last Name&nbsp;<span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group has-error has-danger ">
+                  <div>
+                    <input type="text" class="form-control" formControlName="lastName"
+                      [patterns]="namePatters" [dropSpecialCharacters]="false" mask="S*">
+                    <div *ngIf="staffProfileForm.controls['lastName'].invalid && (staffProfileForm.controls['lastName'].dirty || staffProfileForm.controls['lastName'].touched)"
+                      class="error-msg">
+                      <div *ngIf="staffProfileForm.controls['lastName'].errors.required">
+                        This field is required.
+                      </div>
+                      <div *ngIf="staffProfileForm.controls.lastName.errors.maxlength">
+                        Last name can have only 15 characters
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group has-error has-danger ">
+                  <label for="" class="text-bold text-gray-900">Contact Number&nbsp;<span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group has-error has-danger ">
+                  <div>
+                    <input type="text" class="form-control" formControlName="contactNumber"
+                      [dropSpecialCharacters]="false" [patterns]="onlyNumber" mask="0000000000">
+                    <div *ngIf="staffProfileForm.controls['contactNumber'].invalid && (staffProfileForm.controls['contactNumber'].dirty || staffProfileForm.controls['contactNumber'].touched)"
+                      class="error-msg">
+                      <div *ngIf="staffProfileForm.controls['contactNumber'].errors.required">
+                        This field is required.
+                      </div>
+                      <div *ngIf="staffProfileForm.controls.contactNumber.errors.minlength">
+                        Minimum 10 digits required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group has-error has-danger ">
+                  <label for="" class="text-bold text-gray-900">Email ID&nbsp;<span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group has-error has-danger ">
+                  <div>
+                    <input type="text" class="form-control" formControlName="emailAddress">
+                    <div *ngIf="staffProfileForm.controls['emailAddress'].invalid && (staffProfileForm.controls['emailAddress'].dirty || staffProfileForm.controls['emailAddress'].touched)"
+                      class="error-msg">
+                      <div *ngIf="staffProfileForm.controls['emailAddress'].errors.required">
+                        This field is required.
+                      </div>
+                      <div
+                        *ngIf="staffProfileForm.controls.emailAddress.errors.email || staffProfileForm.controls.emailAddress.errors.pattern">
+                        Invalid email address
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group has-error has-danger ">
+                  <label for="" class="text-bold text-gray-900">Speciality<span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group has-error has-danger ">
+                  <div>
+                    <input type="text" class="form-control" readonly formControlName="speciality">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group has-error has-danger ">
+                  <label for="" class="text-bold text-gray-900">Assign Role<span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group has-error has-danger ">
+                  <div>
+                    <input type="text" class="form-control" readonly formControlName="assignRole">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group has-error has-danger ">
+                  <label for="" class="text-bold text-gray-900">Branch<span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group has-error has-danger ">
+                  <div>
+                    <input type="text" class="form-control" readonly formControlName="branch">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group has-error has-danger ">
+                  <label for="" class="text-bold text-gray-900">Report to<span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group has-error has-danger ">
+                  <div>
+                    <input type="text" class="form-control" readonly formControlName="reportTo">
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group has-error has-danger ">
+                  <label for="" class="text-bold text-gray-900">Username&nbsp;<span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group has-error has-danger ">
+                  <div class="input-group">
+                    <input type="text" class="form-control " formControlName="userName"
+                      [patterns]="customPatterns" [dropSpecialCharacters]="false" mask="A*">
+                    
+                  </div>
+                  <div *ngIf="staffProfileForm.controls['userName'].invalid && (staffProfileForm.controls['userName'].dirty || staffProfileForm.controls['userName'].touched)"
+                      class="error-msg">
+                      <div *ngIf="staffProfileForm.controls['userName'].errors.required">
+                        This field is required.
+                      </div>
+                      <div *ngIf="staffProfileForm.controls.userName.errors.minlength">
+                        Minimum 6 digits required
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+    
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group has-error has-danger ">
+                  <label for="" class="text-bold text-gray-900">Password&nbsp;<span
+                      class="text-danger">*</span></label>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group has-error has-danger ">
+                  <div class="input-group">
+                    <input type="{{password}}" class="form-control" autocomplete="off"
+                      formControlName="password">
+                  </div>
+                  <i class="{{password_class}}" aria-hidden=true (click)="show_password()" style="position: absolute;right: 20px;bottom: 25px;"></i>
+                  <div *ngIf="staffProfileForm.controls['password'].invalid && (staffProfileForm.controls['password'].dirty || staffProfileForm.controls['password'].touched)"
+                      class="error-msg">
+                      <div *ngIf="staffProfileForm.controls['password'].errors.required">
+                        This field is required.
+                      </div>
+                      <div *ngIf="staffProfileForm.controls.password.errors.minlength">
+                        Minimum 6 digits required
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 text-right">
+                <div class="form-group has-error has-danger ">
+                  <button class="d-sm-inline-block btn btn-md btn-secondary shadow-sm mr-2" (click)="cancel()">Cancel</button>
+                  <button class="d-sm-inline-block btn btn-md btn-success shadow-sm" (click)="updateProfile()"
+                  [disabled]="staffProfileForm.invalid">Save</button>
+                </div>
+              </div>
+            </div>
+            </form>
+          </div>
+        </div> -->
+   
+    
+  </div>
+</div>

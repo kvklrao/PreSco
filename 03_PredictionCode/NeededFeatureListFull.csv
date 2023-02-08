@@ -1,0 +1,73 @@
+features
+Baby Haemoglobin Levels_value
+Baby Haemoglobin Levels_Increasing
+Baby Haemoglobin Levels_No Change
+Baby Appearance_Increasing
+Baby Appearance_No Change
+Baby Appearance_value_Dull
+Baby Appearance_value_Lethargic
+Baby Appearance_value_Normal
+Smelly Amniotic Fluid_No
+Smelly Amniotic Fluid_Yes
+Thrombocytopeni_value
+Thrombocytopeni_Increasing
+Thrombocytopeni_No Change
+Calcium_value
+Calcium_Increasing
+Calcium_No Change
+Bilirubin Levels_value
+Bilirubin Levels_Increasing
+Bilirubin Levels_No Change
+Baby Blood Glucose_value
+Baby Blood Glucose_Increasing
+Baby Blood Glucose_No Change
+Potassium_value
+Potassium_Increasing
+Potassium_No Change
+Baby Blood Pressure Mean Arterial Bp_value
+Baby Blood Pressure Mean Arterial Bp_Increasing
+Baby Blood Pressure Mean Arterial Bp_No Change
+Total Leucocute Count_value
+Total Leucocute Count_Increasing
+Total Leucocute Count_No Change
+Heart Rate_value
+Heart Rate_Increasing
+Heart Rate_No Change
+Diagnosis (EOS/LOS/NA)_Los
+Diagnosis (EOS/LOS/NA)_NA
+Breathing Rate_value
+Breathing Rate_Increasing
+Breathing Rate_No Change
+Baby Gestational Age
+Baby Weight At Birth
+Baby Weight At Admission
+Oxygen Saturation_value
+Oxygen Saturation_Increasing
+Oxygen Saturation_No Change
+Baby Reactive Protien Levels_value
+Baby Reactive Protien Levels_Increasing
+Baby Reactive Protien Levels_No Change
+Baby Feeding Status_value_No Feeding
+Baby Feeding Status_value_Normal
+Baby Feeding Status_value_Poor
+Baby Feeding Status_Increasing
+Baby Feeding Status_No Change
+Creatinine_value
+Creatinine_Increasing
+Creatinine_No Change
+Sodium_value
+Sodium_Increasing
+Sodium_No Change
+Chlorine_value
+Chlorine_Increasing
+Chlorine_No Change
+Baby Blood Pressure Lower Limb_value
+Baby Blood Pressure Lower Limb_Increasing
+Baby Blood Pressure Lower Limb_No Change
+Baby Age at Admission
+Leaking pv_No
+Leaking pv_Yes
+Absolute Neutrophil Count_value
+Absolute Neutrophil Count_Increasing
+Absolute Neutrophil Count_No Change
+Gbs Infection_No

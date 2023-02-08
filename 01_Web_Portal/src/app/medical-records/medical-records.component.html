@@ -1,0 +1,692 @@
+<div class="container-fluid">
+
+  <!-- Page Heading -->
+  <div class="mt-160">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      	<div class="col-md-8">
+      <h4 class="h4 mb-0 text-gray-800"> <i class="fas fa-fw fa-baby text-primary mr-2"></i>Medical Records</h4>
+    </div>
+    <div class="col-md-4" *ngIf="login_hospital['user_type']=='Hospital'">
+      <div class="form-group has-error has-danger text-right">
+        <label for="" class="text-bold text-gray-900 pr-3 mt-2">Branch:</label>
+        <select id="form_need" name="need" class="form-control" required="required" data-error=""
+          style="width:250px; float:right;" (change)="changeBranch($event)">
+          <option *ngFor="let list of branchList" [value]="list.hospital_branch_id"
+            [selected]="list.hospital_branch_id == hospitalBranchId">{{list.branch_name}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- Content Row -->
+  <div class="row w-100">
+    <div class="col-xl-12 col-md-12 mb-4">
+      <div class="card shadow mb-5">
+        <div class="card-header py-3">
+          <div class="row">
+            <div class="col-sm-8">
+              <h6 class="m-0 font-weight-bold text-primary">Details</h6>
+            </div>
+            <div class="col-sm-4 text-right">
+              <button class=" d-sm-inline-block btn btn-sm btn-success shadow-sm" (click)="open(content, {})"><i
+                  class="fas fa-plus fa-sm text-white-50"></i> Add</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+              <div class="row mb-3">
+                <div class="col-sm-12 col-md-6">
+                  <div class="dataTables_length" id="dataTable_length">
+                    <label>
+                      Show
+                      <select name="dataTable_length" aria-controls="dataTable"
+                        class="custom-select custom-select-sm form-control form-control-sm" [(ngModel)]="pageLength"
+                        (change)="onDropDownChange(pageLength)">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                      </select>
+                      entries
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                  <div id="dataTable_filter" class="dataTables_filter"><label>Search:<input type="search"
+                        class="form-control form-control-sm" placeholder="" aria-controls="dataTable" (keyup)="searchMedicalRecords($event)" name="search_text" [(ngModel)]="search_text"></label></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid"
+                    aria-describedby="dataTable_info" style="width: 100%;">
+                    <thead>
+                      <tr role="row">
+                        <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                          aria-sort="ascending" aria-label="Name: activate to sort column descending">ID</th>
+                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                          aria-label="Position: activate to sort column ascending">BMR Number</th>
+                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                          aria-label="Office: activate to sort column ascending">MMR Number</th>
+                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                          aria-label="Age: activate to sort column ascending">Mother Name</th>
+                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                          aria-label="Start date: activate to sort column ascending">Contact Number 1</th>
+                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                          aria-label="Salary: activate to sort column ascending">City</th>
+                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                          aria-label="Salary: activate to sort column ascending">Date Created </th>
+                          <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                          aria-label="Salary: activate to sort column ascending">Status </th>
+                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                          aria-label="Salary: activate to sort column ascending">Created by</th>
+                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                          aria-label="Salary: activate to sort column ascending">Modified by</th>
+                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                          aria-label="Salary: activate to sort column ascending">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngIf="medicalRecords?.length > 0">
+                      <tr
+                        *ngFor="let list of medicalRecords| paginate: {class:'pageItem', itemsPerPage: pageLength, currentPage: page,totalItems: totalCount };let i=index; let odd=odd; let even=even;"
+                        [ngClass]="{ odd: odd, even: even }">
+                        <td> {{(page-1) *pageLength +(i+1)}}</td>
+                        <td> {{list.baby_medical_record_number}}</td>
+                        <td> {{list.baby_mother_medical_record_number}}</td>
+                        <td> {{list.mother_name}}</td>
+                        <td> {{list.primary_contact_no}}</td>
+                        <td> {{list.city}}</td>
+                        <td> {{list.createdAt | date:'dd/MM/yyyy'}}</td>
+                        <td *ngIf="list.status==1"> <span class="text-success">Active</span></td>
+                         <td *ngIf="list.status==0"> <span class="text-danger">Inactive</span></td>
+                        <td> {{list.created_by | userPipe: list}}</td>
+                        <td> {{list.updated_by | userPipe: list}}</td>
+                        <td class="text-right">
+                          <button
+                            class="d-sm-inline-block btn btn-sm btn-secondary shadow-sm mr-2" title="View"
+                            (click)="openDetail(medicalRecordDetail, list)" data-toggle="modal">View</button>
+                          <a (click)="open(content, list)"
+                            class="d-sm-inline-block btn btn-sm btn-light border shadow-sm mr-2" title="View">Edit</a>
+                        </td>
+                      </tr>
+                    </tbody>
+                    <tbody *ngIf="medicalRecords?.length==0">
+                      <tr>
+                        <td colspan="12">No Records Found !!! </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-sm-12 col-md-5">
+                  <!-- <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">Showing
+                    {{medicalRecords?.length}} to {{medicalRecords?.length}} of
+                    {{totalCount}} entries</div> -->
+                </div>
+                <!-- <div class="col-sm-12 col-md-7">
+                  <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                    <ul class="pagination">
+                   
+                    </ul>
+                  </div>
+                </div> -->
+                <pagination-controls *ngIf="medicalRecords?.length > 0" (pageChange)="nextPage($event)" directionLinks="true" autoHide="true"
+                  responsive="true" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
+                  screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+                </pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <form class="form-css" [formGroup]="addMedicalRecordForm" (ngSubmit)="f.form.valid && onMedicalRecordSubmit()"
+    #f="ngForm" novalidate novalidate>
+    <div class="modal-header">
+      <h5 class="modal-title" *ngIf="!isEdit" id="exampleModalLabel">Add Baby Medical Record</h5>
+      <h5 *ngIf="isEdit" class="modal-title">Update Baby Medical Record</h5>
+      <button class="close" type="button" data-dismiss="modal" aria-label="Close" (click)="d('Cross click');close()">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">Baby Medical Record Number&nbsp;<span
+                class="text-danger">*</span></label>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="form-group has-error has-danger ">
+            <input type="text" class="form-control" formControlName="bmrn" [readonly]="isEdit">
+            <div
+              *ngIf="addMedicalRecordForm.controls['bmrn'].invalid && (addMedicalRecordForm.controls['bmrn'].dirty || addMedicalRecordForm.controls['bmrn'].touched)"
+              class="error-msg">
+              <div *ngIf="addMedicalRecordForm.controls['bmrn'].errors.required">
+                This field is required.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">Mother Medical Record Number&nbsp;<span
+                class="text-danger">*</span></label>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="form-group has-error has-danger ">
+            <input type="text" class="form-control" formControlName="mmrn" [readonly]="isEdit">
+            <div
+              *ngIf="addMedicalRecordForm.controls['mmrn'].invalid && (addMedicalRecordForm.controls['mmrn'].dirty || addMedicalRecordForm.controls['mmrn'].touched)"
+              class="error-msg">
+              <div *ngIf="addMedicalRecordForm.controls['mmrn'].errors.required">
+                This field is required.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">Baby Name</label>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="form-group has-error has-danger ">
+            <input type="text" class="form-control" formControlName="babyName" [patterns]="namePatters"
+              [dropSpecialCharacters]="false" mask="S*">
+            <div
+              *ngIf="addMedicalRecordForm.controls['babyName'].invalid && (addMedicalRecordForm.controls['babyName'].dirty || addMedicalRecordForm.controls['babyName'].touched)"
+              class="error-msg">
+              <div *ngIf="addMedicalRecordForm.controls.babyName.errors.maxlength">
+                Baby name should not be more than 32 characters
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">Mother Name&nbsp;<span class="text-danger">*</span></label>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="form-group has-error has-danger ">
+            <input type="text" class="form-control" formControlName="motherName" [patterns]="namePatters"
+              [dropSpecialCharacters]="false" mask="S*">
+            <div
+              *ngIf="addMedicalRecordForm.controls['motherName'].invalid && (addMedicalRecordForm.controls['motherName'].dirty || addMedicalRecordForm.controls['motherName'].touched)"
+              class="error-msg">
+              <div *ngIf="addMedicalRecordForm.controls['motherName'].errors.required">
+                This field is required.
+              </div>
+              <div *ngIf="addMedicalRecordForm.controls.motherName.errors.maxlength">
+                Mother name should not be more than 32 characters
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">Father Name&nbsp;<span class="text-danger">*</span></label>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="form-group has-error has-danger ">
+            <input type="text" class="form-control" formControlName="fatherName" [patterns]="namePatters"
+              [dropSpecialCharacters]="false" mask="S*">
+            <div
+              *ngIf="addMedicalRecordForm.controls['fatherName'].invalid && (addMedicalRecordForm.controls['fatherName'].dirty || addMedicalRecordForm.controls['fatherName'].touched)"
+              class="error-msg">
+              <div *ngIf="addMedicalRecordForm.controls['fatherName'].errors.required">
+                This field is required.
+              </div>
+              <div *ngIf="addMedicalRecordForm.controls.fatherName.errors.maxlength">
+                Father name should not be more than 32 characters
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">Contact Number 1&nbsp;<span
+                class="text-danger">*</span></label>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="form-group has-error has-danger ">
+            <div>
+              <input type="text" class="form-control" formControlName="contactNumberPrimary" mask="0000000000" autocomplete="doNotAutoComplete">
+              <div
+                *ngIf="addMedicalRecordForm.controls['contactNumberPrimary'].invalid && (addMedicalRecordForm.controls['contactNumberPrimary'].dirty || addMedicalRecordForm.controls['contactNumberPrimary'].touched)"
+                class="error-msg">
+                <div *ngIf="addMedicalRecordForm.controls['contactNumberPrimary'].errors.required">
+                  This field is required.
+                </div>
+                <div *ngIf="addMedicalRecordForm.controls.contactNumberPrimary.errors.minlength">
+                  Mobile number should be 10 digits
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">Contact Number 2</label>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="form-group has-error has-danger ">
+            <div>
+              <input type="text" class="form-control" formControlName="contactNumberSecondary" mask="9999999999" autocomplete="doNotAutoComplete">
+              <div
+                *ngIf="addMedicalRecordForm.controls['contactNumberSecondary'].invalid && (addMedicalRecordForm.controls['contactNumberSecondary'].dirty || addMedicalRecordForm.controls['contactNumberSecondary'].touched)"
+                class="error-msg">
+                <div *ngIf="addMedicalRecordForm.controls.contactNumberSecondary.errors.minlength">
+                  Mobile number should be 10 digits
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">Address&nbsp;<span class="text-danger">*</span></label>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="form-group has-error has-danger ">
+            <input type="text" class="form-control" [patterns]="customPatterns" [dropSpecialCharacters]="false" formControlName="address" mask="S*" autocomplete="doNotAutoComplete">
+            <div
+              *ngIf="addMedicalRecordForm.controls['address'].invalid && (addMedicalRecordForm.controls['address'].dirty || addMedicalRecordForm.controls['address'].touched)"
+              class="error-msg">
+              <div *ngIf="addMedicalRecordForm.controls['address'].errors.required">
+                This field is required.
+              </div>
+              <div *ngIf="addMedicalRecordForm.controls.address.errors.maxlength">
+                Address should not be more than 32 characters
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">City&nbsp;<span class="text-danger">*</span></label>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="form-group has-error has-danger ">
+            <input type="text" class="form-control" [patterns]="namePatters" [dropSpecialCharacters]="false" formControlName="city" mask="S*" autocomplete="doNotAutoComplete">
+            <div
+              *ngIf="addMedicalRecordForm.controls['city'].invalid && (addMedicalRecordForm.controls['city'].dirty || addMedicalRecordForm.controls['city'].touched)"
+              class="error-msg">
+              <div *ngIf="addMedicalRecordForm.controls['city'].errors.required">
+                This field is required.
+              </div>
+              <div *ngIf="addMedicalRecordForm.controls.city.errors.maxlength">
+                City should not be more than 32 characters
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">State&nbsp;<span class="text-danger">*</span></label>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="form-group has-error has-danger ">
+            <input type="text" class="form-control" [patterns]="namePatters"  [dropSpecialCharacters]="false" formControlName="state" mask="S*" autocomplete="doNotAutoComplete">
+            <div
+              *ngIf="addMedicalRecordForm.controls['state'].invalid && (addMedicalRecordForm.controls['state'].dirty || addMedicalRecordForm.controls['state'].touched)"
+              class="error-msg">
+              <div *ngIf="addMedicalRecordForm.controls['state'].errors.required">
+                This field is required.
+              </div>
+              <div *ngIf="addMedicalRecordForm.controls.state.errors.maxlength">
+                State should not be more than 32 characters
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">Pincode</label>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="form-group has-error has-danger ">
+            <input type="text" class="form-control" formControlName="pincode" mask="000000" autocomplete="doNotAutoComplete">
+            <div
+              *ngIf="addMedicalRecordForm.controls['pincode'].invalid && (addMedicalRecordForm.controls['pincode'].dirty || addMedicalRecordForm.controls['pincode'].touched)"
+              class="error-msg">
+              <div *ngIf="addMedicalRecordForm.controls.pincode.errors.minlength">
+                Minimum 6 digits required
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">Nationality</label>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="form-group has-error has-danger ">
+            <input type="text" class="form-control" [patterns]="namePatters"  [dropSpecialCharacters]="false" formControlName="nationality" mask="S*" autocomplete="doNotAutoComplete">
+            <div
+              *ngIf="addMedicalRecordForm.controls['nationality'].invalid && (addMedicalRecordForm.controls['nationality'].dirty || addMedicalRecordForm.controls['nationality'].touched)"
+              class="error-msg">
+              <div *ngIf="addMedicalRecordForm.controls['nationality'].errors.required">
+                This field is required.
+              </div>
+              <div *ngIf="addMedicalRecordForm.controls.nationality.errors.maxlength">
+                Nationality should not be more than 32 characters
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">Email ID</label>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="form-group has-error has-danger ">
+            <div>
+              <input type="text" class="form-control" formControlName="email" autocomplete="doNotAutoComplete">
+              <div
+                *ngIf="addMedicalRecordForm.controls['email'].invalid && (addMedicalRecordForm.controls['email'].dirty || addMedicalRecordForm.controls['email'].touched)"
+                class="error-msg">
+                <div
+                  *ngIf="addMedicalRecordForm.controls.email.errors.email  || addMedicalRecordForm.controls.email.errors.pattern">
+                  Please enter valid Email Id 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+					<div class="col-md-4">
+						<div class="form-group has-error has-danger ">
+							<label for="" class="text-bold text-gray-900">Status&nbsp;<span class="text-danger">*</span></label>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="form-group has-error has-danger ">
+							<!-- <div class="input-group"> -->
+								<select class="form-control" formControlName="status">
+									<option *ngFor="let list of statusList" [value]="list.id"
+										[selected]="list.id == addMedicalRecordForm['value']['status']">{{list.name}}</option>
+								</select>
+								<div
+									*ngIf="addMedicalRecordForm.controls['status'].invalid && (addMedicalRecordForm.controls['status'].dirty || addMedicalRecordForm.controls['status'].touched)"
+									class="error-msg">
+									<div *ngIf="addMedicalRecordForm.controls['status'].errors.required">
+										This field is required.
+									</div>
+								</div>
+							<!-- </div> -->
+						</div>
+					</div>
+				</div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" type="button" data-dismiss="modal"
+        (click)="d('Cross click');close()">Cancel</button>
+      <button *ngIf="!isEdit" class="btn btn-primary" type="submit"
+        [disabled]="addMedicalRecordForm.invalid">Add</button>
+      <button *ngIf="isEdit" class="btn btn-primary" type="button" (click)="updateMedicalRecord()"
+        [disabled]="addMedicalRecordForm.invalid">Update</button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #medicalRecordDetail let-c="close" let-d="dismiss">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Medical Record Detail</h5>
+      <button class="close" type="button" data-dismiss="modal" (click)="d('Cross click');closeDetail()"
+        aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">Baby Medical Record Number<span class="text-danger">*</span></label>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="form-group has-error has-danger ">
+          {{medicalRecordDetailObj['baby_medical_record_number']}}
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">Mother Medical Record Number<span class="text-danger">*</span></label>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="form-group has-error has-danger ">
+           
+                {{medicalRecordDetailObj['baby_mother_medical_record_number']}}
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">Baby Name</label>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="form-group has-error has-danger ">
+                {{medicalRecordDetailObj['baby_name'] | emptyDataPipe}}
+        
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">Mother Name<span class="text-danger">*</span></label>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="form-group has-error has-danger ">
+              {{medicalRecordDetailObj['mother_name']}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">Father Name<span class="text-danger">*</span></label>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="form-group has-error has-danger ">
+              {{medicalRecordDetailObj['father_name']}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">Contact Number 1<span class="text-danger">*</span></label>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="form-group has-error has-danger ">
+              {{medicalRecordDetailObj['primary_contact_no']}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">Contact Number 2</label>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="form-group has-error has-danger ">
+              {{medicalRecordDetailObj['secondary_contact_no'] | emptyDataPipe}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">Address<span class="text-danger">*</span></label>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="form-group has-error has-danger ">
+              {{medicalRecordDetailObj['address']}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">City<span class="text-danger">*</span></label>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="form-group has-error has-danger ">
+            {{medicalRecordDetailObj['city']}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">State<span class="text-danger">*</span></label>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="form-group has-error has-danger ">
+            {{medicalRecordDetailObj['state']}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">Pincode</label>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="form-group has-error has-danger ">
+          {{medicalRecordDetailObj['pincode'] | emptyDataPipe}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">Nationality</label>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="form-group has-error has-danger ">
+            {{medicalRecordDetailObj['nationality'] | emptyDataPipe}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">Email</label>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="form-group has-error has-danger ">
+            {{medicalRecordDetailObj['email_id'] | emptyDataPipe}}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group has-error has-danger ">
+            <label for="" class="text-bold text-gray-900">Status&nbsp;<span class="text-danger">*</span></label>
+          </div>
+        </div>
+        <div class="col-md-7">
+         {{medicalRecordDetailObj['status'] | statusPipe}}
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" (click)="d('Cross click');closeDetail()"
+          data-dismiss="modal">Close</button>
+      </div>
+  </div>
+  
+</ng-template>

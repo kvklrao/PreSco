@@ -1,0 +1,117 @@
+<div class="signup-screen">
+  <!-- As a link -->
+  <nav class="navbar shadow-sm bg-white p-0">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <a class="navbar-brand" href="#">
+            <img src="assets/svgs/avyantra-logo.svg" height="62" alt="avyantra" class="w-75 py-2">
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!--  Form-->
+  <div class="form-wrapper">
+    <div class="container my-5">
+      <div class="row justify-content-center">
+        <div class="col-sm-12 col-md-12 col-lg-6">
+          <div class="card-pocket card py-5 rounded-0">
+            <div class="presco text-center p-3">
+              <h1 class="text-orange logo-type">PreSco</h1>
+              <h5 class="text-grey-300"> Neonatal Sepsis Prediction Platform </h5>
+            </div>
+
+            <!-- signup Form -->
+            <form [formGroup]="signForm" (ngSubmit)="signup()" novalidate>
+              <div class="signup-form w-75 mx-auto">
+                <div class="form-group position-relative">
+                  <input type="text" autocomplete="off" id="hospital_name" class="form-control"
+                    formControlName="hospital_name" name="hospital_name" [patterns]="onlyCharWithSpace" [dropSpecialCharacters]="false" mask="S*" placeholder="Hospital Name" autocomplete="doNotAutoComplete">
+                  <div *ngIf="signForm.controls['hospital_name'].invalid && (signForm.controls['hospital_name'].dirty ||
+                    signForm.controls['hospital_name'].touched || submitted)" class="error-msg text-left">
+                    <div *ngIf="signForm.controls['hospital_name'].errors.required">
+                      Required Field.
+                    </div>
+                    <div *ngIf="signForm.controls['hospital_name'].errors.maxlength">
+                     Hospital name cannot have more than 20 characters 
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group position-relative">
+                  <input type="text" autocomplete="off" id="email" class="form-control" formControlName="email" name="email"
+                    placeholder="Email" autocomplete="doNotAutoComplete">
+                  <div *ngIf="signForm.controls['email'].invalid && (signForm.controls['email'].dirty ||
+                    signForm.controls['email'].touched || submitted)" class="error-msg text-left">
+                    <div *ngIf="signForm.controls['email'].errors.required">
+                      Required Field.
+                    </div>
+                    <div *ngIf="signForm.controls['email'].errors.email || signForm.controls['email'].errors.pattern">
+                      email is invalid.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group position-relative">
+                  <input type="text" autocomplete="off" [patterns]="customPatterns" [dropSpecialCharacters]="false"
+                    mask="A*" formControlName="username" id="login" class="form-control" placeholder="Username" autocomplete="doNotAutoComplete">
+                  <div *ngIf="signForm.controls['username'].invalid && (signForm.controls['username'].dirty ||
+                      signForm.controls['username'].touched || submitted)" class="error-msg text-left">
+                    <div *ngIf="signForm.controls['username'].errors.required">
+                      Required Field.
+                    </div>
+                    <div *ngIf="signForm.controls['username'].hasError('minlength') && signForm.controls['username'].touched">
+                        Minimum 6 characters required.</div>
+                  </div>
+                </div>
+
+                <div class="form-group position-relative">
+                  <input type="password" autocomplete="off" id="password" class="form-control"
+                    [patterns]="customPatterns" [dropSpecialCharacters]="false" mask="A*" formControlName="password"
+                    name="login" placeholder="Password" (keyup)="is_match()">
+                  <div *ngIf="signForm.controls['password'].invalid && (signForm.controls['password'].dirty ||
+                      signForm.controls['password'].touched || submitted)" class="error-msg text-left">
+                    <div *ngIf="signForm.controls['password'].errors.required">
+                      Required Field.
+                    </div>
+                    <div *ngIf="signForm.controls['password'].hasError('minlength') && signForm.controls['password'].touched">
+                        Minimum 6 characters required.</div>
+                  </div>
+                </div>
+                <div class="form-group position-relative">
+                  <input type="password" autocomplete="off" id="confirmPass" class="form-control"
+                    formControlName="confirmPass" placeholder="Confirm Password" (keyup)="is_match()">
+                    <div *ngIf="signForm.controls['confirmPass'].invalid && (signForm.controls['confirmPass'].dirty ||
+                    signForm.controls['confirmPass'].touched || submitted)" class="error-msg text-left">
+                  <div *ngIf="signForm.controls['confirmPass'].errors.required">
+                    Required Field.
+                  </div>
+                </div>
+                    <div *ngIf="is_match()" class="error-msg">
+                    Please enter the same password as above
+                  </div>
+                </div>
+                <div class="form-group mt-4">
+                  <input type="submit" class="btn btn-primary btn-lg btn-block" value="Sign Up">
+                </div>
+                <div class="form-group mt-5">
+                  <button type="button" class="btn btn-outline btn-block" (click)="login()"> Have Account?
+                    Login</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <img src="assets/svgs/card-curve.svg" alt="" class="img-fluid curve-white">
+          <img src="assets/svgs/card-curve-shadow.svg" alt="" class="img-fluid curve-shadow">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-white text-center p-2">
+    <small class="text-grey-200"> Copyright © 2019-2020 Avyantra Health Technologies. All Rights Reserved</small>
+  </footer>
+
+</div>

@@ -1,0 +1,40 @@
+<!-- <ng-container *ngIf="userInfo['id']!=''">
+  <div>
+    <div class="patient-detail div-shadow p-3 text-center">
+      <h4 class="">{{userInfo['hospital_name']}}
+
+      </h4> -->
+
+      <!-- <p class="fs14">{{userInfo['hostpital_name']}}</p> -->
+      <!-- <p class="fs14">{{userInfo['hospital_branch_name']}}</p>
+      <p class="fs14">{{userInfo['id']}}</p>
+      <p class="fs14">{{userInfo['baby_medical_record_number']}}</p>
+      <p class="fs14">{{userInfo['baby_mother_medical_record_number']}}</p>
+    </div>
+  </div>
+
+</ng-container>
+<ng-container *ngIf="userInfo['id'] ==''">
+  <div>
+    <div class="patient-detail div-shadow p-3 text-center">
+      Record Not Found!!!
+    </div>
+  </div>
+
+</ng-container>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <div class="custom-modal-title">Patient Basic Info</div> <button type="button" class="close" aria-label="Close"
+      (click)="close()">
+      <span aria-hidden="true">&times;</span>
+
+    </button>
+  </div>
+  <div class="modal-body w-100">
+    <div class="row">
+      <app-basic class="w-100" [id]="0" (is_save_success)="close()" [patient_info]='userInfo'></app-basic>
+    </div>
+  </div>
+
+</ng-template> -->

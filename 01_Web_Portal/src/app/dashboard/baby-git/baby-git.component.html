@@ -1,0 +1,251 @@
+<div class="">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="container">
+      <!-- <button class="btn create-btn mr-2 mt-0 text-white" (click)="open(content,{})"><i class="fas fa-plus-circle"></i>
+        Create New Reading </button> -->
+        <div class="row">
+          <div class="col-md-4">
+          </div>
+          <div class="col-md-4">
+            <h5 *ngIf="readingDataService.reading" class="text-center">Reading: {{readingDataService.reading}} </h5>
+          </div>
+          <div class="col-md-4">
+            <div class="float-right" *ngIf="getMedicalRecordNumber">
+              <h5 class="mb-0"> BMRN: {{getMedicalRecordNumber}}</h5>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <ng-container *ngIf="responseArray?.length>0">
+      <div class="form-css" *ngIf="!isGitFormEdit">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card ml-2">
+              <div class="card-body div-shadow">
+                <h5 class="">
+                  {{responseArray[0]['createdAt'] | date:'dd MMMM yyyy, h:mm a' || 'Loading...'}}
+                  <button class="btn edit-btn float-right">
+                    <mat-icon (click)="open(content, responseArray[0])">edit</mat-icon>
+                  </button>
+                </h5>
+
+                <div class="row">
+                  <div class="col-12 col-lg-6">
+                    <div class="table-responsive p-3">
+                      <table class="table  table-borderless mb-0">
+                        <tbody>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Abdominal Distension</td>
+                            <td class="tb-value text-right">{{responseArray[0]['abdominal_dystension']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Frequency of Stools</td>
+                            <td class="tb-value text-right">{{responseArray[0]['frequency_of_stools']}}</td>
+                          </tr>
+                          <tr class="">
+                            <td class="tb-label">Diarrhea</td>
+                            <td class="tb-value text-right">{{responseArray[0]['diarrhea']}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-lg-6">
+                    <div class="table-responsive p-3">
+                      <table class="table  table-borderless mb-0">
+                        <tbody>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Vomiting</td>
+                            <td class="tb-value text-right">{{responseArray[0]['vomiting']}}</td>
+                          </tr>
+                          <tr class="border-bottom">
+                            <td class="tb-label">Feeding Intolerance</td>
+                            <td class="tb-value text-right">{{responseArray[0]['feeding_intolerance']}}</td>
+                          </tr>
+                          <!-- <tr class="">
+                            <td class="tb-label">Baby Movement with Stimulation</td>
+                            <td class="tb-value text-right">{{responseArray[0]['baby_movement']}}</td>
+                          </tr> -->
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="m-3 div-shadow" *ngIf="responseArray?.length<1 || isGitFormEdit">
+      <form [formGroup]="babyGitForm" class="form-css card" (ngSubmit)="babyGitFormSubmit()" novalidate>
+        <div class="modal-header custom-modal-header add-btn">
+          <!-- <button type="submit" class="btn btn-primary"> Save </button> -->
+          <div class="custom-modal-title">BABY GI TRACT FUNCTION</div>
+        </div>
+        <div class="modal-body scroll">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="record_type">Record Id</label>
+                <input type="text" readonly [value]="id" class="form-control" name="" id="">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="abdominal_dystension">Abdominal Distension</label>
+                <select class="form-control" name="abdominal_dystension" id="abdominal_dystension"
+                  formControlName="abdominal_dystension">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyGitForm.controls['abdominal_dystension'].invalid &&
+                (babyGitForm.controls['abdominal_dystension'].dirty || babyGitForm.controls['abdominal_dystension'].touched
+                || submitted)" class="error-msg">
+                  <div *ngIf="babyGitForm.controls['abdominal_dystension'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="frequency_of_stools">Frequency of Stools</label>
+                <div class="float-right">
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="this.isStools"
+                        (click)="onInputChange($event)" value="1" name="Frequency">Number
+                    </label>
+                  </div>
+                  <div class="form-check-inline mr-0">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" [checked]="!this.isStools"
+                        (click)="onInputChange($event)" value="2" name="Frequency">NA
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input type="text" *ngIf="this.isStools" min="0" [dropSpecialCharacters]="false" mask="99"
+                    class="form-control" id="frequency_of_stools" formControlName="frequency_of_stools"
+                    autocomplete="off">
+                  <input type="text" value="NA" readonly *ngIf="!this.isStools" class="form-control">
+                </div>
+                <div *ngIf="babyGitForm.controls['frequency_of_stools'].invalid &&
+                  (babyGitForm.controls['frequency_of_stools'].dirty || babyGitForm.controls['frequency_of_stools'].touched
+                  || submitted)" class="error-msg">
+                  <div *ngIf="babyGitForm.controls['frequency_of_stools'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="diarrhea">Diarrhea</label>
+                <select class="form-control" name="diarrhea" id="diarrhea" formControlName="diarrhea">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyGitForm.controls['diarrhea'].invalid && (babyGitForm.controls['diarrhea'].dirty ||
+                  babyGitForm.controls['diarrhea'].touched || submitted)" class="error-msg">
+                  <div *ngIf="babyGitForm.controls['diarrhea'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="vomiting">Vomiting</label>
+                <select class="form-control" name="vomiting" id="vomiting" formControlName="vomiting">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyGitForm.controls['vomiting'].invalid && (babyGitForm.controls['vomiting'].dirty ||
+                  babyGitForm.controls['vomiting'].touched || submitted)" class="error-msg">
+                  <div *ngIf="babyGitForm.controls['vomiting'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="feeding_intolerance">Feeding Intolerance</label>
+                <select class="form-control" name="feeding_intolerance" id="feeding_intolerance"
+                  formControlName="feeding_intolerance">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyGitForm.controls['feeding_intolerance'].invalid &&
+                  (babyGitForm.controls['feeding_intolerance'].dirty || babyGitForm.controls['feeding_intolerance'].touched
+                  || submitted)" class="error-msg">
+                  <div *ngIf="babyGitForm.controls['feeding_intolerance'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="baby_movement">Baby Movement with Stimulation</label>
+                <select class="form-control" name="baby_movement" id="baby_movement" formControlName="baby_movement">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  <option value="NA">NA</option>
+                </select>
+                <div *ngIf="babyGitForm.controls['baby_movement'].invalid && (babyGitForm.controls['baby_movement'].dirty ||
+                  babyGitForm.controls['baby_movement'].touched || submitted)" class="error-msg">
+                  <div *ngIf="babyGitForm.controls['baby_movement'].errors.required">
+                    This field is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <button type="submit" *ngIf="!isEditClicked" class="btn btn-primary float-right"> Next </button>
+          <button type="button" *ngIf="isEditClicked" (click)="update_git_form()" class="btn btn-primary float-right"> update </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- <div *ngIf="responseArray?.length<1 && !isGitFormEdit">
+      <ng-container>
+        <div class="container">
+          <div class="row">
+            <div class="col-12 p-3">
+              <div class="card py-3">
+                <div class="card-body">
+                  <h5 class="card-title text-center alert alert-warning">No Record Found!!</h5>
+
+                </div>
+                <img src="assets/svgs/Instructions.png" class="card-img-top w-75 mx-auto" alt="...">
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div> -->
+    <!-- Remind Passowrd -->
+  </div>
+</div>

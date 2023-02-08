@@ -1,0 +1,249 @@
+<div class="container-fluid">
+
+
+  <!-- Page Heading -->
+  <div class="mt-160">
+      <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <div class="col-md-8">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h4 class="h4 mb-0 text-gray-800"> <i class="fas fa-fw fa-tachometer-alt text-primary mr-2"></i> Dashboard</h4>
+    </div>
+  </div>
+    <div class="col-md-4" >
+      <div class="form-group has-error has-danger text-right">
+              <label for="" class="text-bold text-gray-900 pr-3 mt-2">Branch:</label>
+              <select id="form_need" name="need" class="form-control" required="required" data-error="" style="width:250px; float:right;" (change)="changeBranch($event)">
+                  <option *ngFor="let list of staffBranchList" [value]="list.hospital_branch_id"  [selected]="list.hospital_branch_id == hospitalBranchId">{{list.hospital_branch_name}}</option>
+                                  </select>
+      </div>
+      </div>
+      </div>
+  </div>
+
+  <!-- Content Row -->
+  <div class="row">
+
+    <!-- Hospital Details -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-primary shadow py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">{{dashboardData['hospital_name']}}</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">ID: A12547845</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-hospital fa-2x text-primary"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Baby Medical Records -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-info shadow py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-sm font-weight-bold text-info text-uppercase mb-1">Total Baby Medical Records</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{dashboardData['total_baby_medical_records']}}</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-procedures fa-2x text-info"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Probable Sepsis -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-danger shadow py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-sm font-weight-bold text-danger text-uppercase mb-1">Probable Sepsis</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{dashboardData['probable_sepsis']}}</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-baby-carriage fa-2x text-danger"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Positive Sepsis -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-danger shadow py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-sm font-weight-bold text-danger text-uppercase mb-1">Positive Sepsis</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{dashboardData['positive_sepsis']}}</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-bed fa-2x text-danger"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!--view opinion modal-->
+
+  <ng-template #viewOpinion let-c="close" let-d="dismiss">
+    <div>
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Reading Summary</h5>
+      <button class="close" type="button" (click)="close()">
+      <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <h4>{{bmrNo}} - {{motherName}}</h4> 
+      <div class="row">
+      <div class="col-sm-12">
+      <div class="table-responsive">
+      <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                <thead>
+                  <tr role="row">
+        <th class="" tabindex="0" aria-controls="dataTable" aria-sort="ascending" aria-label="">Reading</th>
+        <th class="" tabindex="0" aria-controls="dataTable" aria-label="">Date & Time</th>
+        <th class="" tabindex="0" aria-controls="dataTable" aria-label="">Score</th>
+        <th class="" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">Referral Doctor</th>
+        <th class="" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">Doctor Opinion</th>
+        <th class="" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">Prescription</th>
+        <th class="" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">Reading Taken By</th>
+        </tr>
+                </thead>
+
+                <tbody *ngIf="opinionList?.length>0">
+                <tr *ngFor="let list of opinionList" role="row" class="odd">
+                    <td class="sorting_1">{{list['reading']}}</td>
+                    <td>{{list['createdAt']  | date:'dd-MM-yyyy, hh:mm'}} </td>
+                   <td>{{list['score']}}</td>
+                   <td>{{list['referral_name']}}</td>
+                    <td>{{list['opinion']}} </td>
+                  <td>{{list['prescription']}}</td>
+                  <td>{{list['reading_taken_by']}}</td>
+                </tr>
+        </tbody>
+        <tbody *ngIf="opinionList?.length == 0">
+            <tr>
+                <td colspan="12">No Records Found !!! </td>
+              </tr>
+    </tbody>
+              </table>
+      </div>
+            </div>
+            </div>	
+    </div>
+    <div class="modal-footer">
+      <a class="btn btn-primary" (click)="close()" style="color: white;"  data-dismiss="modal">OK</a>
+    </div>
+  </div>
+  </ng-template>
+
+  <!-- Medical Reports Table -->
+  <div class="card shadow mb-5">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Medical Records</h6>
+    </div>
+    <div class="card-body">
+      <div>
+        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+          <div class="row mb-3">
+            <div class="col-sm-12 col-md-6">
+              <div class="dataTables_length" id="dataTable_length">
+                <label>
+                  Show entries
+                  <select name="dataTable_length" aria-controls="dataTable"
+                    class="custom-select custom-select-sm form-control form-control-sm"
+                    [(ngModel)]="pageLength" (change)="onDropDownChange(pageLength)">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </select>
+
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <div id="dataTable_filter" class="dataTables_filter"><label>Search:<input type="search"
+                    class="form-control form-control-sm" placeholder="" (keyup)="medicalRecordSearch()" [(ngModel)]="searchText" aria-controls="dataTable"></label></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="table-responsive">
+                <table class="table table-bordered dataTable border" id="dataTable" width="100%" cellspacing="0"
+                  role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                  <thead>
+                    <tr role="row">
+                        <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-sort="ascending" aria-label="Name: activate to sort column descending">ID</th>
+                      <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-sort="ascending" aria-label="">Baby Medical Record #</th>
+                      <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">
+                        Mother Medical Record #</th>
+                      <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">
+                        Mother Name</th>
+                      <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">
+                        City</th>
+                      <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">
+                        Modified By</th>
+                      <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="">
+                        Action</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf="medicalRecords?.length > 0">
+                    <tr
+                        *ngFor="let list of medicalRecords| paginate: {class:'pageItem', itemsPerPage: pageLength, currentPage: page,totalItems: totalCount };let i=index; let odd=odd; let even=even;"
+                        [ngClass]="{ odd: odd, even: even }">
+                        <td> {{(page-1) *pageLength +(i+1)}}</td>
+                      <td>{{list.baby_medical_record_number}}</td>
+                      <td>{{list.baby_mother_medical_record_number}}</td>
+                      <td>{{list.mother_name}}</td>
+                      <td>{{list.city}}</td>
+                      <td>{{list.updated_by | emptyDataPipe}}</td>
+                      <td class="text-right">
+                        <button *ngIf="hasPermission('dataEntry') || dataEntry" class="d-sm-inline-block btn btn-md btn-primary shadow-sm mr-3" (click)="readingDashboard(list)">Data Entry</button>
+                        <button  *ngIf="(hasPermission('generateScore') || generateScore) && (list['reading'] !=null)" routerLink="/admin/score-analysis/{{list['baby_medical_record_number']}}/{{list['study_id']}}/{{list['reading']}}" class="d-sm-inline-block btn btn-md btn-warning shadow-sm mr-3" >Generate Score</button>
+                        <!-- <a 
+                          class="d-sm-inline-block btn btn-md btn-warning shadow-sm mr-3">Generate Score</a> -->
+                        <a  class="btn btn-circle btn-md btn-secondary shadow-sm mr-3" style="color: white;">{{list.reading}}</a>
+                        <a  class="d-sm-inline-block btn btn-md btn-success shadow-sm mr-3 pull-right"
+                          data-toggle="modal" style="color: white;" (click)="open(viewOpinion,list)" >View Opinion</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tbody *ngIf="medicalRecords?.length==0">
+                    <tr>
+                      <td colspan="12">No Records Found !!! </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+              <div class="col-sm-12 col-md-5">
+                <!-- <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">Showing
+                  {{medicalRecords?.length}} to {{medicalRecords?.length}} of
+                  {{totalCount}} entries</div> -->
+              </div>
+              <pagination-controls (pageChange)="nextPage($event)" directionLinks="true" autoHide="true"
+                responsive="true" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
+                screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+              </pagination-controls>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

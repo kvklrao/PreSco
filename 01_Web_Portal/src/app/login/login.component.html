@@ -1,0 +1,97 @@
+<div class="login-screen">
+  <!-- As a link -->
+  <nav class="navbar shadow-sm bg-white p-0">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <a class="navbar-brand" href="#">
+            <img src="assets/svgs/avyantra-logo.svg" height="62" alt="avyantra" class="w-75 py-2">
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!--  Form-->
+  <div class="form-wrapper">
+    <div class="container my-5">
+      <div class="row justify-content-center">
+        <div class="col-sm-12 col-md-12 col-lg-6">
+          <div class="card-pocket card py-5 rounded-0">
+            <div class="presco text-center p-3">
+              <h1 class="text-orange logo-type">PreSco</h1>
+              <h5 class="text-grey-300"> Neonatal Sepsis Prediction Platform </h5>
+            </div>
+
+            <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
+              <div class="login-form w-75 mx-auto">
+                <div class="form-group position-relative">
+                  <span class="position-absolute input-icon"><img src="assets/svgs/user-icon.svg" alt=""></span>
+                  <input type="text" autocomplete="off" value="fdslfsd" formControlName="username" class="form-control"
+                    placeholder="Username">
+                  <div
+                    *ngIf="loginForm.controls['username'].invalid && (loginForm.controls['username'].dirty || loginForm.controls['username'].touched)"
+                    class="error-msg text-left ml-5">
+                    <div *ngIf="loginForm.controls['username'].errors.required">
+                      Required Field.
+                    </div>
+                  </div>
+                  <!-- <input type="email" class="form-control" id="" aria-describedby="emailHelp"
+                                      placeholder="Username"> -->
+                </div>
+                <div class="form-group position-relative">
+                  <span class="position-absolute input-icon"><img src="assets/svgs/password-icon.svg" alt=""></span>
+                  <!-- <input type="password" class="form-control" id="" aria-describedby="emailHelp"> -->
+                  <!-- <a href="" class="btn btn-link forgot-password">Forgot Password?</a> -->
+                  <input type="{{password}}" autocomplete="off" class="form-control" formControlName="password"
+                    name="login" placeholder="Password">
+                  <i class="{{password_class}} field-icon" aria-hidden=true (click)="show_password()"></i>
+
+                  <div
+                    *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)"
+                    class="error-msg text-left ml-5">
+                    <div *ngIf="loginForm.controls['password'].errors.required">
+                      Required Field.
+                    </div>
+                  </div>
+                  <!-- <a class="btn btn-link" [routerLink]="'/forget_password'">Forgot Password?</a> -->
+                  <!-- <a href="" class="btn btn-link forgot-password" (click)="forget_password()">Forgot Password?</a> -->
+                </div>
+                <div class="form-group">
+                  <div class="custom-control custom-checkbox float-left">
+                    <input type="checkbox" class="custom-control-input" formControlName="remember_me" id="customCheck1" [checked]="checked && !loginForm.controls['username'].dirty">
+                    <label class="custom-control-label" for="customCheck1">Remember Me</label>
+            
+                  </div>
+                  <div class="float-right ">
+                    <a class="btn btn-link pt-0 forgot-password" (click)="forget_password()">Forgot Password?</a>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <!-- <a href="" class="btn btn-primary btn-lg btn-block">Login</a> -->
+                  <input type="submit" class="btn btn-primary btn-lg btn-block" value="Login"
+                    [disabled]="loginForm.invalid">
+                </div>
+                <div class="form-group mt-5">
+                  <!-- <a href="" class="btn btn-outline btn-block">Don’t have an account? Sign Up</a> -->
+                  <button type="button" class="btn btn-outline btn-block" (click)="signup()">Don’t have an account? Sign
+                    Up</button>
+                  <button type="button" class="btn btn-outline btn-block" (click)="referralSignup()">Referral Sign Up</button>
+                </div>
+
+              </div>
+
+            </form>
+          </div>
+          <img src="assets/svgs/card-curve.svg" alt="" class="img-fluid curve-white">
+          <img src="assets/svgs/card-curve-shadow.svg" alt="" class="img-fluid curve-shadow">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-white text-center p-2">
+    <small class="text-grey-200"> Copyright © 2019-2020 Avyantra Health Technologies. All Rights Reserved</small>
+</footer>
+
+</div>
